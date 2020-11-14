@@ -36,8 +36,8 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
       <router-link to="/">
-        <v-btn>
-          Home
+        <v-btn> Home
+
         </v-btn>
       </router-link>
       <v-btn>
@@ -54,10 +54,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from '@vue/composition-api';
 // import HelloWorld from './components/HelloWorld.vue';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'App',
 
   components: {
