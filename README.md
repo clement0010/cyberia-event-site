@@ -25,13 +25,10 @@ npm run build
 ```
 npm run lint
 ```
+# Workflow
 
-### Workflow
-
-```
 1. Design layout and fill in props with default value.
 2. Integrate graphql API using hasura. [Here](https://cyberia-2020.hasura.app/console/api-explorer).
 3. Get the correct query, mutation or subscription.
 4. Copy and paste the graphql into the corresponding .graphql file [Here](./src/graphql).
 5. Finally npm run generate to use the graphql API. [Documentation](https://v4.apollo.vuejs.org/guide-composable/query.html)
-```
