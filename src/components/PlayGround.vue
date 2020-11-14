@@ -1,4 +1,3 @@
-/*eslint linebreak-style: ["error", "windows"]*/
 <template>
   <div>
     {{ profile.name }}

@@ -1,17 +1,37 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    Home
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { useQuery, useSubscription } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
 
 export default defineComponent({
   name: 'Home',
-  components: {
-    HelloWorld,
+  setup() {
+    const { result } = useQuery(
+      gql`query MyQuery {
+  users {
+    name
+    id
+  }
+}
+`,
+    );
+    const result1 = useSubscription(
+      gql`subscription MyQuery {
+  users {
+    name
+    id
+  }
+}
+`,
+    );
+    console.log(result, 'query');
+    console.log(result1.result, 'websocket');
   },
 });
 </script>

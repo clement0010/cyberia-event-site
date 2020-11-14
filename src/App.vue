@@ -47,21 +47,19 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-// import HelloWorld from './components/HelloWorld.vue';
 
 export default defineComponent({
   name: 'App',
 
   components: {
-    // HelloWorld,
   },
 
   data: () => ({
