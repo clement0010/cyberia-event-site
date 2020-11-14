@@ -27,24 +27,21 @@
 
       <v-spacer />
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
       <router-link to="/">
-        <v-btn> Home
-
+        <v-btn>
+          Home
         </v-btn>
       </router-link>
-      <v-btn>
-        <router-link to="/about">
+      <router-link to="/about">
+        <v-btn color="secondary">
           About
-        </router-link>
-      </v-btn>
+        </v-btn>
+      </router-link>
+      <router-link to="/profile">
+        <v-btn>
+          Profile
+        </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-main>

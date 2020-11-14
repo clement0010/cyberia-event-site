@@ -33,6 +33,7 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   routes,
   mode: 'history',
+  base: '/cyberia-event-site/',
 });
 
 export default router;
