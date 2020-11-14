@@ -14,7 +14,7 @@ const getHeaders = () => {
   if (token) {
     // headers.authorization = `Bearer ${token}`;
   }
-  console.log(headers);
+  // console.log(headers);
   return headers;
 };
 
