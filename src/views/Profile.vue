@@ -1,16 +1,14 @@
 <template>
-  <NavBar />
+  <p>Profile</p>
 </template>
 
 <script lang="ts">
-import NavBar from '@/components/NavBar.vue';
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'App',
+  name: 'Profile',
 
   components: {
-    NavBar,
   },
 
   data: () => ({

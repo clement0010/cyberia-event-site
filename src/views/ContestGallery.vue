@@ -1,20 +1,15 @@
 <template>
-  <NavBar />
+  <p>
+    Gallery
+  </p>
 </template>
 
 <script lang="ts">
-import NavBar from '@/components/NavBar.vue';
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'App',
-
+  name: 'Contest Gallery',
   components: {
-    NavBar,
   },
-
-  data: () => ({
-    //
-  }),
 });
 </script>
