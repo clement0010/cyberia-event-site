@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
+import Profile from '@/views/Profile.vue';
+import Home from '@/views/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,8 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   routes,
+  mode: 'history',
+  base: '/cyberia-event-site/',
 });
 
 export default router;

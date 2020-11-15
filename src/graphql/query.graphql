@@ -1,0 +1,14 @@
+query getOneParticipantDetails {
+  participants {
+    description
+    name
+    role
+    team_id
+    user_id
+    team {
+      motto
+      name
+      picture_url
+    }
+  }
+}
