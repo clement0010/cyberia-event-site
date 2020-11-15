@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="center">
         <v-img
-          src="../assets/logo-white-black.png"
+          src="../assets/logo-white.png"
           max-width="650"
           class="mb-5"
         />
