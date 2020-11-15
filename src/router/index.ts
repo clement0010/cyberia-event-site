@@ -22,9 +22,6 @@ const routes: Array<RouteConfig> = [
   {
     path: '/profile',
     name: 'Profile',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Profile,
   },
 
@@ -32,8 +29,8 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   routes,
-  mode: 'history',
-  base: '/cyberia-event-site/',
+  mode: process.env.NODE_ENV === 'production' ? 'hash' : 'history',
+  base: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_URL : '/',
 });
 
 export default router;
