@@ -9,6 +9,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@google-cloud/storage": "^5.5.0",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
     "@vue/composition-api": "^1.0.0-beta.19",
     "apollo-boost": "^0.4.9",

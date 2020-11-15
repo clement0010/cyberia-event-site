@@ -3,7 +3,7 @@ import Vuetify from 'vuetify/lib';
 
 Vue.use(Vuetify);
 
-export default new Vuetify({
+const opts = {
   theme: {
     themes: {
       dark: {
@@ -14,4 +14,6 @@ export default new Vuetify({
     },
     dark: true,
   },
-});
+};
+
+export default new Vuetify(opts);

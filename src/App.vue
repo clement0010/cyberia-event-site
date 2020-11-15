@@ -1,16 +1,16 @@
 <template>
-  <NavBar />
+  <NavigationBar />
 </template>
 
 <script lang="ts">
-import NavBar from '@/components/NavBar.vue';
+import NavigationBar from '@/components/organisms/NavBar.vue';
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'App',
 
   components: {
-    NavBar,
+    NavigationBar,
   },
 
   data: () => ({
