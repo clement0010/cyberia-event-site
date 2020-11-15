@@ -23,7 +23,7 @@
             </div>
           </v-col>
           <v-col cols="1">
-            <EditProfileForm />
+            <edit-profile-form />
           </v-col>
         </v-row>
       </div>
