@@ -13,7 +13,7 @@
           md="6"
         >
           <p>
-            Cyberia 2019 is an annual Adobe Photoshop boot camp organized by NUSSU commIT, with the
+            Cyberia 2020 is an annual Adobe Photoshop boot camp organized by NUSSU commIT, with the
             aim of imparting graphic design knowledge and skills to NUS undergraduates to strengthen
             their skill set. You will learn basic to intermediate Adobe Photoshop and their
             practical applications through trainings by certified professional Adobe Photoshop
@@ -21,7 +21,6 @@
             the opportunity to put all the skills you learn to test by coming out an artwork in a
             competition and win attractive prizes!
           </p>
-          <PlayGround />
         </v-col>
       </v-row>
     </v-container>
@@ -30,11 +29,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import PlayGround from '@/components/PlayGround.vue';
 
 export default defineComponent({
+  name: 'About',
   components: {
-    PlayGround,
   },
 });
 </script>

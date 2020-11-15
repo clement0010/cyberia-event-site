@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Profile from '@/views/Profile.vue';
 import Home from '@/views/Home.vue';
 
 Vue.use(VueRouter);
@@ -20,20 +19,21 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
+    path: '/contest-gallery',
+    name: 'Contest Gallery',
+    component: () => import('../views/ContestGallery.vue'),
+  },
+  {
     path: '/profile',
     name: 'Profile',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: Profile,
+    component: () => import('../views/Profile.vue'),
   },
-
 ];
 
 const router = new VueRouter({
   routes,
-  mode: 'history',
-  base: '/cyberia-event-site/',
+  mode: process.env.NODE_ENV === 'production' ? 'hash' : 'history',
+  base: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_URL : '/',
 });
 
 export default router;

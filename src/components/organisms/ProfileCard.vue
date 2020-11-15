@@ -1,93 +1,68 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="mx-auto my-12"
-    max-width="374"
-  >
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      />
-    </template>
-
-    <v-img
-      height="250"
-      :src="profile.team.picture_url"
-    />
-
-    <v-card-title>{{ profile.name }}</v-card-title>
-
-    <v-card-text>
-      <v-row
-        align="center"
-        class="mx-0"
-      >
-        <v-rating
-          :value="4.5"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        />
-
-        <div class="grey--text ml-4">
-          4.5 (413)
-        </div>
+  <v-container class="pt-10">
+    <h1 class="text-center">
+      Profile
+    </h1>
+    <div class="mb-10">
+      <v-row justify="center">
+        <v-col cols="2">
+          <v-img
+            :src="profile.team.picture_url"
+            max-width="175"
+          />
+        </v-col>
+        <v-col cols="9">
+          <div class="text-subtitle-1">
+            <strong>{{ profile.name }}</strong><br>
+            Full name<br>
+            {{ profile.description }}<br>
+            {{ profile.role }} in   {{ profile.team.name }}<br>
+          </div>
+        </v-col>
+        <v-col cols="1">
+          <EditProfileForm />
+        </v-col>
       </v-row>
-
-      <div class="my-4 subtitle-1">
-        $ • Italian, Cafe
-      </div>
-
-      <div>Small plates, salads & sandwiches - an intimate setting
-        with 12 indoor seats plus patio seating.</div>
-    </v-card-text>
-
-    <v-divider class="mx-4" />
-
-    <v-card-title>Tonight's availability</v-card-title>
-
-    <v-card-text>
-      <v-chip-group
-        v-model="selection"
-        active-class="deep-purple accent-4 white--text"
-        column
+    </div>
+    <h1 class="text-center">
+      My team
+    </h1>
+    <v-row>
+      <v-col cols="12">
+        <div class="text-subtitle-1">
+          <strong>{{ profile.team.name }}</strong><br>
+          {{ profile.team.description ? profile.team.description : `Team description` }}<br>
+          Score: 250/1000<br>
+        </div>
+      </v-col>
+      <v-col
+        cols="12"
+        justify="center"
       >
-        <v-chip>5:30PM</v-chip>
-
-        <v-chip>7:30PM</v-chip>
-
-        <v-chip>8:00PM</v-chip>
-
-        <v-chip>9:00PM</v-chip>
-      </v-chip-group>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="deep-purple lighten-2"
-        text
-        @click="reserve"
-      >
-        Reserve
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+        <v-progress-linear
+          :value="skill"
+          color="secondary"
+          height="15"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import { defineComponent, ref } from '@vue/composition-api';
+import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
 
 export default defineComponent({
+  components: {
+    EditProfileForm,
+  },
   props: {
     profile: {
       type: Object,
       default: () => ({
-        description: 'TEST',
         name: 'LOREM_IPSUM',
+        description: 'TEST123',
         role: 'CREWMATE',
         team_id: '1b03aa8e-0937-42c7-b8f1-27c21c47aabb',
         user_id: 'auth0|12345678910',
@@ -101,6 +76,10 @@ export default defineComponent({
     loading: {
       type: Boolean,
       default: () => true,
+    },
+    skill: {
+      type: Number,
+      default: () => 25,
     },
   },
   setup(_, { root }) {
