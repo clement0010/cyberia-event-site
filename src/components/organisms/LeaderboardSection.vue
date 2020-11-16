@@ -12,7 +12,19 @@
           sort-by="score"
           sort-desc
           hide-default-footer
-        />
+        >
+          <template v-slot:item.name="{ item }">
+            <v-row align="center">
+              <div class="mx-5 my-5">
+                <v-img
+                  :src="item.picture"
+                  max-width="50"
+                />
+              </div>
+              {{ item.name }}
+            </v-row>
+          </template>
+        </v-data-table>
       </v-layout>
     </v-row>
   </v-container>
@@ -45,14 +57,17 @@ export default defineComponent({
       type: Array,
       default: () => [{
         name: 'Team A',
+        picture: 'https://picsum.photos/50',
         score: '250',
       },
       {
         name: 'Team B',
+        picture: 'https://picsum.photos/50',
         score: '850',
       },
       {
         name: 'Team C',
+        picture: 'https://picsum.photos/50',
         score: '550',
       },
       ],
