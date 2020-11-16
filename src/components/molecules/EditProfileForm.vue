@@ -2,6 +2,7 @@
   <v-row justify="center">
     <v-dialog
       v-model="dialog"
+      :fullscreen="$vuetify.breakpoint.xsOnly"
       max-width="600px"
     >
       <template v-slot:activator="{ on, attrs }">

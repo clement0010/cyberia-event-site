@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-app-bar
       app
       color="primary"
@@ -38,24 +38,20 @@
         </v-btn>
       </router-link>
     </v-app-bar>
-
-    <v-content>
-      <router-view />
-    </v-content>
-  </v-app>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'NavigationBar',
+  name: 'NavBarWeb',
 
   components: {
   },
 
   data: () => ({
-    //
+    drawer: false,
   }),
 });
 </script>

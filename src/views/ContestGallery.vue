@@ -15,7 +15,7 @@
       />
     </v-row>
     <v-row justify="center">
-      <div class="my-10">
+      <div class="my-5">
         <contest-submission-form />
       </div>
     </v-row>

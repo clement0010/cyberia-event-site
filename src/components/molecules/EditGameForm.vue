@@ -8,27 +8,39 @@
         <v-btn
           color="secondary"
           dark
-          large
           v-bind="attrs"
           v-on="on"
         >
-          Add Submission
+          Edit
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Add Submission</span>
+          <span class="headline">Edit Game</span>
         </v-card-title>
         <v-card-text>
-          <v-file-input placeholder="Upload file" />
+          <v-select
+            label="Team"
+            :items="teams"
+          />
+          <v-select
+            label="Score"
+            :items="scores"
+          />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn
+            color="secondary"
+            @click="dialog = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
             color="primary"
             @click="dialog = false"
           >
-            Submit
+            Confirm
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -40,9 +52,17 @@
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'ContestSubmissionForm',
+  name: 'EditGameForm',
 
-  components: {
+  props: {
+    teams: {
+      type: Array,
+      default: () => ['Team A', 'Team B', 'Team C'],
+    },
+    scores: {
+      type: Array,
+      default: () => ['0', '5', '10', '20'],
+    },
   },
 
   data: () => ({

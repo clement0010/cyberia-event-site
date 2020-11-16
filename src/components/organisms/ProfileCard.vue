@@ -5,13 +5,19 @@
     </h1>
     <div class="mb-10">
       <v-row justify="center">
-        <v-col cols="2">
+        <v-col
+          cols="6"
+          md="2"
+        >
           <v-img
             :src="profile.team.picture_url"
-            max-width="175"
+            max-width="100vw"
           />
         </v-col>
-        <v-col cols="9">
+        <v-col
+          cols="6"
+          md="9"
+        >
           <div class="text-subtitle-1">
             <strong>{{ profile.name }}</strong><br>
             Full name<br>
@@ -19,7 +25,10 @@
             {{ profile.role }} in   {{ profile.team.name }}<br>
           </div>
         </v-col>
-        <v-col cols="1">
+        <v-col
+          cols="12"
+          md="1"
+        >
           <EditProfileForm />
         </v-col>
       </v-row>

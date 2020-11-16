@@ -28,6 +28,11 @@ const routes: Array<RouteConfig> = [
     name: 'Profile',
     component: () => import('../views/Profile.vue'),
   },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue'),
+  },
 ];
 
 const router = new VueRouter({
