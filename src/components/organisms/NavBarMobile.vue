@@ -9,27 +9,31 @@
         nav
         dense
       >
-        <router-link
-          to="/"
-          class="text-decoration-none"
+        <v-list-item-group
+          v-model="group"
         >
-          <v-list-item>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-        </router-link>
+          <router-link
+            to="/"
+            class="text-decoration-none"
+          >
+            <v-list-item>
+              <v-list-item-title>Home</v-list-item-title>
+            </v-list-item>
+          </router-link>
 
-        <router-link
-          to="/profile"
-          class="text-decoration-none"
-        >
-          <v-list-item>
-            <v-list-item-title>Profile</v-list-item-title>
-          </v-list-item>
-        </router-link>
+          <router-link
+            to="/profile"
+            class="text-decoration-none"
+          >
+            <v-list-item>
+              <v-list-item-title>Profile</v-list-item-title>
+            </v-list-item>
+          </router-link>
 
-        <v-list-item>
-          <v-list-item-title>Login</v-list-item-title>
-        </v-list-item>
+          <v-list-item>
+            <v-list-item-title>Login</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -59,6 +63,13 @@ export default defineComponent({
 
   data: () => ({
     drawer: false,
+    group: null,
   }),
+
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+  },
 });
 </script>

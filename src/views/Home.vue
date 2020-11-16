@@ -45,12 +45,17 @@
         </v-btn>
       </div>
       <div class="mx-10 my-5">
-        <v-btn
-          :x-large="$vuetify.breakpoint.smAndUp"
-          color="secondary"
+        <router-link
+          to="/leaderboard"
+          class="text-decoration-none"
         >
-          Leaderboard
-        </v-btn>
+          <v-btn
+            :x-large="$vuetify.breakpoint.smAndUp"
+            color="secondary"
+          >
+            Leaderboard
+          </v-btn>
+        </router-link>
       </div>
     </v-row>
   </v-container>

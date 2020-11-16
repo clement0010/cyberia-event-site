@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <nav-bar-web v-if="$vuetify.breakpoint.mdAndUp"/>
+    <nav-bar-web v-if="$vuetify.breakpoint.mdAndUp" />
     <nav-bar-mobile v-else />
 
     <v-main>

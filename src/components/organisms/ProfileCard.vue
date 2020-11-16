@@ -40,7 +40,7 @@
       <v-col cols="12">
         <div class="text-subtitle-1">
           <strong>{{ profile.team.name }}</strong><br>
-          {{ profile.team.description ? profile.team.description : `Team description` }}<br>
+          {{ profile.team.motto }}<br>
           Score: 250/1000<br>
         </div>
       </v-col>

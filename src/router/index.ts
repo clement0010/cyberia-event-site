@@ -33,6 +33,11 @@ const routes: Array<RouteConfig> = [
     name: 'Admin',
     component: () => import('../views/Admin.vue'),
   },
+  {
+    path: '/leaderboard',
+    name: 'Leaderboard',
+    component: () => import('../views/Leaderboard.vue'),
+  },
 ];
 
 const router = new VueRouter({
