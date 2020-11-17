@@ -12,7 +12,7 @@ export default async function uploadService(file: string|Blob, userId: string): 
 
   formData.append('file', file);
 
-  return axios.post(`http://localhost:3000/api/upload/${userId}`, formData, {
+  return axios.post(`${process.env.VUE_APP_FILE_SUBMISSION_URL}/api/upload/${userId}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
