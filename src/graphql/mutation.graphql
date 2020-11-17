@@ -1,0 +1,17 @@
+mutation UpdateParticipantDetails($description: String!, $name: String!) {
+  update_participants(where: {}, _set: {description: $description, name: $name}) {
+    affected_rows
+    returning {
+      description
+      name
+      role
+      team_id
+      user_id
+      team {
+        motto
+        name
+        picture_url
+      }
+    }
+  }
+}

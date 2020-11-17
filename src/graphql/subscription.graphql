@@ -1,0 +1,10 @@
+subscription SubscribePublicLeaderboard {
+  leaderboard_public {
+    score
+    team_id
+    team_name {
+      name
+      picture_url
+    }
+  }
+}

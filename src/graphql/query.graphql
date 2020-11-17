@@ -12,3 +12,13 @@ query getOneParticipantDetails {
     }
   }
 }
+
+query GetPublicLeaderboard {
+  leaderboard_public {
+    score
+    team_id
+    team_name {
+      name
+    }
+  }
+}
