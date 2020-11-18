@@ -65,10 +65,10 @@ export type String_Comparison_Exp = {
 export type Contest = {
   __typename?: 'contest';
   id: Scalars['uuid'];
-  submission_url?: Maybe<Scalars['String']>;
   /** An object relationship */
-  team?: Maybe<Teams>;
-  team_id?: Maybe<Scalars['uuid']>;
+  participant?: Maybe<Participants>;
+  participant_id?: Maybe<Scalars['uuid']>;
+  submission_url?: Maybe<Scalars['String']>;
   vote_count?: Maybe<Scalars['Int']>;
 };
 
@@ -139,9 +139,9 @@ export type Contest_Bool_Exp = {
   _not?: Maybe<Contest_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Contest_Bool_Exp>>>;
   id?: Maybe<Uuid_Comparison_Exp>;
+  participant?: Maybe<Participants_Bool_Exp>;
+  participant_id?: Maybe<Uuid_Comparison_Exp>;
   submission_url?: Maybe<String_Comparison_Exp>;
-  team?: Maybe<Teams_Bool_Exp>;
-  team_id?: Maybe<Uuid_Comparison_Exp>;
   vote_count?: Maybe<Int_Comparison_Exp>;
 };
 
@@ -161,9 +161,9 @@ export type Contest_Inc_Input = {
 /** input type for inserting data into table "contest" */
 export type Contest_Insert_Input = {
   id?: Maybe<Scalars['uuid']>;
+  participant?: Maybe<Participants_Obj_Rel_Insert_Input>;
+  participant_id?: Maybe<Scalars['uuid']>;
   submission_url?: Maybe<Scalars['String']>;
-  team?: Maybe<Teams_Obj_Rel_Insert_Input>;
-  team_id?: Maybe<Scalars['uuid']>;
   vote_count?: Maybe<Scalars['Int']>;
 };
 
@@ -171,16 +171,16 @@ export type Contest_Insert_Input = {
 export type Contest_Max_Fields = {
   __typename?: 'contest_max_fields';
   id?: Maybe<Scalars['uuid']>;
+  participant_id?: Maybe<Scalars['uuid']>;
   submission_url?: Maybe<Scalars['String']>;
-  team_id?: Maybe<Scalars['uuid']>;
   vote_count?: Maybe<Scalars['Int']>;
 };
 
 /** order by max() on columns of table "contest" */
 export type Contest_Max_Order_By = {
   id?: Maybe<Order_By>;
+  participant_id?: Maybe<Order_By>;
   submission_url?: Maybe<Order_By>;
-  team_id?: Maybe<Order_By>;
   vote_count?: Maybe<Order_By>;
 };
 
@@ -188,16 +188,16 @@ export type Contest_Max_Order_By = {
 export type Contest_Min_Fields = {
   __typename?: 'contest_min_fields';
   id?: Maybe<Scalars['uuid']>;
+  participant_id?: Maybe<Scalars['uuid']>;
   submission_url?: Maybe<Scalars['String']>;
-  team_id?: Maybe<Scalars['uuid']>;
   vote_count?: Maybe<Scalars['Int']>;
 };
 
 /** order by min() on columns of table "contest" */
 export type Contest_Min_Order_By = {
   id?: Maybe<Order_By>;
+  participant_id?: Maybe<Order_By>;
   submission_url?: Maybe<Order_By>;
-  team_id?: Maybe<Order_By>;
   vote_count?: Maybe<Order_By>;
 };
 
@@ -226,9 +226,9 @@ export type Contest_On_Conflict = {
 /** ordering options when selecting data from "contest" */
 export type Contest_Order_By = {
   id?: Maybe<Order_By>;
+  participant?: Maybe<Participants_Order_By>;
+  participant_id?: Maybe<Order_By>;
   submission_url?: Maybe<Order_By>;
-  team?: Maybe<Teams_Order_By>;
-  team_id?: Maybe<Order_By>;
   vote_count?: Maybe<Order_By>;
 };
 
@@ -242,9 +242,9 @@ export enum Contest_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  SubmissionUrl = 'submission_url',
+  ParticipantId = 'participant_id',
   /** column name */
-  TeamId = 'team_id',
+  SubmissionUrl = 'submission_url',
   /** column name */
   VoteCount = 'vote_count'
 }
@@ -252,8 +252,8 @@ export enum Contest_Select_Column {
 /** input type for updating data in table "contest" */
 export type Contest_Set_Input = {
   id?: Maybe<Scalars['uuid']>;
+  participant_id?: Maybe<Scalars['uuid']>;
   submission_url?: Maybe<Scalars['String']>;
-  team_id?: Maybe<Scalars['uuid']>;
   vote_count?: Maybe<Scalars['Int']>;
 };
 
@@ -306,9 +306,9 @@ export enum Contest_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  SubmissionUrl = 'submission_url',
+  ParticipantId = 'participant_id',
   /** column name */
-  TeamId = 'team_id',
+  SubmissionUrl = 'submission_url',
   /** column name */
   VoteCount = 'vote_count'
 }
@@ -527,6 +527,8 @@ export type Leaderboard = {
   game_4: Scalars['Int'];
   id: Scalars['uuid'];
   overall_score?: Maybe<Scalars['Int']>;
+  /** An object relationship */
+  team?: Maybe<Teams>;
   team_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -610,6 +612,7 @@ export type Leaderboard_Bool_Exp = {
   game_4?: Maybe<Int_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   overall_score?: Maybe<Int_Comparison_Exp>;
+  team?: Maybe<Teams_Bool_Exp>;
   team_id?: Maybe<Uuid_Comparison_Exp>;
 };
 
@@ -638,6 +641,7 @@ export type Leaderboard_Insert_Input = {
   game_4?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['uuid']>;
   overall_score?: Maybe<Scalars['Int']>;
+  team?: Maybe<Teams_Obj_Rel_Insert_Input>;
   team_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -717,6 +721,7 @@ export type Leaderboard_Order_By = {
   game_4?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   overall_score?: Maybe<Order_By>;
+  team?: Maybe<Teams_Order_By>;
   team_id?: Maybe<Order_By>;
 };
 
@@ -1514,6 +1519,8 @@ export enum Order_By {
 /** columns and relationships of "participants" */
 export type Participants = {
   __typename?: 'participants';
+  /** An object relationship */
+  contest_submission?: Maybe<Contest>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['uuid'];
   /** An object relationship */
@@ -1568,6 +1575,7 @@ export type Participants_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Participants_Bool_Exp>>>;
   _not?: Maybe<Participants_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Participants_Bool_Exp>>>;
+  contest_submission?: Maybe<Contest_Bool_Exp>;
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   imposter?: Maybe<Imposter_Bool_Exp>;
@@ -1590,6 +1598,7 @@ export enum Participants_Constraint {
 
 /** input type for inserting data into table "participants" */
 export type Participants_Insert_Input = {
+  contest_submission?: Maybe<Contest_Obj_Rel_Insert_Input>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
   imposter?: Maybe<Imposter_Obj_Rel_Insert_Input>;
@@ -1664,6 +1673,7 @@ export type Participants_On_Conflict = {
 
 /** ordering options when selecting data from "participants" */
 export type Participants_Order_By = {
+  contest_submission?: Maybe<Contest_Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   imposter?: Maybe<Imposter_Order_By>;
@@ -2346,6 +2356,8 @@ export type Teams = {
   /** An aggregated array relationship */
   participants_aggregate: Participants_Aggregate;
   picture_url?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  scoring?: Maybe<Leaderboard>;
 };
 
 /** columns and relationships of "teams" */
@@ -2411,6 +2423,7 @@ export type Teams_Bool_Exp = {
   name?: Maybe<String_Comparison_Exp>;
   participants?: Maybe<Participants_Bool_Exp>;
   picture_url?: Maybe<String_Comparison_Exp>;
+  scoring?: Maybe<Leaderboard_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "teams" */
@@ -2429,6 +2442,7 @@ export type Teams_Insert_Input = {
   name?: Maybe<Scalars['String']>;
   participants?: Maybe<Participants_Arr_Rel_Insert_Input>;
   picture_url?: Maybe<Scalars['String']>;
+  scoring?: Maybe<Leaderboard_Obj_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -2495,6 +2509,7 @@ export type Teams_Order_By = {
   name?: Maybe<Order_By>;
   participants_aggregate?: Maybe<Participants_Aggregate_Order_By>;
   picture_url?: Maybe<Order_By>;
+  scoring?: Maybe<Leaderboard_Order_By>;
 };
 
 /** primary key columns input for table: "teams" */
@@ -2753,6 +2768,16 @@ export type GetPublicLeaderboardQuery = (
   )>; }
 );
 
+export type GetContestSubmissionQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetContestSubmissionQuery = (
+  { __typename?: 'query_root' }
+  & { contest: Array<(
+    { __typename?: 'contest' }
+    & Pick<Contest, 'submission_url' | 'participant_id'>
+  )>; }
+);
+
 export type SubscribePublicLeaderboardSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type SubscribePublicLeaderboardSubscription = (
@@ -2870,6 +2895,31 @@ export function useGetPublicLeaderboardQuery(options: VueApolloComposable.UseQue
   return VueApolloComposable.useQuery<GetPublicLeaderboardQuery, GetPublicLeaderboardQueryVariables>(GetPublicLeaderboardDocument, {}, options);
 }
 export type GetPublicLeaderboardQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetPublicLeaderboardQuery, GetPublicLeaderboardQueryVariables>;
+export const GetContestSubmissionDocument = gql`
+    query GetContestSubmission {
+  contest {
+    submission_url
+    participant_id
+  }
+}
+    `;
+
+/**
+ * __useGetContestSubmissionQuery__
+ *
+ * To run a query within a Vue component, call `useGetContestSubmissionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContestSubmissionQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetContestSubmissionQuery();
+ */
+export function useGetContestSubmissionQuery(options: VueApolloComposable.UseQueryOptions<GetContestSubmissionQuery, GetContestSubmissionQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetContestSubmissionQuery, GetContestSubmissionQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetContestSubmissionQuery, GetContestSubmissionQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetContestSubmissionQuery, GetContestSubmissionQueryVariables>(GetContestSubmissionDocument, {}, options);
+}
+export type GetContestSubmissionQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetContestSubmissionQuery, GetContestSubmissionQueryVariables>;
 export const SubscribePublicLeaderboardDocument = gql`
     subscription SubscribePublicLeaderboard {
   leaderboard_public {

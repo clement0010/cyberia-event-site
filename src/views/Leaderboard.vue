@@ -2,7 +2,10 @@
   <div>
     <LoaderSpin v-if="loading" />
     <p v-else-if="error">Error {{ error }}</p>
-    <leaderboard-section :teams="leaderboard" />
+    <leaderboard-section
+      v-else
+      :teams="leaderboard"
+    />
   </div>
 </template>
 

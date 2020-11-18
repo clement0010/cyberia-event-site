@@ -71,7 +71,7 @@ export default defineComponent({
       if (!snackbar.value) {
         message.value = text;
         snackbar.value = true;
-        setInterval(() => {
+        setTimeout(() => {
           snackbar.value = false;
         }, timeout);
       }
@@ -100,9 +100,7 @@ export default defineComponent({
         }
         throw new Error('Submission Server Error');
       } catch (error) {
-        if (!snackbar.value) {
-          snackbarHandler('Something is wrong. Please try again later.');
-        }
+        snackbarHandler('Something is wrong. Please try again later.');
         console.log('ERROR: ', error);
       }
     }

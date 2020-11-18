@@ -30,7 +30,7 @@
           </v-btn>
           <v-btn
             color="primary"
-            @click="dialog = false"
+            @click="vote"
           >
             Vote
           </v-btn>
@@ -45,17 +45,21 @@ import { defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'SubmissionVote',
-
-  components: {
-  },
-
   props: {
+    contestantId: {
+      type: String,
+    },
   },
 
   setup(props) {
     const dialog = ref(false);
+    function vote() {
+      console.log(props.contestantId, 'Voted contestant id');
+      dialog.value = false;
+    }
 
     return {
+      vote,
       dialog,
     };
   },

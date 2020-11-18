@@ -29,7 +29,7 @@
           >
             Close
           </v-btn>
-          <submission-vote />
+          <submission-vote :contestant-id="contestantId" />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -52,9 +52,12 @@ export default defineComponent({
       type: String,
       default: () => 'https://picsum.photos/id/654/1600/900',
     },
+    contestantId: {
+      type: String,
+    },
   },
 
-  setup(props) {
+  setup() {
     const dialog = ref(false);
 
     return {
