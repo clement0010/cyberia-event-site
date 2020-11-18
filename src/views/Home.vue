@@ -25,7 +25,7 @@
       </div>
       <div class="mx-10 my-5">
         <router-link
-          to="/information-page"
+          to="/information-page/general"
           class="text-decoration-none"
         >
           <v-btn

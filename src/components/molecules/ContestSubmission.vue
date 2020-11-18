@@ -5,9 +5,7 @@
     md="4"
   >
     <v-card>
-      <v-img
-        src="https://picsum.photos/id/654/1600/900"
-      />
+      <expanded-contest-submission />
       <v-card-text>
         Submission title<br>
         By username
@@ -23,10 +21,13 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api';
+import ExpandedContestSubmission from './ExpandedContestSubmission.vue';
 
 export default defineComponent({
   name: 'ContestSubmission',
+
   components: {
+    ExpandedContestSubmission,
   },
 });
 </script>

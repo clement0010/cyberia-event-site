@@ -27,7 +27,6 @@ export default defineComponent({
       result,
       (data) => {
         leaderboard.value = data.leaderboard_public;
-        console.log(leaderboard.value, 'Current leaderboard');
       },
 
     );

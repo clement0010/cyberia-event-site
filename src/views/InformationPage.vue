@@ -7,13 +7,13 @@
       color="white"
       fixed-tabs
     >
-      <v-tab to="/about/general">
+      <v-tab to="/information-page/general">
         About
       </v-tab>
-      <v-tab to="/about/itinerary">
+      <v-tab to="/information-page/itinerary">
         Schedule
       </v-tab>
-      <v-tab to="/about/faq">
+      <v-tab to="/information-page/faq">
         FAQ
       </v-tab>
     </v-tabs>
