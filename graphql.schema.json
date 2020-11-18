@@ -473,36 +473,36 @@
             "deprecationReason": null
           },
           {
+            "name": "participant",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "participants",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "participant_id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "submission_url",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "team",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "teams",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "team_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1018,31 +1018,31 @@
             "defaultValue": null
           },
           {
+            "name": "participant",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "participants_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "participant_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "submission_url",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "teams_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "uuid_comparison_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -1123,31 +1123,31 @@
             "defaultValue": null
           },
           {
+            "name": "participant",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "participants_obj_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "participant_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "submission_url",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "teams_obj_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
               "ofType": null
             },
             "defaultValue": null
@@ -1185,24 +1185,24 @@
             "deprecationReason": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "uuid",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1243,7 +1243,7 @@
             "defaultValue": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -1253,7 +1253,7 @@
             "defaultValue": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -1295,24 +1295,24 @@
             "deprecationReason": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "uuid",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1353,7 +1353,7 @@
             "defaultValue": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -1363,7 +1363,7 @@
             "defaultValue": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -1547,7 +1547,17 @@
             "defaultValue": null
           },
           {
-            "name": "submission_url",
+            "name": "participant",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "participants_order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "participant_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -1557,17 +1567,7 @@
             "defaultValue": null
           },
           {
-            "name": "team",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "teams_order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_id",
+            "name": "submission_url",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -1631,13 +1631,13 @@
             "deprecationReason": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -1668,21 +1668,21 @@
             "defaultValue": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "uuid",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -1893,13 +1893,13 @@
             "deprecationReason": null
           },
           {
-            "name": "submission_url",
+            "name": "participant_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "submission_url",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -3134,6 +3134,18 @@
             "deprecationReason": null
           },
           {
+            "name": "team",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "teams",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "team_id",
             "description": null,
             "args": [],
@@ -3771,6 +3783,16 @@
             "defaultValue": null
           },
           {
+            "name": "team",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "teams_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "team_id",
             "description": null,
             "type": {
@@ -3931,6 +3953,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "team",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "teams_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null
@@ -4507,6 +4539,16 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "team",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "teams_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -8588,6 +8630,18 @@
         "description": "columns and relationships of \"participants\"",
         "fields": [
           {
+            "name": "contest_submission",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "contest",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "description",
             "description": null,
             "args": [],
@@ -8969,6 +9023,16 @@
             "defaultValue": null
           },
           {
+            "name": "contest_submission",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "contest_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "description",
             "description": null,
             "type": {
@@ -9102,6 +9166,16 @@
         "description": "input type for inserting data into table \"participants\"",
         "fields": null,
         "inputFields": [
+          {
+            "name": "contest_submission",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "contest_obj_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
           {
             "name": "description",
             "description": null,
@@ -9620,6 +9694,16 @@
         "description": "ordering options when selecting data from \"participants\"",
         "fields": null,
         "inputFields": [
+          {
+            "name": "contest_submission",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "contest_order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
           {
             "name": "description",
             "description": null,
@@ -14132,6 +14216,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "scoring",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "leaderboard",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -14449,6 +14545,16 @@
               "ofType": null
             },
             "defaultValue": null
+          },
+          {
+            "name": "scoring",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "leaderboard_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
           }
         ],
         "interfaces": null,
@@ -14540,6 +14646,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "scoring",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "leaderboard_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null
@@ -14974,6 +15090,16 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "scoring",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "leaderboard_order_by",
               "ofType": null
             },
             "defaultValue": null

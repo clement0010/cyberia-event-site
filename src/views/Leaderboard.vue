@@ -2,7 +2,10 @@
   <div>
     <LoaderSpin v-if="loading" />
     <p v-else-if="error">Error {{ error }}</p>
-    <leaderboard-section :teams="leaderboard" />
+    <leaderboard-section
+      v-else
+      :teams="leaderboard"
+    />
   </div>
 </template>
 
@@ -27,7 +30,6 @@ export default defineComponent({
       result,
       (data) => {
         leaderboard.value = data.leaderboard_public;
-        console.log(leaderboard.value, 'Current leaderboard');
       },
 
     );

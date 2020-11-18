@@ -1,74 +1,23 @@
 <template>
   <v-container class="pt-10">
-    <h1 class="text-center">
-      Profile
-    </h1>
-    <div class="mb-10">
-      <v-row justify="center">
-        <v-col
-          cols="6"
-          md="2"
-        >
-          <v-img
-            :src="profile.team.picture_url"
-            max-width="100vw"
-          />
-        </v-col>
-        <v-col
-          cols="6"
-          md="9"
-        >
-          <div class="text-subtitle-1">
-            <strong>{{ profile.name }}</strong><br>
-            Full name<br>
-            {{ profile.description }}<br>
-            {{ profile.role }} in  {{ profile.team.name }}<br>
-          </div>
-        </v-col>
-        <v-col
-          cols="12"
-          md="1"
-        >
-          <EditProfileForm
-            :description="profile.description"
-            :username="profile.name"
-          />
-        </v-col>
-      </v-row>
-    </div>
-    <h1 class="text-center">
-      My team
-    </h1>
-    <v-row>
-      <v-col cols="12">
-        <div class="text-subtitle-1">
-          <strong>{{ profile.team.name }}</strong><br>
-          {{ profile.team.motto }}<br>
-          Score: 250/1000<br>
-        </div>
-      </v-col>
-      <v-col
-        cols="12"
-        justify="center"
-      >
-        <v-progress-linear
-          :value="skill"
-          color="secondary"
-          height="15"
-        />
-      </v-col>
-    </v-row>
+    <self-profile :profile="profile" />
+    <team-profile :team="profile.team" />
   </v-container>
 </template>
 
 <script>
 import { defineComponent, ref } from '@vue/composition-api';
 import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
+import SelfProfile from '@/components/organisms/SelfProfile.vue';
+import TeamProfile from '@/components/organisms/TeamProfile.vue';
 
 export default defineComponent({
   components: {
     EditProfileForm,
+    SelfProfile,
+    TeamProfile,
   },
+
   props: {
     profile: {
       type: Object,
@@ -94,6 +43,7 @@ export default defineComponent({
       default: () => 25,
     },
   },
+
   setup(_, { root }) {
     const selection = ref(0);
     function reserve() {

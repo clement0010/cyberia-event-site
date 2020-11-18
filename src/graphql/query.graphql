@@ -22,3 +22,11 @@ query GetPublicLeaderboard {
     }
   }
 }
+
+query GetContestSubmission {
+  contest {
+    submission_url
+    participant_id
+  }
+}
+

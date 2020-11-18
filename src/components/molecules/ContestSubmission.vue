@@ -5,17 +5,16 @@
     md="4"
   >
     <v-card>
-      <v-img
-        src="https://picsum.photos/id/654/1600/900"
+      <expanded-contest-submission
+        :picture-url="pictureUrl"
+        :contestant-id="contestantId"
       />
       <v-card-text>
-        Submission title<br>
-        By username
+        <strong>Submission title</strong><br>
+        By username {{ contestantId }} -- for debugging purposes
       </v-card-text>
       <v-card-actions>
-        <v-btn>
-          Vote
-        </v-btn>
+        <submission-vote :contestant-id="contestantId" />
       </v-card-actions>
     </v-card>
   </v-col>
@@ -23,10 +22,25 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api';
+import SubmissionVote from './SubmissionVote.vue';
+import ExpandedContestSubmission from './ExpandedContestSubmission.vue';
 
 export default defineComponent({
   name: 'ContestSubmission',
-  components: {
+
+  props: {
+    pictureUrl: {
+      type: String,
+    },
+    contestantId: {
+      type: String,
+    },
   },
+
+  components: {
+    ExpandedContestSubmission,
+    SubmissionVote,
+  },
+
 });
 </script>

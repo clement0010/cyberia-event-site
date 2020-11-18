@@ -79,7 +79,6 @@ export default defineComponent({
     username: {
       type: String,
     },
-
   },
 
   setup(props) {
