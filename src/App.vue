@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import NavBarWeb from '@/components/organisms/NavBar.vue';
+import NavBarWeb from '@/components/organisms/NavBarWeb.vue';
 import { defineComponent } from '@vue/composition-api';
 import NavBarMobile from './components/organisms/NavBarMobile.vue';
 

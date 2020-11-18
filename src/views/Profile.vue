@@ -1,7 +1,7 @@
 <template>
   <div>
     <LoaderSpin v-if="loading" />
-    <p v-else-if="error">Error</p>
+    <p v-else-if="error">Error {{ error }}</p>
     <ProfileCard
       v-else
       :profile="profile"
@@ -17,13 +17,11 @@ import { defineComponent } from '@vue/composition-api';
 import { useResult } from '@vue/apollo-composable';
 import { useGetOneParticipantDetailsQuery } from '@/generated/graphql';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
-import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
 import ProfileCard from '@/components/organisms/ProfileCard.vue';
 
 export default defineComponent({
   name: 'Profile',
   components: {
-    EditProfileForm,
     LoaderSpin,
     ProfileCard,
   },

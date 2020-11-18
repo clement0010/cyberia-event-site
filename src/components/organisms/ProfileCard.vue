@@ -22,14 +22,17 @@
             <strong>{{ profile.name }}</strong><br>
             Full name<br>
             {{ profile.description }}<br>
-            {{ profile.role }} in   {{ profile.team.name }}<br>
+            {{ profile.role }} in  {{ profile.team.name }}<br>
           </div>
         </v-col>
         <v-col
           cols="12"
           md="1"
         >
-          <EditProfileForm />
+          <EditProfileForm
+            :description="profile.description"
+            :username="profile.name"
+          />
         </v-col>
       </v-row>
     </div>

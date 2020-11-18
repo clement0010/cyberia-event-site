@@ -17,11 +17,11 @@
             <v-row align="center">
               <div class="mx-5 my-5">
                 <v-img
-                  :src="item.picture"
+                  :src="item.team_name.picture_url"
                   max-width="50"
                 />
               </div>
-              {{ item.name }}
+              {{ item.team_name.name }}
             </v-row>
           </template>
         </v-data-table>
@@ -56,18 +56,24 @@ export default defineComponent({
     teams: {
       type: Array,
       default: () => [{
-        name: 'Team A',
-        picture: 'https://picsum.photos/50',
+        team_name: {
+          name: 'Team A',
+          picture_url: 'https://picsum.photos/50',
+        },
         score: '250',
       },
       {
-        name: 'Team B',
-        picture: 'https://picsum.photos/50',
+        team_name: {
+          name: 'Team B',
+          picture_url: 'https://picsum.photos/50',
+        },
         score: '850',
       },
       {
-        name: 'Team C',
-        picture: 'https://picsum.photos/50',
+        team_name: {
+          name: 'Team C',
+          picture_url: 'https://picsum.photos/50',
+        },
         score: '550',
       },
       ],
