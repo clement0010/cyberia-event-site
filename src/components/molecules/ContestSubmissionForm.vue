@@ -51,7 +51,7 @@
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
 import SnackBar from '@/components/atoms/Snackbars.vue';
-import uploadService from '@/services/fileSystem';
+import uploadService from '@/services/submissionService';
 
 export default defineComponent({
   name: 'ContestSubmissionForm',
