@@ -7,13 +7,11 @@
     <v-card>
       <expanded-contest-submission />
       <v-card-text>
-        Submission title<br>
+        <strong>Submission title</strong><br>
         By username
       </v-card-text>
       <v-card-actions>
-        <v-btn>
-          Vote
-        </v-btn>
+        <submission-vote />
       </v-card-actions>
     </v-card>
   </v-col>
@@ -21,6 +19,7 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api';
+import SubmissionVote from './SubmissionVote.vue';
 import ExpandedContestSubmission from './ExpandedContestSubmission.vue';
 
 export default defineComponent({
@@ -28,6 +27,7 @@ export default defineComponent({
 
   components: {
     ExpandedContestSubmission,
+    SubmissionVote,
   },
 });
 </script>

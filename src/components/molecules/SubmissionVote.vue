@@ -2,24 +2,23 @@
   <div>
     <v-dialog
       v-model="dialog"
-      :fullscreen="$vuetify.breakpoint.xsOnly"
       max-width="600px"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-img
-          :src="pictureUrl"
-          class="image"
+        <v-btn
+          color="primary"
           v-bind="attrs"
           v-on="on"
-        />
+        >
+          Vote
+        </v-btn>
       </template>
       <v-card>
-        <v-img :src="pictureUrl" />
+        <v-card-title>
+          <span class="headline">Vote</span>
+        </v-card-title>
         <v-card-text>
-          <div class="mt-4">
-            <strong>Submission title</strong><br>
-            By username
-          </div>
+          Do you want to vote for username's submission? This action is irreversible.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -27,9 +26,14 @@
             color="secondary"
             @click="dialog = false"
           >
-            Close
+            Cancel
           </v-btn>
-          <submission-vote />
+          <v-btn
+            color="primary"
+            @click="dialog = false"
+          >
+            Vote
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -38,20 +42,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
-import SubmissionVote from './SubmissionVote.vue';
 
 export default defineComponent({
-  name: 'ExpandedContestSubmission',
+  name: 'SubmissionVote',
 
   components: {
-    SubmissionVote,
   },
 
   props: {
-    pictureUrl: {
-      type: String,
-      default: () => 'https://picsum.photos/id/654/1600/900',
-    },
   },
 
   setup(props) {
@@ -63,9 +61,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-.image :hover {
-  cursor: pointer;
-}
-</style>
