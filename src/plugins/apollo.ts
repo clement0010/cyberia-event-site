@@ -7,8 +7,8 @@ import {
 const getHeaders = () => {
   const headers = {
     'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
-    'x-hasura-role': 'crewmate',
-    'x-hasura-user-id': 'auth0|12345678910', // Change this to access as different user - DEV
+    'x-hasura-role': 'admin',
+    // 'x-hasura-user-id': 'auth0|12345678910', // Change this to access as different user - DEV
   };
   const token = window.localStorage.getItem('hasura-token');
   if (token) {

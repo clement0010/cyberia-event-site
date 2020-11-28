@@ -21,7 +21,9 @@
         <v-card-text>
           <v-select
             label="Team"
-            :items="teams"
+            :items="teamsScores"
+            item-text="team.name"
+            item-value="team_id"
           />
           <v-select
             label="Score"
@@ -49,24 +51,43 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, reactive, ref } from '@vue/composition-api';
+import { useUpdateGameScoreMutation } from '@/generated/graphql';
+import { useApolloClient } from '@vue/apollo-composable';
+import CacheService from '@/services/cacheService';
 
 export default defineComponent({
   name: 'EditGameForm',
 
   props: {
-    teams: {
+    teamsScores: {
       type: Array,
-      default: () => ['Team A', 'Team B', 'Team C'],
+      default: () => [],
     },
     scores: {
       type: Array,
-      default: () => ['0', '5', '10', '20'],
+      default: () => ['0', '250', '500', '750', '1000'],
     },
   },
 
-  data: () => ({
-    dialog: false,
-  }),
+  setup(props) {
+    // Create apollo client for caching purposes
+    const { resolveClient } = useApolloClient();
+    const client = resolveClient();
+
+    const dialog = ref(false);
+    const scores = reactive({
+      team_scores: props.teamsScores || [],
+    });
+
+    const { mutate: updateDetails } = useUpdateGameScoreMutation(() => ({}));
+    function saveWrapper() {
+      dialog.value = false;
+      console.log('Updated scores', scores);
+    }
+    return {
+      dialog,
+    };
+  },
 });
 </script>
