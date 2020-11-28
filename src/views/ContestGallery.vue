@@ -13,10 +13,17 @@
       </div>
       <v-row justify="start">
         <contest-submission
-          v-for="(submission,index) in contestSubmissions"
+          v-for="index in Math.min(contestSubmissions.length-itemsPerPage*(currentPage-1), itemsPerPage)"
           :key="index"
-          :contestant-id="submission.participant_id"
-          :picture-url="submission.submission_url"
+          :contestant-id="contestSubmissions[index-1+itemsPerPage*(currentPage-1)].participant_id"
+          :picture-url="contestSubmissions[index-1+itemsPerPage*(currentPage-1)].submission_url"
+        />
+      </v-row>
+      <v-row justify="center">
+        <v-pagination
+          v-model="currentPage"
+          :length="length"
+          @input="handlePageChange"
         />
       </v-row>
       <v-row justify="center">
@@ -29,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, computed } from '@vue/composition-api';
 import ContestSubmission from '@/components/molecules/ContestSubmission.vue';
 import ContestSubmissionForm from '@/components/molecules/ContestSubmissionForm.vue';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
@@ -45,9 +52,20 @@ export default defineComponent({
   },
   setup() {
     const { result, loading, error } = useGetContestSubmissionQuery();
-    const contestSubmissions = useResult(result, null, (data) => data.contest);
+    const contestSubmissions = useResult(result, [], (data) => data.contest);
+    let currentPage = 1;
+    const itemsPerPage = 12;
+    const length = computed(() => Math.ceil(contestSubmissions.value.length / itemsPerPage));
+
+    function handlePageChange(value: number) {
+      currentPage = value;
+    }
 
     return {
+      currentPage,
+      handlePageChange,
+      itemsPerPage,
+      length,
       result,
       loading,
       error,
