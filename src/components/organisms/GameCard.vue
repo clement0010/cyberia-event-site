@@ -6,25 +6,25 @@
   >
     <v-card>
       <v-card-title>
-        Game
+        {{ game.game_name }}
       </v-card-title>
       <v-card-text>
         Top 3<br>
         <div
-          v-for="n in 3"
+          v-for="n in Math.min(game.teams_scores.length, 3)"
           :key="n"
           class="px-3"
         >
           <v-row>
-            Team A
+            {{ game.teams_scores[n - 1].team.name }}
             <v-spacer />
-            20
+            {{ game.teams_scores[n - 1].score }}
           </v-row>
           <v-divider />
         </div>
       </v-card-text>
       <v-card-actions>
-        <edit-game-form />
+        <edit-game-form :teams-scores="game.teams_scores" />
       </v-card-actions>
     </v-card>
   </v-col>
@@ -38,6 +38,15 @@ export default defineComponent({
   name: 'GameCard',
   components: {
     EditGameForm,
+  },
+  props: {
+    game: {
+      type: Object,
+      default: () => ({
+        game_name: 'Game',
+        teams_scores: [],
+      }),
+    },
   },
 });
 </script>

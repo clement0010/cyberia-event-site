@@ -23,6 +23,7 @@ export default defineComponent({
     LoaderSpin,
 
   },
+
   setup() {
     const { result, loading, error } = useSubscribePublicLeaderboardSubscription();
     const leaderboard = ref();
