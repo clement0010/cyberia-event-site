@@ -37,14 +37,28 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <SnackBar
+      :text="message"
+      :timeout="timeout"
+      :snackbar="snackbar"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
+import SnackBar from '@/components/atoms/Snackbars.vue';
+import snackBarComposition from '@/composable/snackbar';
+import { useSubmitContestVoteMutation, GetParticipantVotingDetailsDocument } from '@/generated/graphql';
+import { useApolloClient } from '@vue/apollo-composable';
+import CacheService from '@/services/cacheService';
 
 export default defineComponent({
   name: 'SubmissionVote',
+
+  components: {
+    SnackBar,
+  },
   props: {
     contestantId: {
       type: String,
@@ -53,14 +67,45 @@ export default defineComponent({
 
   setup(props) {
     const dialog = ref(false);
+    const {
+      timeout, snackbar, message, snackbarHandler,
+    } = snackBarComposition();
+
+    const { resolveClient } = useApolloClient();
+    const client = resolveClient();
+
+    const { mutate: submitContestVote } = useSubmitContestVoteMutation(() => ({}));
+
     function vote() {
       console.log(props.contestantId, 'Voted contestant id');
+      submitContestVote({
+        participant_id: props.contestantId,
+      }).then((result) => {
+        if (result.data.update_contest.affected_rows) {
+          const cache = new CacheService(client);
+
+          const { participants } = cache.read(GetParticipantVotingDetailsDocument, {});
+          participants[0].vote = true;
+          cache.write(GetParticipantVotingDetailsDocument, { participants });
+        } else {
+          throw new Error('Voting Error');
+        }
+      }).catch((err) => {
+        console.error(err);
+        snackbarHandler('Error! Try again later!');
+      });
+
+      // Optimise for UX ===========================
+      snackbarHandler('Voted Successfully!');
       dialog.value = false;
     }
 
     return {
       vote,
       dialog,
+      snackbar,
+      timeout,
+      message,
     };
   },
 });

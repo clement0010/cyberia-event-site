@@ -10,9 +10,10 @@ class CacheService {
     this.client = clientProvider;
   }
 
-  read(graphqlDocument: DocumentNode): any {
+  read(graphqlDocument: DocumentNode, variables: any): any {
     const data = this.client.readQuery({
       query: graphqlDocument,
+      variables,
     });
     return data;
   }

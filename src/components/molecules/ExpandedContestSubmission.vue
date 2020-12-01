@@ -29,7 +29,11 @@
           >
             Close
           </v-btn>
-          <submission-vote :contestant-id="contestantId" />
+          <submission-vote
+            v-if="contestantId!==participantId && !voted"
+
+            :contestant-id="contestantId"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -54,6 +58,13 @@ export default defineComponent({
     },
     contestantId: {
       type: String,
+    },
+    participantId: {
+      type: String,
+    },
+    voted: {
+      type: Boolean,
+      default: () => false,
     },
   },
 

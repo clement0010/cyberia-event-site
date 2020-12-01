@@ -8,9 +8,9 @@
       </div>
       <v-row>
         <game-card
-          v-for="n in games.length"
-          :key="n"
-          :game="games[n - 1]"
+          v-for="(game, index) in games"
+          :key="index"
+          :game="game"
         />
       </v-row>
       <div class="my-5">
@@ -30,11 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, ref, watch } from '@vue/composition-api';
 import GameCard from '@/components/organisms/GameCard.vue';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
-import { useGetAllGamesQuery } from '@/generated/graphql';
-import { useResult } from '@vue/apollo-composable';
+import { useSubscibeToAllGamesSubscription } from '@/generated/graphql';
 
 export default defineComponent({
   name: 'Admin',
@@ -45,8 +44,15 @@ export default defineComponent({
   },
 
   setup() {
-    const { result, loading, error } = useGetAllGamesQuery();
-    const games = useResult(result, null, (data) => data.games);
+    const { result, loading, error } = useSubscibeToAllGamesSubscription();
+    const games = ref();
+    watch(
+      result,
+      (data) => {
+        games.value = data.games;
+      },
+    );
+
     return {
       games,
       loading,

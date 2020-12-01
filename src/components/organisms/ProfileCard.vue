@@ -1,21 +1,21 @@
 <template>
   <v-container class="pt-10">
-    <self-profile :profile="profile" />
-    <team-profile :team="profile.team" />
+    <ProfileSelf :profile="profile" />
+    <ProfileTeam :team="profile.team" />
   </v-container>
 </template>
 
 <script>
 import { defineComponent, ref } from '@vue/composition-api';
 import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
-import SelfProfile from '@/components/organisms/SelfProfile.vue';
-import TeamProfile from '@/components/organisms/TeamProfile.vue';
+import ProfileSelf from '@/components/organisms/ProfileSelf.vue';
+import ProfileTeam from '@/components/organisms/ProfileTeam.vue';
 
 export default defineComponent({
   components: {
     EditProfileForm,
-    SelfProfile,
-    TeamProfile,
+    ProfileSelf,
+    ProfileTeam,
   },
 
   props: {

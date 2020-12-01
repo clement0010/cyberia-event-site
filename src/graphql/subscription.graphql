@@ -8,3 +8,17 @@ subscription SubscribePublicLeaderboard {
     }
   }
 }
+
+subscription SubscibeToAllGames {
+  games {
+    game_name
+    id
+    teams_scores {
+      score
+      team_id
+      team {
+        name
+      }
+    }
+  }
+}

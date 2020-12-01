@@ -20,14 +20,16 @@
         </v-card-title>
         <v-card-text>
           <v-select
+            v-model="updateData.team_id"
             label="Team"
             :items="teamsScores"
             item-text="team.name"
             item-value="team_id"
           />
           <v-select
+            v-model="updateData.score"
             label="Score"
-            :items="scores"
+            :items="scoreOptions"
           />
         </v-card-text>
         <v-card-actions>
@@ -40,53 +42,92 @@
           </v-btn>
           <v-btn
             color="primary"
-            @click="dialog = false"
+            @click="editWrapper"
           >
             Confirm
           </v-btn>
         </v-card-actions>
+        <LoaderSpinMini v-if="loading" />
       </v-card>
     </v-dialog>
+    <SnackBar
+      :text="message"
+      :timeout="timeout"
+      :snackbar="snackbar"
+    />
   </v-row>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@vue/composition-api';
+import { defineComponent, ref, reactive } from '@vue/composition-api';
 import { useUpdateGameScoreMutation } from '@/generated/graphql';
-import { useApolloClient } from '@vue/apollo-composable';
-import CacheService from '@/services/cacheService';
+import SnackBar from '@/components/atoms/Snackbars.vue';
+import snackBarComposition from '@/composable/snackbar';
+import LoaderSpinMini from '@/components/atoms/LoaderSpinMini.vue';
 
 export default defineComponent({
   name: 'EditGameForm',
 
+  components: {
+    SnackBar,
+    LoaderSpinMini,
+  },
   props: {
+    id: {
+      type: String,
+    },
     teamsScores: {
       type: Array,
       default: () => [],
     },
-    scores: {
-      type: Array,
-      default: () => ['0', '250', '500', '750', '1000'],
-    },
   },
 
   setup(props) {
-    // Create apollo client for caching purposes
-    const { resolveClient } = useApolloClient();
-    const client = resolveClient();
-
+    const scoreOptions = ref([0, 250, 500, 750, 1000]);
     const dialog = ref(false);
-    const scores = reactive({
-      team_scores: props.teamsScores || [],
+    const loading = ref(false);
+
+    const {
+      timeout, snackbar, message, snackbarHandler,
+    } = snackBarComposition();
+
+    const { mutate: updateScore } = useUpdateGameScoreMutation(() => ({}));
+
+    const updateData = reactive({
+      game_id: props.id || '',
+      team_id: '',
+      score: 0,
     });
 
-    const { mutate: updateDetails } = useUpdateGameScoreMutation(() => ({}));
-    function saveWrapper() {
-      dialog.value = false;
-      console.log('Updated scores', scores);
+    function editWrapper() {
+      loading.value = true;
+      console.log('Data', updateData);
+      updateScore(updateData).then((result) => {
+        if (result.data.update_teams_scores.affected_rows) {
+          updateData.team_id = '';
+          updateData.score = 0;
+          snackbarHandler('Update Successfully!');
+        } else {
+          snackbarHandler('Error! Try again later.');
+        }
+        loading.value = false;
+        dialog.value = false;
+      }).catch((err) => {
+        loading.value = false;
+        console.error(err);
+        snackbarHandler('Error! Try again later!');
+      });
     }
+
     return {
       dialog,
+      loading,
+      editWrapper,
+      scoreOptions,
+      updateData,
+      timeout,
+      message,
+      snackbar,
     };
   },
 });

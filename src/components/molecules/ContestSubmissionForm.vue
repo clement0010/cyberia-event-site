@@ -37,21 +37,25 @@
           >
             Submit
           </v-btn>
-          <SnackBar
-            :text="message"
-            :timeout="timeout"
-            :snackbar="snackbar"
-          />
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <SnackBar
+      :text="message"
+      :timeout="timeout"
+      :snackbar="snackbar"
+    />
   </v-row>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
-import SnackBar from '@/components/atoms/Snackbars.vue';
+import { defineComponent, reactive, ref } from '@vue/composition-api';
 import uploadService from '@/services/submissionService';
+import SnackBar from '@/components/atoms/Snackbars.vue';
+import snackBarComposition from '@/composable/snackbar';
+import { useSubmitContestMutation, GetParticipantVotingDetailsDocument } from '@/generated/graphql';
+import { useApolloClient } from '@vue/apollo-composable';
+import CacheService from '@/services/cacheService';
 
 export default defineComponent({
   name: 'ContestSubmissionForm',
@@ -60,28 +64,51 @@ export default defineComponent({
     SnackBar,
   },
 
-  setup() {
-    const dialog = ref(false);
+  props: {
+    participantId: {
+      type: String,
+    },
+  },
 
-    const timeout = 2000;
-    const snackbar = ref(false);
-    const message = ref('');
-    function snackbarHandler(text: string) {
-      console.log(snackbar.value);
-      if (!snackbar.value) {
-        message.value = text;
-        snackbar.value = true;
-        setTimeout(() => {
-          snackbar.value = false;
-        }, timeout);
-      }
-    }
+  setup(props) {
+    const dialog = ref(false);
+    const { resolveClient } = useApolloClient();
+    const client = resolveClient();
+
+    const {
+      timeout, snackbar, message, snackbarHandler,
+    } = snackBarComposition();
 
     const currentFile = ref();
-    const imageURL = ref('');
+    const submissionData = reactive({
+      submission_url: '',
+      participant_id: props.participantId,
+    });
     function selectFile(file: Blob) {
       console.log('Selected File: ', file);
       currentFile.value = file;
+    }
+
+    const { mutate: submitContest } = useSubmitContestMutation(() => ({}));
+
+    function submissionWrapper(imageUrl: string) {
+      submissionData.participant_id = props.participantId;
+      submissionData.submission_url = imageUrl;
+      console.log(submissionData);
+      submitContest(submissionData).then((result) => {
+        if (result.data.insert_contest.affected_rows) {
+          const cache = new CacheService(client);
+
+          const { participants } = cache.read(GetParticipantVotingDetailsDocument, {});
+          participants[0].submission = true;
+          cache.write(GetParticipantVotingDetailsDocument, { participants });
+        } else {
+          throw new Error('Submission Server Error');
+        }
+      }).catch((err) => {
+        console.error(err);
+        snackbarHandler('Error! Try again later!');
+      });
     }
 
     async function upload() {
@@ -93,15 +120,19 @@ export default defineComponent({
       try {
         const { data, status } = await uploadService(currentFile.value, 'auth0|12345678910');
         if (status === 200) {
-          imageURL.value = data.imageURL;
-          console.log(imageURL.value, 'Image URL==============');
-          dialog.value = false;
+          submissionWrapper(data.imageURL);
+          snackbarHandler('Update Successfully!');
+
+          // UX Improvement =========================================
+          setTimeout(() => {
+            dialog.value = false;
+          }, 500);
           return;
         }
         throw new Error('Submission Server Error');
       } catch (error) {
         snackbarHandler('Something is wrong. Please try again later.');
-        console.log('ERROR: ', error);
+        console.error('ERROR: ', error);
       }
     }
 

@@ -1,6 +1,7 @@
 query getOneParticipantDetails {
   participants {
     description
+
     name
     role
     team_id
@@ -13,39 +14,18 @@ query getOneParticipantDetails {
   }
 }
 
-query GetPublicLeaderboard {
-  leaderboard_public {
-    score
-    team_id
-    team_name {
-      name
-    }
-  }
-}
-
-query GetContestSubmission {
-  contest {
+query GetContestSubmission($limit: Int!, $offset: Int!) {
+  contest(offset: $offset, limit: $limit, order_by: {submission_time: asc}) {
     submission_url
     participant_id
   }
 }
 
-query GetAllGames {
-  games {
-    game_name
-    id
-    teams_scores {
-      score
-      team_id
-      team {
-        name
-      }
-    }
-  }
-}
 
-mutation UpdateGameScore($game_id: uuid!, $score: Int!, $team_id: uuid!) {
-  update_teams_scores(where: {game_id: {_eq: $team_id}, score: {_eq: $score}, team_id: {_eq: $game_id}}) {
-    affected_rows
+query getParticipantVotingDetails {
+  participants {
+    id
+    submission
+    vote
   }
 }

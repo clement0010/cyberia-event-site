@@ -91,6 +91,7 @@ export default defineComponent({
       name: props.username || '',
       description: props.description || '',
     });
+    console.log(profile);
 
     const { mutate: updateDetails } = useUpdateParticipantDetailsMutation(() => ({}));
     function saveWrapper() {
@@ -101,7 +102,7 @@ export default defineComponent({
         // Initiate caching service
         const cache = new CacheService(client);
 
-        const data = cache.read(GetOneParticipantDetailsDocument);
+        const data = cache.read(GetOneParticipantDetailsDocument, {});
         const participants = result.data.update_participants.returning;
         console.log(data, '=======MUST MATCH STRUCTURE========', { participants });
         cache.write(GetOneParticipantDetailsDocument, { participants });

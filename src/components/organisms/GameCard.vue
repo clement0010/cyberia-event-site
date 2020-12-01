@@ -11,20 +11,23 @@
       <v-card-text>
         Top 3<br>
         <div
-          v-for="n in Math.min(game.teams_scores.length, 3)"
-          :key="n"
+          v-for="(team, index) in game.teams_scores"
+          :key="index"
           class="px-3"
         >
           <v-row>
-            {{ game.teams_scores[n - 1].team.name }}
+            {{ team.team.name }}
             <v-spacer />
-            {{ game.teams_scores[n - 1].score }}
+            {{ team.score }}
           </v-row>
           <v-divider />
         </div>
       </v-card-text>
       <v-card-actions>
-        <edit-game-form :teams-scores="game.teams_scores" />
+        <edit-game-form
+          :id="game.id"
+          :teams-scores="game.teams_scores"
+        />
       </v-card-actions>
     </v-card>
   </v-col>
@@ -43,8 +46,15 @@ export default defineComponent({
     game: {
       type: Object,
       default: () => ({
+        id: '3b48e7d9-50ef-41c6-a0be-d1e72975e17c',
         game_name: 'Game',
-        teams_scores: [],
+        teams_scores: [{
+          score: 3000,
+          team_id: 'c15a5929-0564-4e24-8811-930ab511408c',
+          team: {
+            name: 'TEAM1',
+          },
+        }],
       }),
     },
   },

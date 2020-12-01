@@ -5,16 +5,18 @@ import {
 } from 'apollo-boost';
 
 const getHeaders = () => {
-  const headers = {
-    'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
-    'x-hasura-role': 'admin',
-    // 'x-hasura-user-id': 'auth0|12345678910', // Change this to access as different user - DEV
-  };
   const token = window.localStorage.getItem('hasura-token');
   if (token) {
-    // headers.authorization = `Bearer ${token}`;
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
+    return headers;
   }
-  // console.log(headers);
+  const headers = {
+    'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
+    'x-hasura-role': 'crewmate',
+    'x-hasura-user-id': 'auth0|12345678910', // Change this to access as different user - DEV
+  };
   return headers;
 };
 

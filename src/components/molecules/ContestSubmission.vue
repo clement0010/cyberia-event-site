@@ -8,13 +8,19 @@
       <expanded-contest-submission
         :picture-url="pictureUrl"
         :contestant-id="contestantId"
+        :participant-id="participantId"
+        :voted="voted"
       />
       <v-card-text>
         <strong>Submission title</strong><br>
         By username {{ contestantId }} -- for debugging purposes
       </v-card-text>
       <v-card-actions>
-        <submission-vote :contestant-id="contestantId" />
+        <submission-vote
+          v-if="contestantId!==participantId && !voted"
+          :contestant-id="contestantId"
+          :participant-id="participantId"
+        />
       </v-card-actions>
     </v-card>
   </v-col>
@@ -34,6 +40,13 @@ export default defineComponent({
     },
     contestantId: {
       type: String,
+    },
+    participantId: {
+      type: String,
+    },
+    voted: {
+      type: Boolean,
+      default: () => false,
     },
   },
 

@@ -1,8 +1,10 @@
 <template>
   <v-container>
     <LoaderSpin v-if="loading" />
-    <p v-else-if="error">Error {{ error }}</p>
-    <div v-else>
+    <p v-if="error">Error {{ error }}</p>
+    <div
+      v-else
+    >
       <div class="my-10">
         <h1 class="text-center">
           Contest Gallery
@@ -10,37 +12,38 @@
         <p class="text-center">
           Vote for your favourite submission here!
         </p>
+        <v-row justify="center">
+          <div class="my-5">
+            <contest-submission-form
+              v-if="!participantDetails.submission"
+              :participant-id="participantDetails.id"
+            />
+          </div>
+        </v-row>
       </div>
       <v-row justify="start">
         <contest-submission
-          v-for="index in Math.min(contestSubmissions.length-itemsPerPage*(currentPage-1), itemsPerPage)"
+          v-for="(submission,index) in contestSubmissions"
           :key="index"
-          :contestant-id="contestSubmissions[index-1+itemsPerPage*(currentPage-1)].participant_id"
-          :picture-url="contestSubmissions[index-1+itemsPerPage*(currentPage-1)].submission_url"
+          :contestant-id="submission.participant_id"
+          :picture-url="submission.submission_url"
+          :participant-id="participantDetails.id"
+          :voted="participantDetails.vote"
         />
       </v-row>
-      <v-row justify="center">
-        <v-pagination
-          v-model="currentPage"
-          :length="length"
-          @input="handlePageChange"
-        />
-      </v-row>
-      <v-row justify="center">
-        <div class="my-5">
-          <contest-submission-form />
-        </div>
-      </v-row>
+      <v-row justify="center" />
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api';
+import {
+  defineComponent, onUnmounted, onMounted,
+} from '@vue/composition-api';
 import ContestSubmission from '@/components/molecules/ContestSubmission.vue';
 import ContestSubmissionForm from '@/components/molecules/ContestSubmissionForm.vue';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
-import { useGetContestSubmissionQuery } from '@/generated/graphql';
+import { useGetContestSubmissionQuery, GetContestSubmissionQuery, useGetParticipantVotingDetailsQuery } from '@/generated/graphql';
 import { useResult } from '@vue/apollo-composable';
 
 export default defineComponent({
@@ -51,25 +54,70 @@ export default defineComponent({
     ContestSubmissionForm,
   },
   setup() {
-    const { result, loading, error } = useGetContestSubmissionQuery();
+    const {
+      result, loading, error, fetchMore,
+    } = useGetContestSubmissionQuery({ limit: 3, offset: 0 }, {
+      notifyOnNetworkStatusChange: true,
+    });
+    const {
+      result: result1,
+    } = useGetParticipantVotingDetailsQuery();
     const contestSubmissions = useResult(result, [], (data) => data.contest);
-    let currentPage = 1;
-    const itemsPerPage = 12;
-    const length = computed(() => Math.ceil(contestSubmissions.value.length / itemsPerPage));
 
-    function handlePageChange(value: number) {
-      currentPage = value;
+    const participantDetails = useResult(result1, [], (data) => {
+      if (!data.participants.length) {
+        // Public User
+        return {
+          id: '0',
+          submission: true,
+          vote: true,
+        };
+      }
+      return data.participants[0];
+    });
+    function loadMore() {
+      fetchMore({
+        variables: {
+          offset: result.value.contest.length,
+        },
+        updateQuery: (previousResult: GetContestSubmissionQuery, { fetchMoreResult }: any) => {
+          // No new feed posts
+          console.log(previousResult, fetchMoreResult);
+          if (!fetchMoreResult) return previousResult;
+
+          // Concat previous feed with new feed posts
+          result.value.contest = [
+            ...previousResult.contest,
+            ...fetchMoreResult.contest,
+          ];
+          const { contest } = result.value;
+          return {
+            ...previousResult,
+            contest,
+          };
+        },
+      });
     }
 
+    function scrollBehavior(e: any) {
+      if ((window.innerHeight + window.scrollY + 10) >= document.body.offsetHeight && !loading.value) {
+        console.log('Loading More');
+        loadMore();
+      }
+    }
+    onMounted(() => {
+      window.addEventListener('scroll', scrollBehavior);
+    });
+    onUnmounted(() => {
+      window.removeEventListener('scroll', scrollBehavior);
+    });
+
     return {
-      currentPage,
-      handlePageChange,
-      itemsPerPage,
-      length,
-      result,
       loading,
       error,
+      loadMore,
       contestSubmissions,
+      participantDetails,
     };
   },
 });
