@@ -10,7 +10,7 @@ function authComposition(root: any) {
   }
   async function logout() {
     root.$auth.logout({
-      returnTo: process.env.NODE_ENV === 'production' ? `${window.location.origin}/cyberia-event-site/` : window.location.origin,
+      returnTo: process.env.NODE_ENV === 'production' ? `${window.location.origin}/cyberia-event-site/` : `${window.location.origin}`,
     });
   }
   const watcher = setInterval(() => {
