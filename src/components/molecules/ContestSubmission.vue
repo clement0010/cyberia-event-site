@@ -5,7 +5,7 @@
     md="4"
   >
     <v-card>
-      <expanded-contest-submission
+      <ContestSubmissionExpanded
         :picture-url="pictureUrl"
         :contestant-id="contestantId"
         :participant-id="participantId"
@@ -16,7 +16,7 @@
         By username {{ contestantId }} -- for debugging purposes
       </v-card-text>
       <v-card-actions>
-        <submission-vote
+        <SubmissionVote
           v-if="contestantId!==participantId && !voted"
           :contestant-id="contestantId"
           :participant-id="participantId"
@@ -29,7 +29,7 @@
 <script>
 import { defineComponent } from '@vue/composition-api';
 import SubmissionVote from './SubmissionVote.vue';
-import ExpandedContestSubmission from './ExpandedContestSubmission.vue';
+import ContestSubmissionExpanded from './ContestSubmissionExpanded.vue';
 
 export default defineComponent({
   name: 'ContestSubmission',
@@ -51,7 +51,7 @@ export default defineComponent({
   },
 
   components: {
-    ExpandedContestSubmission,
+    ContestSubmissionExpanded,
     SubmissionVote,
   },
 
