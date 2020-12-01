@@ -10,6 +10,7 @@ const getHeaders = () => {
     const headers = {
       authorization: `Bearer ${token}`,
     };
+
     console.log(headers);
     return headers;
   }
