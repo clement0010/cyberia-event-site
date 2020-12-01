@@ -23,6 +23,7 @@ export const useAuth0 = ({
   redirectUri = process.env.NODE_ENV === 'production' ? `${window.location.origin}/cyberia-event-site/` : window.location.origin,
   ...options
 }) => {
+  console.log(window.location);
   if (instance) return instance;
 
   // The 'instance' is simply a Vue object
