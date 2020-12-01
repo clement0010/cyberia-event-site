@@ -22,6 +22,16 @@
           </router-link>
 
           <router-link
+            v-if="role==='admin'"
+            to="/admin"
+            class="text-decoration-none"
+          >
+            <v-list-item>
+              <v-list-item-title>Admin</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          <router-link
+            v-else
             to="/profile"
             class="text-decoration-none"
           >
@@ -31,7 +41,14 @@
           </router-link>
 
           <v-list-item>
-            <v-list-item-title>Login</v-list-item-title>
+            <v-list-item-title
+              v-if="!isAuthenticated"
+              @click="login"
+            >Login</v-list-item-title>
+            <v-list-item-title
+              v-else
+              @click="logout"
+            >Logout</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -54,6 +71,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import authComposition from '@/composable/authHandler';
 
 export default defineComponent({
   name: 'NavBarMobile',
@@ -70,6 +88,19 @@ export default defineComponent({
     group() {
       this.drawer = false;
     },
+  },
+
+  setup(props, { root }) {
+    const {
+      login, logout, isAuthenticated, role,
+    } = authComposition(root);
+
+    return {
+      login,
+      logout,
+      role,
+      isAuthenticated,
+    };
   },
 });
 </script>

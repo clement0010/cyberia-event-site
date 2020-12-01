@@ -22,6 +22,16 @@
         </v-btn>
       </router-link>
       <router-link
+        v-if="role === 'admin'"
+        to="/admin"
+        class="text-decoration-none"
+      >
+        <v-btn class="mx-1">
+          Admin
+        </v-btn>
+      </router-link>
+      <router-link
+        v-else
         to="/profile"
         class="text-decoration-none"
       >
@@ -33,8 +43,19 @@
         to="/"
         class="text-decoration-none"
       >
-        <v-btn class="mx-1">
+        <v-btn
+          v-if="!isAuthenticated"
+          class="mx-1"
+          @click="login"
+        >
           Login
+        </v-btn>
+        <v-btn
+          v-else
+          class="mx-1"
+          @click="logout"
+        >
+          Logout
         </v-btn>
       </router-link>
     </v-app-bar>
@@ -43,6 +64,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import authComposition from '@/composable/authHandler';
 
 export default defineComponent({
   name: 'NavBarWeb',
@@ -53,5 +75,18 @@ export default defineComponent({
   data: () => ({
     drawer: false,
   }),
+
+  setup(props, { root }) {
+    const {
+      login, logout, isAuthenticated, role,
+    } = authComposition(root);
+
+    return {
+      login,
+      logout,
+      role,
+      isAuthenticated,
+    };
+  },
 });
 </script>

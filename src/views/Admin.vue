@@ -24,6 +24,13 @@
         >
           Open Submissions
         </v-btn>
+        <v-btn
+          color="secondary"
+          dark
+          large
+        >
+          Open Voting
+        </v-btn>
       </v-row>
     </div>
   </v-container>

@@ -2947,6 +2947,30 @@ export type SubmitContestVoteMutation = (
   )>; }
 );
 
+export type SubmissionControlMutationVariables = Exact<{
+  submission?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type SubmissionControlMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type VotingControlMutationVariables = Exact<{
+  vote?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type VotingControlMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
 export type GetOneParticipantDetailsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetOneParticipantDetailsQuery = (
@@ -3162,6 +3186,64 @@ export function useSubmitContestVoteMutation(options: VueApolloComposable.UseMut
   return VueApolloComposable.useMutation<SubmitContestVoteMutation, SubmitContestVoteMutationVariables>(SubmitContestVoteDocument, options);
 }
 export type SubmitContestVoteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<SubmitContestVoteMutation, SubmitContestVoteMutationVariables>;
+export const SubmissionControlDocument = gql`
+    mutation SubmissionControl($submission: Boolean) {
+  update_participants(where: {}, _set: {submission: $submission}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useSubmissionControlMutation__
+ *
+ * To run a mutation, you first call `useSubmissionControlMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useSubmissionControlMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useSubmissionControlMutation({
+ *   variables: {
+ *     submission: // value for 'submission'
+ *   },
+ * });
+ */
+export function useSubmissionControlMutation(options: VueApolloComposable.UseMutationOptions<SubmissionControlMutation, SubmissionControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<SubmissionControlMutation, SubmissionControlMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<SubmissionControlMutation, SubmissionControlMutationVariables>(SubmissionControlDocument, options);
+}
+export type SubmissionControlMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<SubmissionControlMutation, SubmissionControlMutationVariables>;
+export const VotingControlDocument = gql`
+    mutation VotingControl($vote: Boolean) {
+  update_participants(where: {}, _set: {vote: $vote}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useVotingControlMutation__
+ *
+ * To run a mutation, you first call `useVotingControlMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useVotingControlMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useVotingControlMutation({
+ *   variables: {
+ *     vote: // value for 'vote'
+ *   },
+ * });
+ */
+export function useVotingControlMutation(options: VueApolloComposable.UseMutationOptions<VotingControlMutation, VotingControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<VotingControlMutation, VotingControlMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<VotingControlMutation, VotingControlMutationVariables>(VotingControlDocument, options);
+}
+export type VotingControlMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<VotingControlMutation, VotingControlMutationVariables>;
 export const GetOneParticipantDetailsDocument = gql`
     query getOneParticipantDetails {
   participants {

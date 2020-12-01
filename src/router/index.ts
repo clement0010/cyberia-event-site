@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue';
 import Itinerary from '@/components/organisms/Itinerary.vue';
 import Faq from '@/components/organisms/Faq.vue';
 import GeneralInfo from '@/components/organisms/GeneralInfo.vue';
+import { authGuard } from '@/plugins/auth0/authGuard';
 
 Vue.use(VueRouter);
 
@@ -54,7 +55,9 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Profile.vue'),
     meta: {
       requiresAuth: true,
+      role: 'crewmate',
     },
+    beforeEnter: authGuard,
   },
   {
     path: '/admin',
@@ -62,7 +65,9 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Admin.vue'),
     meta: {
       requiresAuth: true,
+      role: 'admin',
     },
+    beforeEnter: authGuard,
   },
   {
     path: '/leaderboard',

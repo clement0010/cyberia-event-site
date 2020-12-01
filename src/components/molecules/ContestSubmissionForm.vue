@@ -14,6 +14,7 @@
         >
           Add Submission
         </v-btn>
+
       </template>
       <v-card>
         <v-card-title>
@@ -115,9 +116,13 @@ export default defineComponent({
       if (!currentFile.value) {
         snackbarHandler('Please select a file!');
         return;
+      } if (currentFile.value.size > 1000000) {
+        snackbarHandler('Please compress your file!');
+        return;
       }
 
       try {
+        // Need to standardize and pass token in
         const { data, status } = await uploadService(currentFile.value, 'auth0|12345678910');
         if (status === 200) {
           submissionWrapper(data.imageURL);
@@ -144,6 +149,7 @@ export default defineComponent({
       snackbar,
       timeout,
       message,
+
     };
   },
 });

@@ -39,3 +39,15 @@ mutation SubmitContestVote($participant_id: uuid!) {
     affected_rows
   }
 }
+
+mutation SubmissionControl($submission: Boolean) {
+  update_participants(where: {}, _set: {submission: $submission}) {
+    affected_rows
+  }
+}
+
+mutation VotingControl($vote: Boolean) {
+  update_participants(where: {}, _set: {vote: $vote}) {
+    affected_rows
+  }
+}

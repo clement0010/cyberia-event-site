@@ -15,9 +15,12 @@
         <v-row justify="center">
           <div class="my-5">
             <contest-submission-form
-              v-if="!participantDetails.submission"
+              v-if="!participantDetails.submission&&role !== 'admin' && isAuthenticated"
+
               :participant-id="participantDetails.id"
             />
+            <!-- Need to fix UI -->
+            <p v-else-if="!isAuthenticated">Please login first!</p>
           </div>
         </v-row>
       </div>
@@ -45,6 +48,7 @@ import ContestSubmissionForm from '@/components/molecules/ContestSubmissionForm.
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
 import { useGetContestSubmissionQuery, GetContestSubmissionQuery, useGetParticipantVotingDetailsQuery } from '@/generated/graphql';
 import { useResult } from '@vue/apollo-composable';
+import authComposition from '@/composable/authHandler';
 
 export default defineComponent({
   name: 'ContestGallery',
@@ -53,7 +57,10 @@ export default defineComponent({
     ContestSubmission,
     ContestSubmissionForm,
   },
-  setup() {
+  setup(_, { root }) {
+    const {
+      isAuthenticated, role,
+    } = authComposition(root);
     const {
       result, loading, error, fetchMore,
     } = useGetContestSubmissionQuery({ limit: 3, offset: 0 }, {
@@ -118,6 +125,8 @@ export default defineComponent({
       loadMore,
       contestSubmissions,
       participantDetails,
+      isAuthenticated,
+      role,
     };
   },
 });

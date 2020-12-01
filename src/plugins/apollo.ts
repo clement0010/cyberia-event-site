@@ -10,12 +10,14 @@ const getHeaders = () => {
     const headers = {
       authorization: `Bearer ${token}`,
     };
+    console.log(headers);
     return headers;
   }
+
   const headers = {
-    'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
-    'x-hasura-role': 'crewmate',
-    'x-hasura-user-id': 'auth0|12345678910', // Change this to access as different user - DEV
+    // 'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
+    // 'x-hasura-role': 'public',
+    // 'x-hasura-user-id': '0', // Change this to access as different user - DEV
   };
   return headers;
 };
@@ -48,8 +50,9 @@ const link = split(
     return kind === 'OperationDefinition'
     && operation === 'subscription';
   },
-  wsLink,
+  // Need to figure out why httplink doesnt work at first login
   httpLink,
+  wsLink,
 );
 
 export default new ApolloClient({

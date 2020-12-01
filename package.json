@@ -9,6 +9,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.13.3",
     "@google-cloud/storage": "^5.5.0",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
     "@vue/composition-api": "^1.0.0-beta.19",
@@ -19,6 +20,7 @@
     "core-js": "^3.6.5",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
+    "lodash": "^4.17.20",
     "subscriptions-transport-ws": "^0.9.18",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.5",
