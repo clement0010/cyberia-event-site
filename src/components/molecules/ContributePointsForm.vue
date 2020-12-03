@@ -12,28 +12,21 @@
           v-bind="attrs"
           v-on="on"
         >
-          Edit Profile
+          Contribute Points
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Edit Profile</span>
+          <span class="headline">Contribute Points</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12">
                 <v-text-field
-                  v-model="profile.name"
+                  v-model="points"
                   color="white"
-                  label="Username"
-                />
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="profile.description"
-                  color="white"
-                  label="Description"
+                  label="Points"
                 />
               </v-col>
             </v-row>
@@ -49,7 +42,7 @@
           </v-btn>
           <v-btn
             color="primary"
-            @click="saveWrapper"
+            @click="contributeWrapper"
           >
             Save
           </v-btn>
@@ -61,56 +54,39 @@
 
 <script lang="ts">
 
-import { defineComponent, reactive, ref } from '@vue/composition-api';
-import { GetOneParticipantDetailsDocument, useUpdateParticipantDetailsMutation } from '@/generated/graphql';
+import { defineComponent, ref } from '@vue/composition-api';
+import { GetOneParticipantDetailsDocument, useAddScoreToTeamMutation } from '@/generated/graphql';
 import { useApolloClient } from '@vue/apollo-composable';
 import CacheService from '@/services/cacheService';
 
 export default defineComponent({
-  name: 'EditProfileForm',
+  name: 'ContributePointsForm',
 
-  components: {
-  },
-
-  props: {
-    description: {
-      type: String,
-    },
-    username: {
-      type: String,
-    },
-  },
-
-  setup(props) {
-    // Create apollo client for caching purposes
+  setup() {
     const { resolveClient } = useApolloClient();
     const client = resolveClient();
-
     const dialog = ref(false);
-    const profile = reactive({
-      name: props.username || '',
-      description: props.description || '',
-    });
-    console.log(profile);
 
-    const { mutate: updateDetails } = useUpdateParticipantDetailsMutation(() => ({}));
-    function saveWrapper() {
+    const points = ref(0);
+    const { mutate: contributePoints } = useAddScoreToTeamMutation({});
+
+    function contributeWrapper() {
       dialog.value = false;
-      console.log('Updated profile', profile);
 
-      updateDetails(profile).then((result) => {
-        // Initiate caching service
+      contributePoints({
+        crewmate: -points.value,
+        team: +points.value,
+      }).then((result) => {
         const cache = new CacheService(client);
-
         const participants = result.data.update_participants.returning;
         cache.write(GetOneParticipantDetailsDocument, { participants });
       });
     }
 
     return {
+      points,
+      contributeWrapper,
       dialog,
-      saveWrapper,
-      profile,
     };
   },
 });

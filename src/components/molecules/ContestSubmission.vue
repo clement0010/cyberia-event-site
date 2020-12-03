@@ -9,7 +9,7 @@
         :picture-url="pictureUrl"
         :contestant-id="contestantId"
         :participant-id="participantId"
-        :voted="voted"
+        :vote="vote"
       />
       <v-card-text>
         <strong>Submission title</strong><br>
@@ -17,7 +17,7 @@
       </v-card-text>
       <v-card-actions>
         <SubmissionVote
-          v-if="contestantId!==participantId && !voted"
+          v-if="contestantId!==participantId && vote"
           :contestant-id="contestantId"
           :participant-id="participantId"
         />
@@ -44,7 +44,7 @@ export default defineComponent({
     participantId: {
       type: String,
     },
-    voted: {
+    vote: {
       type: Boolean,
       default: () => false,
     },

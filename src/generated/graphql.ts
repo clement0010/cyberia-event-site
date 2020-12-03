@@ -13,7 +13,6 @@ export type Scalars = {
   Int: number;
   Float: number;
   bigint: any;
-  timestamp: any;
   timestamptz: any;
   uuid: any;
 };
@@ -374,6 +373,163 @@ export type Contest_Variance_Order_By = {
   vote_count?: Maybe<Order_By>;
 };
 
+/** columns and relationships of "control" */
+export type Control = {
+  __typename?: 'control';
+  id: Scalars['uuid'];
+  leaderboard: Scalars['Boolean'];
+  submission: Scalars['Boolean'];
+  vote: Scalars['Boolean'];
+};
+
+/** aggregated selection of "control" */
+export type Control_Aggregate = {
+  __typename?: 'control_aggregate';
+  aggregate?: Maybe<Control_Aggregate_Fields>;
+  nodes: Array<Control>;
+};
+
+/** aggregate fields of "control" */
+export type Control_Aggregate_Fields = {
+  __typename?: 'control_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Control_Max_Fields>;
+  min?: Maybe<Control_Min_Fields>;
+};
+
+/** aggregate fields of "control" */
+export type Control_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Control_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "control" */
+export type Control_Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Control_Max_Order_By>;
+  min?: Maybe<Control_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "control" */
+export type Control_Arr_Rel_Insert_Input = {
+  data: Array<Control_Insert_Input>;
+  on_conflict?: Maybe<Control_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "control". All fields are combined with a logical 'AND'. */
+export type Control_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Control_Bool_Exp>>>;
+  _not?: Maybe<Control_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Control_Bool_Exp>>>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  leaderboard?: Maybe<Boolean_Comparison_Exp>;
+  submission?: Maybe<Boolean_Comparison_Exp>;
+  vote?: Maybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "control" */
+export enum Control_Constraint {
+  /** unique or primary key constraint */
+  ControlPkey = 'control_pkey'
+}
+
+/** input type for inserting data into table "control" */
+export type Control_Insert_Input = {
+  id?: Maybe<Scalars['uuid']>;
+  leaderboard?: Maybe<Scalars['Boolean']>;
+  submission?: Maybe<Scalars['Boolean']>;
+  vote?: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate max on columns */
+export type Control_Max_Fields = {
+  __typename?: 'control_max_fields';
+  id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "control" */
+export type Control_Max_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Control_Min_Fields = {
+  __typename?: 'control_min_fields';
+  id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "control" */
+export type Control_Min_Order_By = {
+  id?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "control" */
+export type Control_Mutation_Response = {
+  __typename?: 'control_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Control>;
+};
+
+/** input type for inserting object relation for remote table "control" */
+export type Control_Obj_Rel_Insert_Input = {
+  data: Control_Insert_Input;
+  on_conflict?: Maybe<Control_On_Conflict>;
+};
+
+/** on conflict condition type for table "control" */
+export type Control_On_Conflict = {
+  constraint: Control_Constraint;
+  update_columns: Array<Control_Update_Column>;
+  where?: Maybe<Control_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "control" */
+export type Control_Order_By = {
+  id?: Maybe<Order_By>;
+  leaderboard?: Maybe<Order_By>;
+  submission?: Maybe<Order_By>;
+  vote?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "control" */
+export type Control_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "control" */
+export enum Control_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Leaderboard = 'leaderboard',
+  /** column name */
+  Submission = 'submission',
+  /** column name */
+  Vote = 'vote'
+}
+
+/** input type for updating data in table "control" */
+export type Control_Set_Input = {
+  id?: Maybe<Scalars['uuid']>;
+  leaderboard?: Maybe<Scalars['Boolean']>;
+  submission?: Maybe<Scalars['Boolean']>;
+  vote?: Maybe<Scalars['Boolean']>;
+};
+
+/** update columns of table "control" */
+export enum Control_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Leaderboard = 'leaderboard',
+  /** column name */
+  Submission = 'submission',
+  /** column name */
+  Vote = 'vote'
+}
+
 /** columns and relationships of "games" */
 export type Games = {
   __typename?: 'games';
@@ -540,178 +696,6 @@ export enum Games_Update_Column {
   GameName = 'game_name',
   /** column name */
   Id = 'id'
-}
-
-/** columns and relationships of "imposter" */
-export type Imposter = {
-  __typename?: 'imposter';
-  cooldown?: Maybe<Scalars['timestamp']>;
-  id: Scalars['uuid'];
-  /** An object relationship */
-  participant?: Maybe<Participants>;
-  sabotage?: Maybe<Scalars['Boolean']>;
-  user_id?: Maybe<Scalars['String']>;
-};
-
-/** aggregated selection of "imposter" */
-export type Imposter_Aggregate = {
-  __typename?: 'imposter_aggregate';
-  aggregate?: Maybe<Imposter_Aggregate_Fields>;
-  nodes: Array<Imposter>;
-};
-
-/** aggregate fields of "imposter" */
-export type Imposter_Aggregate_Fields = {
-  __typename?: 'imposter_aggregate_fields';
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Imposter_Max_Fields>;
-  min?: Maybe<Imposter_Min_Fields>;
-};
-
-/** aggregate fields of "imposter" */
-export type Imposter_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Imposter_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "imposter" */
-export type Imposter_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Imposter_Max_Order_By>;
-  min?: Maybe<Imposter_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "imposter" */
-export type Imposter_Arr_Rel_Insert_Input = {
-  data: Array<Imposter_Insert_Input>;
-  on_conflict?: Maybe<Imposter_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "imposter". All fields are combined with a logical 'AND'. */
-export type Imposter_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<Imposter_Bool_Exp>>>;
-  _not?: Maybe<Imposter_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<Imposter_Bool_Exp>>>;
-  cooldown?: Maybe<Timestamp_Comparison_Exp>;
-  id?: Maybe<Uuid_Comparison_Exp>;
-  participant?: Maybe<Participants_Bool_Exp>;
-  sabotage?: Maybe<Boolean_Comparison_Exp>;
-  user_id?: Maybe<String_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "imposter" */
-export enum Imposter_Constraint {
-  /** unique or primary key constraint */
-  ImposterPkey = 'imposter_pkey',
-  /** unique or primary key constraint */
-  ImposterUserIdKey = 'imposter_user_id_key'
-}
-
-/** input type for inserting data into table "imposter" */
-export type Imposter_Insert_Input = {
-  cooldown?: Maybe<Scalars['timestamp']>;
-  id?: Maybe<Scalars['uuid']>;
-  participant?: Maybe<Participants_Obj_Rel_Insert_Input>;
-  sabotage?: Maybe<Scalars['Boolean']>;
-  user_id?: Maybe<Scalars['String']>;
-};
-
-/** aggregate max on columns */
-export type Imposter_Max_Fields = {
-  __typename?: 'imposter_max_fields';
-  cooldown?: Maybe<Scalars['timestamp']>;
-  id?: Maybe<Scalars['uuid']>;
-  user_id?: Maybe<Scalars['String']>;
-};
-
-/** order by max() on columns of table "imposter" */
-export type Imposter_Max_Order_By = {
-  cooldown?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  user_id?: Maybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Imposter_Min_Fields = {
-  __typename?: 'imposter_min_fields';
-  cooldown?: Maybe<Scalars['timestamp']>;
-  id?: Maybe<Scalars['uuid']>;
-  user_id?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "imposter" */
-export type Imposter_Min_Order_By = {
-  cooldown?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  user_id?: Maybe<Order_By>;
-};
-
-/** response of any mutation on the table "imposter" */
-export type Imposter_Mutation_Response = {
-  __typename?: 'imposter_mutation_response';
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data of the affected rows by the mutation */
-  returning: Array<Imposter>;
-};
-
-/** input type for inserting object relation for remote table "imposter" */
-export type Imposter_Obj_Rel_Insert_Input = {
-  data: Imposter_Insert_Input;
-  on_conflict?: Maybe<Imposter_On_Conflict>;
-};
-
-/** on conflict condition type for table "imposter" */
-export type Imposter_On_Conflict = {
-  constraint: Imposter_Constraint;
-  update_columns: Array<Imposter_Update_Column>;
-  where?: Maybe<Imposter_Bool_Exp>;
-};
-
-/** ordering options when selecting data from "imposter" */
-export type Imposter_Order_By = {
-  cooldown?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-  participant?: Maybe<Participants_Order_By>;
-  sabotage?: Maybe<Order_By>;
-  user_id?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "imposter" */
-export type Imposter_Pk_Columns_Input = {
-  id: Scalars['uuid'];
-};
-
-/** select columns of table "imposter" */
-export enum Imposter_Select_Column {
-  /** column name */
-  Cooldown = 'cooldown',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Sabotage = 'sabotage',
-  /** column name */
-  UserId = 'user_id'
-}
-
-/** input type for updating data in table "imposter" */
-export type Imposter_Set_Input = {
-  cooldown?: Maybe<Scalars['timestamp']>;
-  id?: Maybe<Scalars['uuid']>;
-  sabotage?: Maybe<Scalars['Boolean']>;
-  user_id?: Maybe<Scalars['String']>;
-};
-
-/** update columns of table "imposter" */
-export enum Imposter_Update_Column {
-  /** column name */
-  Cooldown = 'cooldown',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Sabotage = 'sabotage',
-  /** column name */
-  UserId = 'user_id'
 }
 
 /** columns and relationships of "leaderboard_public" */
@@ -913,14 +897,14 @@ export type Mutation_Root = {
   delete_contest?: Maybe<Contest_Mutation_Response>;
   /** delete single row from the table: "contest" */
   delete_contest_by_pk?: Maybe<Contest>;
+  /** delete data from the table: "control" */
+  delete_control?: Maybe<Control_Mutation_Response>;
+  /** delete single row from the table: "control" */
+  delete_control_by_pk?: Maybe<Control>;
   /** delete data from the table: "games" */
   delete_games?: Maybe<Games_Mutation_Response>;
   /** delete single row from the table: "games" */
   delete_games_by_pk?: Maybe<Games>;
-  /** delete data from the table: "imposter" */
-  delete_imposter?: Maybe<Imposter_Mutation_Response>;
-  /** delete single row from the table: "imposter" */
-  delete_imposter_by_pk?: Maybe<Imposter>;
   /** delete data from the table: "participants" */
   delete_participants?: Maybe<Participants_Mutation_Response>;
   /** delete single row from the table: "participants" */
@@ -945,14 +929,14 @@ export type Mutation_Root = {
   insert_contest?: Maybe<Contest_Mutation_Response>;
   /** insert a single row into the table: "contest" */
   insert_contest_one?: Maybe<Contest>;
+  /** insert data into the table: "control" */
+  insert_control?: Maybe<Control_Mutation_Response>;
+  /** insert a single row into the table: "control" */
+  insert_control_one?: Maybe<Control>;
   /** insert data into the table: "games" */
   insert_games?: Maybe<Games_Mutation_Response>;
   /** insert a single row into the table: "games" */
   insert_games_one?: Maybe<Games>;
-  /** insert data into the table: "imposter" */
-  insert_imposter?: Maybe<Imposter_Mutation_Response>;
-  /** insert a single row into the table: "imposter" */
-  insert_imposter_one?: Maybe<Imposter>;
   /** insert data into the table: "participants" */
   insert_participants?: Maybe<Participants_Mutation_Response>;
   /** insert a single row into the table: "participants" */
@@ -977,14 +961,14 @@ export type Mutation_Root = {
   update_contest?: Maybe<Contest_Mutation_Response>;
   /** update single row of the table: "contest" */
   update_contest_by_pk?: Maybe<Contest>;
+  /** update data of the table: "control" */
+  update_control?: Maybe<Control_Mutation_Response>;
+  /** update single row of the table: "control" */
+  update_control_by_pk?: Maybe<Control>;
   /** update data of the table: "games" */
   update_games?: Maybe<Games_Mutation_Response>;
   /** update single row of the table: "games" */
   update_games_by_pk?: Maybe<Games>;
-  /** update data of the table: "imposter" */
-  update_imposter?: Maybe<Imposter_Mutation_Response>;
-  /** update single row of the table: "imposter" */
-  update_imposter_by_pk?: Maybe<Imposter>;
   /** update data of the table: "participants" */
   update_participants?: Maybe<Participants_Mutation_Response>;
   /** update single row of the table: "participants" */
@@ -1018,22 +1002,22 @@ export type Mutation_RootDelete_Contest_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootDelete_ControlArgs = {
+  where: Control_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Control_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+/** mutation root */
 export type Mutation_RootDelete_GamesArgs = {
   where: Games_Bool_Exp;
 };
 
 /** mutation root */
 export type Mutation_RootDelete_Games_By_PkArgs = {
-  id: Scalars['uuid'];
-};
-
-/** mutation root */
-export type Mutation_RootDelete_ImposterArgs = {
-  where: Imposter_Bool_Exp;
-};
-
-/** mutation root */
-export type Mutation_RootDelete_Imposter_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -1101,6 +1085,18 @@ export type Mutation_RootInsert_Contest_OneArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootInsert_ControlArgs = {
+  objects: Array<Control_Insert_Input>;
+  on_conflict?: Maybe<Control_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Control_OneArgs = {
+  object: Control_Insert_Input;
+  on_conflict?: Maybe<Control_On_Conflict>;
+};
+
+/** mutation root */
 export type Mutation_RootInsert_GamesArgs = {
   objects: Array<Games_Insert_Input>;
   on_conflict?: Maybe<Games_On_Conflict>;
@@ -1110,18 +1106,6 @@ export type Mutation_RootInsert_GamesArgs = {
 export type Mutation_RootInsert_Games_OneArgs = {
   object: Games_Insert_Input;
   on_conflict?: Maybe<Games_On_Conflict>;
-};
-
-/** mutation root */
-export type Mutation_RootInsert_ImposterArgs = {
-  objects: Array<Imposter_Insert_Input>;
-  on_conflict?: Maybe<Imposter_On_Conflict>;
-};
-
-/** mutation root */
-export type Mutation_RootInsert_Imposter_OneArgs = {
-  object: Imposter_Insert_Input;
-  on_conflict?: Maybe<Imposter_On_Conflict>;
 };
 
 /** mutation root */
@@ -1199,6 +1183,18 @@ export type Mutation_RootUpdate_Contest_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_ControlArgs = {
+  _set?: Maybe<Control_Set_Input>;
+  where: Control_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Control_By_PkArgs = {
+  _set?: Maybe<Control_Set_Input>;
+  pk_columns: Control_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_GamesArgs = {
   _set?: Maybe<Games_Set_Input>;
   where: Games_Bool_Exp;
@@ -1211,25 +1207,15 @@ export type Mutation_RootUpdate_Games_By_PkArgs = {
 };
 
 /** mutation root */
-export type Mutation_RootUpdate_ImposterArgs = {
-  _set?: Maybe<Imposter_Set_Input>;
-  where: Imposter_Bool_Exp;
-};
-
-/** mutation root */
-export type Mutation_RootUpdate_Imposter_By_PkArgs = {
-  _set?: Maybe<Imposter_Set_Input>;
-  pk_columns: Imposter_Pk_Columns_Input;
-};
-
-/** mutation root */
 export type Mutation_RootUpdate_ParticipantsArgs = {
+  _inc?: Maybe<Participants_Inc_Input>;
   _set?: Maybe<Participants_Set_Input>;
   where: Participants_Bool_Exp;
 };
 
 /** mutation root */
 export type Mutation_RootUpdate_Participants_By_PkArgs = {
+  _inc?: Maybe<Participants_Inc_Input>;
   _set?: Maybe<Participants_Set_Input>;
   pk_columns: Participants_Pk_Columns_Input;
 };
@@ -1305,12 +1291,12 @@ export type Participants = {
   __typename?: 'participants';
   /** An object relationship */
   contest_submission?: Maybe<Contest>;
+  contribution: Scalars['Int'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['uuid'];
-  /** An object relationship */
-  imposter?: Maybe<Imposter>;
   name?: Maybe<Scalars['String']>;
   role: Roles_Enum;
+  score: Scalars['Int'];
   submission: Scalars['Boolean'];
   /** An object relationship */
   team: Teams;
@@ -1331,9 +1317,17 @@ export type Participants_Aggregate = {
 /** aggregate fields of "participants" */
 export type Participants_Aggregate_Fields = {
   __typename?: 'participants_aggregate_fields';
+  avg?: Maybe<Participants_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<Participants_Max_Fields>;
   min?: Maybe<Participants_Min_Fields>;
+  stddev?: Maybe<Participants_Stddev_Fields>;
+  stddev_pop?: Maybe<Participants_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Participants_Stddev_Samp_Fields>;
+  sum?: Maybe<Participants_Sum_Fields>;
+  var_pop?: Maybe<Participants_Var_Pop_Fields>;
+  var_samp?: Maybe<Participants_Var_Samp_Fields>;
+  variance?: Maybe<Participants_Variance_Fields>;
 };
 
 /** aggregate fields of "participants" */
@@ -1344,9 +1338,17 @@ export type Participants_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "participants" */
 export type Participants_Aggregate_Order_By = {
+  avg?: Maybe<Participants_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<Participants_Max_Order_By>;
   min?: Maybe<Participants_Min_Order_By>;
+  stddev?: Maybe<Participants_Stddev_Order_By>;
+  stddev_pop?: Maybe<Participants_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Participants_Stddev_Samp_Order_By>;
+  sum?: Maybe<Participants_Sum_Order_By>;
+  var_pop?: Maybe<Participants_Var_Pop_Order_By>;
+  var_samp?: Maybe<Participants_Var_Samp_Order_By>;
+  variance?: Maybe<Participants_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "participants" */
@@ -1355,17 +1357,31 @@ export type Participants_Arr_Rel_Insert_Input = {
   on_conflict?: Maybe<Participants_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Participants_Avg_Fields = {
+  __typename?: 'participants_avg_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "participants" */
+export type Participants_Avg_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "participants". All fields are combined with a logical 'AND'. */
 export type Participants_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Participants_Bool_Exp>>>;
   _not?: Maybe<Participants_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Participants_Bool_Exp>>>;
   contest_submission?: Maybe<Contest_Bool_Exp>;
+  contribution?: Maybe<Int_Comparison_Exp>;
   description?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
-  imposter?: Maybe<Imposter_Bool_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   role?: Maybe<Roles_Enum_Comparison_Exp>;
+  score?: Maybe<Int_Comparison_Exp>;
   submission?: Maybe<Boolean_Comparison_Exp>;
   team?: Maybe<Teams_Bool_Exp>;
   team_id?: Maybe<Uuid_Comparison_Exp>;
@@ -1382,14 +1398,21 @@ export enum Participants_Constraint {
   ParticipantsUserIdKey = 'participants_user_id_key'
 }
 
+/** input type for incrementing integer column in table "participants" */
+export type Participants_Inc_Input = {
+  contribution?: Maybe<Scalars['Int']>;
+  score?: Maybe<Scalars['Int']>;
+};
+
 /** input type for inserting data into table "participants" */
 export type Participants_Insert_Input = {
   contest_submission?: Maybe<Contest_Obj_Rel_Insert_Input>;
+  contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
-  imposter?: Maybe<Imposter_Obj_Rel_Insert_Input>;
   name?: Maybe<Scalars['String']>;
   role?: Maybe<Roles_Enum>;
+  score?: Maybe<Scalars['Int']>;
   submission?: Maybe<Scalars['Boolean']>;
   team?: Maybe<Teams_Obj_Rel_Insert_Input>;
   team_id?: Maybe<Scalars['uuid']>;
@@ -1401,18 +1424,22 @@ export type Participants_Insert_Input = {
 /** aggregate max on columns */
 export type Participants_Max_Fields = {
   __typename?: 'participants_max_fields';
+  contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
   name?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Int']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "participants" */
 export type Participants_Max_Order_By = {
+  contribution?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
   team_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
@@ -1420,18 +1447,22 @@ export type Participants_Max_Order_By = {
 /** aggregate min on columns */
 export type Participants_Min_Fields = {
   __typename?: 'participants_min_fields';
+  contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
   name?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Int']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "participants" */
 export type Participants_Min_Order_By = {
+  contribution?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
   team_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
 };
@@ -1461,11 +1492,12 @@ export type Participants_On_Conflict = {
 /** ordering options when selecting data from "participants" */
 export type Participants_Order_By = {
   contest_submission?: Maybe<Contest_Order_By>;
+  contribution?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  imposter?: Maybe<Imposter_Order_By>;
   name?: Maybe<Order_By>;
   role?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
   submission?: Maybe<Order_By>;
   team?: Maybe<Teams_Order_By>;
   team_id?: Maybe<Order_By>;
@@ -1482,6 +1514,8 @@ export type Participants_Pk_Columns_Input = {
 /** select columns of table "participants" */
 export enum Participants_Select_Column {
   /** column name */
+  Contribution = 'contribution',
+  /** column name */
   Description = 'description',
   /** column name */
   Id = 'id',
@@ -1489,6 +1523,8 @@ export enum Participants_Select_Column {
   Name = 'name',
   /** column name */
   Role = 'role',
+  /** column name */
+  Score = 'score',
   /** column name */
   Submission = 'submission',
   /** column name */
@@ -1501,18 +1537,74 @@ export enum Participants_Select_Column {
 
 /** input type for updating data in table "participants" */
 export type Participants_Set_Input = {
+  contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
   name?: Maybe<Scalars['String']>;
   role?: Maybe<Roles_Enum>;
+  score?: Maybe<Scalars['Int']>;
   submission?: Maybe<Scalars['Boolean']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
   vote?: Maybe<Scalars['Boolean']>;
 };
 
+/** aggregate stddev on columns */
+export type Participants_Stddev_Fields = {
+  __typename?: 'participants_stddev_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "participants" */
+export type Participants_Stddev_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Participants_Stddev_Pop_Fields = {
+  __typename?: 'participants_stddev_pop_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "participants" */
+export type Participants_Stddev_Pop_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Participants_Stddev_Samp_Fields = {
+  __typename?: 'participants_stddev_samp_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "participants" */
+export type Participants_Stddev_Samp_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Participants_Sum_Fields = {
+  __typename?: 'participants_sum_fields';
+  contribution?: Maybe<Scalars['Int']>;
+  score?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "participants" */
+export type Participants_Sum_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
 /** update columns of table "participants" */
 export enum Participants_Update_Column {
+  /** column name */
+  Contribution = 'contribution',
   /** column name */
   Description = 'description',
   /** column name */
@@ -1521,6 +1613,8 @@ export enum Participants_Update_Column {
   Name = 'name',
   /** column name */
   Role = 'role',
+  /** column name */
+  Score = 'score',
   /** column name */
   Submission = 'submission',
   /** column name */
@@ -1531,6 +1625,45 @@ export enum Participants_Update_Column {
   Vote = 'vote'
 }
 
+/** aggregate var_pop on columns */
+export type Participants_Var_Pop_Fields = {
+  __typename?: 'participants_var_pop_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "participants" */
+export type Participants_Var_Pop_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Participants_Var_Samp_Fields = {
+  __typename?: 'participants_var_samp_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "participants" */
+export type Participants_Var_Samp_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Participants_Variance_Fields = {
+  __typename?: 'participants_variance_fields';
+  contribution?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "participants" */
+export type Participants_Variance_Order_By = {
+  contribution?: Maybe<Order_By>;
+  score?: Maybe<Order_By>;
+};
+
 /** query root */
 export type Query_Root = {
   __typename?: 'query_root';
@@ -1540,18 +1673,18 @@ export type Query_Root = {
   contest_aggregate: Contest_Aggregate;
   /** fetch data from the table: "contest" using primary key columns */
   contest_by_pk?: Maybe<Contest>;
+  /** fetch data from the table: "control" */
+  control: Array<Control>;
+  /** fetch aggregated fields from the table: "control" */
+  control_aggregate: Control_Aggregate;
+  /** fetch data from the table: "control" using primary key columns */
+  control_by_pk?: Maybe<Control>;
   /** fetch data from the table: "games" */
   games: Array<Games>;
   /** fetch aggregated fields from the table: "games" */
   games_aggregate: Games_Aggregate;
   /** fetch data from the table: "games" using primary key columns */
   games_by_pk?: Maybe<Games>;
-  /** fetch data from the table: "imposter" */
-  imposter: Array<Imposter>;
-  /** fetch aggregated fields from the table: "imposter" */
-  imposter_aggregate: Imposter_Aggregate;
-  /** fetch data from the table: "imposter" using primary key columns */
-  imposter_by_pk?: Maybe<Imposter>;
   /** fetch data from the table: "leaderboard_public" */
   leaderboard_public: Array<Leaderboard_Public>;
   /** fetch aggregated fields from the table: "leaderboard_public" */
@@ -1612,6 +1745,29 @@ export type Query_RootContest_By_PkArgs = {
 };
 
 /** query root */
+export type Query_RootControlArgs = {
+  distinct_on?: Maybe<Array<Control_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Control_Order_By>>;
+  where?: Maybe<Control_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootControl_AggregateArgs = {
+  distinct_on?: Maybe<Array<Control_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Control_Order_By>>;
+  where?: Maybe<Control_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootControl_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+/** query root */
 export type Query_RootGamesArgs = {
   distinct_on?: Maybe<Array<Games_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -1631,29 +1787,6 @@ export type Query_RootGames_AggregateArgs = {
 
 /** query root */
 export type Query_RootGames_By_PkArgs = {
-  id: Scalars['uuid'];
-};
-
-/** query root */
-export type Query_RootImposterArgs = {
-  distinct_on?: Maybe<Array<Imposter_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Imposter_Order_By>>;
-  where?: Maybe<Imposter_Bool_Exp>;
-};
-
-/** query root */
-export type Query_RootImposter_AggregateArgs = {
-  distinct_on?: Maybe<Array<Imposter_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Imposter_Order_By>>;
-  where?: Maybe<Imposter_Bool_Exp>;
-};
-
-/** query root */
-export type Query_RootImposter_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -1945,18 +2078,18 @@ export type Subscription_Root = {
   contest_aggregate: Contest_Aggregate;
   /** fetch data from the table: "contest" using primary key columns */
   contest_by_pk?: Maybe<Contest>;
+  /** fetch data from the table: "control" */
+  control: Array<Control>;
+  /** fetch aggregated fields from the table: "control" */
+  control_aggregate: Control_Aggregate;
+  /** fetch data from the table: "control" using primary key columns */
+  control_by_pk?: Maybe<Control>;
   /** fetch data from the table: "games" */
   games: Array<Games>;
   /** fetch aggregated fields from the table: "games" */
   games_aggregate: Games_Aggregate;
   /** fetch data from the table: "games" using primary key columns */
   games_by_pk?: Maybe<Games>;
-  /** fetch data from the table: "imposter" */
-  imposter: Array<Imposter>;
-  /** fetch aggregated fields from the table: "imposter" */
-  imposter_aggregate: Imposter_Aggregate;
-  /** fetch data from the table: "imposter" using primary key columns */
-  imposter_by_pk?: Maybe<Imposter>;
   /** fetch data from the table: "leaderboard_public" */
   leaderboard_public: Array<Leaderboard_Public>;
   /** fetch aggregated fields from the table: "leaderboard_public" */
@@ -2017,6 +2150,29 @@ export type Subscription_RootContest_By_PkArgs = {
 };
 
 /** subscription root */
+export type Subscription_RootControlArgs = {
+  distinct_on?: Maybe<Array<Control_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Control_Order_By>>;
+  where?: Maybe<Control_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootControl_AggregateArgs = {
+  distinct_on?: Maybe<Array<Control_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Control_Order_By>>;
+  where?: Maybe<Control_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootControl_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+/** subscription root */
 export type Subscription_RootGamesArgs = {
   distinct_on?: Maybe<Array<Games_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -2036,29 +2192,6 @@ export type Subscription_RootGames_AggregateArgs = {
 
 /** subscription root */
 export type Subscription_RootGames_By_PkArgs = {
-  id: Scalars['uuid'];
-};
-
-/** subscription root */
-export type Subscription_RootImposterArgs = {
-  distinct_on?: Maybe<Array<Imposter_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Imposter_Order_By>>;
-  where?: Maybe<Imposter_Bool_Exp>;
-};
-
-/** subscription root */
-export type Subscription_RootImposter_AggregateArgs = {
-  distinct_on?: Maybe<Array<Imposter_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Imposter_Order_By>>;
-  where?: Maybe<Imposter_Bool_Exp>;
-};
-
-/** subscription root */
-export type Subscription_RootImposter_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -2199,8 +2332,6 @@ export type Subscription_RootUsers_By_PkArgs = {
 /** columns and relationships of "teams" */
 export type Teams = {
   __typename?: 'teams';
-  /** An object relationship */
-  contest?: Maybe<Contest>;
   id: Scalars['uuid'];
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -2290,7 +2421,6 @@ export type Teams_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Teams_Bool_Exp>>>;
   _not?: Maybe<Teams_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Teams_Bool_Exp>>>;
-  contest?: Maybe<Contest_Bool_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   motto?: Maybe<String_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
@@ -2309,7 +2439,6 @@ export enum Teams_Constraint {
 
 /** input type for inserting data into table "teams" */
 export type Teams_Insert_Input = {
-  contest?: Maybe<Contest_Obj_Rel_Insert_Input>;
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -2376,7 +2505,6 @@ export type Teams_On_Conflict = {
 
 /** ordering options when selecting data from "teams" */
 export type Teams_Order_By = {
-  contest?: Maybe<Contest_Order_By>;
   id?: Maybe<Order_By>;
   motto?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
@@ -2698,19 +2826,6 @@ export enum Teams_Update_Column {
   PictureUrl = 'picture_url'
 }
 
-/** expression to compare columns of type timestamp. All fields are combined with logical 'AND'. */
-export type Timestamp_Comparison_Exp = {
-  _eq?: Maybe<Scalars['timestamp']>;
-  _gt?: Maybe<Scalars['timestamp']>;
-  _gte?: Maybe<Scalars['timestamp']>;
-  _in?: Maybe<Array<Scalars['timestamp']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['timestamp']>;
-  _lte?: Maybe<Scalars['timestamp']>;
-  _neq?: Maybe<Scalars['timestamp']>;
-  _nin?: Maybe<Array<Scalars['timestamp']>>;
-};
-
 /** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: Maybe<Scalars['timestamptz']>;
@@ -2893,10 +3008,14 @@ export type UpdateParticipantDetailsMutation = (
     & Pick<Participants_Mutation_Response, 'affected_rows'>
     & { returning: Array<(
       { __typename?: 'participants' }
-      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id'>
+      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution'>
       & { team: (
         { __typename?: 'teams' }
         & Pick<Teams, 'motto' | 'name' | 'picture_url'>
+        & { scores: Array<(
+          { __typename?: 'teams_scores' }
+          & Pick<Teams_Scores, 'score'>
+        )>; }
       ); }
     )>; }
   )>; }
@@ -2971,16 +3090,89 @@ export type VotingControlMutation = (
   )>; }
 );
 
+export type UpdateParticipantsScoreMutationVariables = Exact<{
+  participant_id: Scalars['uuid'];
+  score: Scalars['Int'];
+}>;
+
+export type UpdateParticipantsScoreMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type AddScoreToTeamMutationVariables = Exact<{
+  crewmate: Scalars['Int'];
+  team: Scalars['Int'];
+}>;
+
+export type AddScoreToTeamMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution'>
+      & { team: (
+        { __typename?: 'teams' }
+        & Pick<Teams, 'motto' | 'name' | 'picture_url'>
+        & { scores: Array<(
+          { __typename?: 'teams_scores' }
+          & Pick<Teams_Scores, 'score'>
+        )>; }
+      ); }
+    )>; }
+  )>; update_teams_scores?: Maybe<(
+    { __typename?: 'teams_scores_mutation_response' }
+    & Pick<Teams_Scores_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type UpdateLeadershipboardStateMutationVariables = Exact<{
+  leaderboard: Scalars['Boolean'];
+}>;
+
+export type UpdateLeadershipboardStateMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_control?: Maybe<(
+    { __typename?: 'control_mutation_response' }
+    & Pick<Control_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type UpdateContestStateMutationVariables = Exact<{
+  submission: Scalars['Boolean'];
+  vote: Scalars['Boolean'];
+}>;
+
+export type UpdateContestStateMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_control?: Maybe<(
+    { __typename?: 'control_mutation_response' }
+    & Pick<Control_Mutation_Response, 'affected_rows'>
+  )>; update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
 export type GetOneParticipantDetailsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetOneParticipantDetailsQuery = (
   { __typename?: 'query_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
-    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id'>
+    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution'>
     & { team: (
       { __typename?: 'teams' }
       & Pick<Teams, 'motto' | 'name' | 'picture_url'>
+      & { scores: Array<(
+        { __typename?: 'teams_scores' }
+        & Pick<Teams_Scores, 'score'>
+      )>; }
     ); }
   )>; }
 );
@@ -3005,6 +3197,16 @@ export type GetParticipantVotingDetailsQuery = (
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'id' | 'submission' | 'vote'>
+  )>; }
+);
+
+export type GetControlStateQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetControlStateQuery = (
+  { __typename?: 'query_root' }
+  & { control: Array<(
+    { __typename?: 'control' }
+    & Pick<Control, 'vote' | 'submission' | 'leaderboard'>
   )>; }
 );
 
@@ -3040,6 +3242,20 @@ export type SubscibeToAllGamesSubscription = (
   )>; }
 );
 
+export type GetParticipantsScoreSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type GetParticipantsScoreSubscription = (
+  { __typename?: 'subscription_root' }
+  & { teams: Array<(
+    { __typename?: 'teams' }
+    & Pick<Teams, 'name' | 'id'>
+    & { participants: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'name' | 'score' | 'id'>
+    )>; }
+  )>; }
+);
+
 export const UpdateParticipantDetailsDocument = gql`
     mutation UpdateParticipantDetails($description: String!, $name: String!) {
   update_participants(where: {}, _set: {description: $description, name: $name}) {
@@ -3050,10 +3266,15 @@ export const UpdateParticipantDetailsDocument = gql`
       role
       team_id
       user_id
+      score
+      contribution
       team {
         motto
         name
         picture_url
+        scores {
+          score
+        }
       }
     }
   }
@@ -3244,6 +3465,148 @@ export function useVotingControlMutation(options: VueApolloComposable.UseMutatio
   return VueApolloComposable.useMutation<VotingControlMutation, VotingControlMutationVariables>(VotingControlDocument, options);
 }
 export type VotingControlMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<VotingControlMutation, VotingControlMutationVariables>;
+export const UpdateParticipantsScoreDocument = gql`
+    mutation UpdateParticipantsScore($participant_id: uuid!, $score: Int!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _inc: {score: $score}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useUpdateParticipantsScoreMutation__
+ *
+ * To run a mutation, you first call `useUpdateParticipantsScoreMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateParticipantsScoreMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useUpdateParticipantsScoreMutation({
+ *   variables: {
+ *     participant_id: // value for 'participant_id'
+ *     score: // value for 'score'
+ *   },
+ * });
+ */
+export function useUpdateParticipantsScoreMutation(options: VueApolloComposable.UseMutationOptions<UpdateParticipantsScoreMutation, UpdateParticipantsScoreMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateParticipantsScoreMutation, UpdateParticipantsScoreMutationVariables>>) {
+  return VueApolloComposable.useMutation<UpdateParticipantsScoreMutation, UpdateParticipantsScoreMutationVariables>(UpdateParticipantsScoreDocument, options);
+}
+export type UpdateParticipantsScoreMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParticipantsScoreMutation, UpdateParticipantsScoreMutationVariables>;
+export const AddScoreToTeamDocument = gql`
+    mutation AddScoreToTeam($crewmate: Int!, $team: Int!) {
+  update_participants(where: {}, _inc: {score: $crewmate, contribution: $team}) {
+    affected_rows
+    returning {
+      description
+      name
+      role
+      team_id
+      user_id
+      score
+      contribution
+      team {
+        motto
+        name
+        picture_url
+        scores {
+          score
+        }
+      }
+    }
+  }
+  update_teams_scores(where: {}, _inc: {score: $team}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useAddScoreToTeamMutation__
+ *
+ * To run a mutation, you first call `useAddScoreToTeamMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useAddScoreToTeamMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useAddScoreToTeamMutation({
+ *   variables: {
+ *     crewmate: // value for 'crewmate'
+ *     team: // value for 'team'
+ *   },
+ * });
+ */
+export function useAddScoreToTeamMutation(options: VueApolloComposable.UseMutationOptions<AddScoreToTeamMutation, AddScoreToTeamMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<AddScoreToTeamMutation, AddScoreToTeamMutationVariables>>) {
+  return VueApolloComposable.useMutation<AddScoreToTeamMutation, AddScoreToTeamMutationVariables>(AddScoreToTeamDocument, options);
+}
+export type AddScoreToTeamMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<AddScoreToTeamMutation, AddScoreToTeamMutationVariables>;
+export const UpdateLeadershipboardStateDocument = gql`
+    mutation UpdateLeadershipboardState($leaderboard: Boolean!) {
+  update_control(where: {}, _set: {leaderboard: $leaderboard}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useUpdateLeadershipboardStateMutation__
+ *
+ * To run a mutation, you first call `useUpdateLeadershipboardStateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLeadershipboardStateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useUpdateLeadershipboardStateMutation({
+ *   variables: {
+ *     leaderboard: // value for 'leaderboard'
+ *   },
+ * });
+ */
+export function useUpdateLeadershipboardStateMutation(options: VueApolloComposable.UseMutationOptions<UpdateLeadershipboardStateMutation, UpdateLeadershipboardStateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateLeadershipboardStateMutation, UpdateLeadershipboardStateMutationVariables>>) {
+  return VueApolloComposable.useMutation<UpdateLeadershipboardStateMutation, UpdateLeadershipboardStateMutationVariables>(UpdateLeadershipboardStateDocument, options);
+}
+export type UpdateLeadershipboardStateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateLeadershipboardStateMutation, UpdateLeadershipboardStateMutationVariables>;
+export const UpdateContestStateDocument = gql`
+    mutation UpdateContestState($submission: Boolean!, $vote: Boolean!) {
+  update_control(where: {}, _set: {submission: $submission, vote: $vote}) {
+    affected_rows
+  }
+  update_participants(where: {}, _set: {submission: $submission, vote: $vote}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useUpdateContestStateMutation__
+ *
+ * To run a mutation, you first call `useUpdateContestStateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContestStateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useUpdateContestStateMutation({
+ *   variables: {
+ *     submission: // value for 'submission'
+ *     vote: // value for 'vote'
+ *   },
+ * });
+ */
+export function useUpdateContestStateMutation(options: VueApolloComposable.UseMutationOptions<UpdateContestStateMutation, UpdateContestStateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateContestStateMutation, UpdateContestStateMutationVariables>>) {
+  return VueApolloComposable.useMutation<UpdateContestStateMutation, UpdateContestStateMutationVariables>(UpdateContestStateDocument, options);
+}
+export type UpdateContestStateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateContestStateMutation, UpdateContestStateMutationVariables>;
 export const GetOneParticipantDetailsDocument = gql`
     query getOneParticipantDetails {
   participants {
@@ -3252,10 +3615,15 @@ export const GetOneParticipantDetailsDocument = gql`
     role
     team_id
     user_id
+    score
+    contribution
     team {
       motto
       name
       picture_url
+      scores {
+        score
+      }
     }
   }
 }
@@ -3332,6 +3700,32 @@ export function useGetParticipantVotingDetailsQuery(options: VueApolloComposable
   return VueApolloComposable.useQuery<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>(GetParticipantVotingDetailsDocument, {}, options);
 }
 export type GetParticipantVotingDetailsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>;
+export const GetControlStateDocument = gql`
+    query GetControlState {
+  control {
+    vote
+    submission
+    leaderboard
+  }
+}
+    `;
+
+/**
+ * __useGetControlStateQuery__
+ *
+ * To run a query within a Vue component, call `useGetControlStateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetControlStateQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetControlStateQuery();
+ */
+export function useGetControlStateQuery(options: VueApolloComposable.UseQueryOptions<GetControlStateQuery, GetControlStateQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetControlStateQuery, GetControlStateQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetControlStateQuery, GetControlStateQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetControlStateQuery, GetControlStateQueryVariables>(GetControlStateDocument, {}, options);
+}
+export type GetControlStateQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetControlStateQuery, GetControlStateQueryVariables>;
 export const SubscribePublicLeaderboardDocument = gql`
     subscription SubscribePublicLeaderboard {
   leaderboard_public {
@@ -3393,3 +3787,33 @@ export function useSubscibeToAllGamesSubscription(options: VueApolloComposable.U
   return VueApolloComposable.useSubscription<SubscibeToAllGamesSubscription, SubscibeToAllGamesSubscriptionVariables>(SubscibeToAllGamesDocument, {}, options);
 }
 export type SubscibeToAllGamesSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<SubscibeToAllGamesSubscription, SubscibeToAllGamesSubscriptionVariables>;
+export const GetParticipantsScoreDocument = gql`
+    subscription GetParticipantsScore {
+  teams {
+    name
+    id
+    participants {
+      name
+      score
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetParticipantsScoreSubscription__
+ *
+ * To run a query within a Vue component, call `useGetParticipantsScoreSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetParticipantsScoreSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetParticipantsScoreSubscription();
+ */
+export function useGetParticipantsScoreSubscription(options: VueApolloComposable.UseSubscriptionOptions<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>(GetParticipantsScoreDocument, {}, options);
+}
+export type GetParticipantsScoreSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>;

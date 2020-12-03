@@ -8,7 +8,7 @@
         <div class="text-subtitle-1">
           <strong>{{ team.name }}</strong><br>
           {{ team.motto }}<br>
-          Score: 250/1000<br>
+          Score: {{ totalScore }}<br>
         </div>
       </v-col>
       <v-col
@@ -21,17 +21,24 @@
           height="15"
         />
       </v-col>
+      <v-col
+        cols="12"
+        md="1"
+      />
     </v-row>
+    <ContributePointsForm />
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@vue/composition-api';
+import ContributePointsForm from '@/components/molecules/ContributePointsForm.vue';
 
 export default defineComponent({
   name: 'TeamProfile',
 
   components: {
+    ContributePointsForm,
   },
 
   props: {
@@ -41,12 +48,21 @@ export default defineComponent({
         motto: 'TEST_MOCK_OG_1',
         name: 'MOCK_OG_!',
         picture_url: 'https://picsum.photos/200/300',
+        scores: [{ score: 50 }],
       }),
     },
     skill: {
       type: Number,
-      default: () => 25,
+      default: () => 250,
     },
+  },
+  setup(props) {
+    // Need to make this reactive
+    const totalScore = computed(() => props.team.scores.reduce((a: number, b: any) => a + b.score, 0));
+
+    return {
+      totalScore,
+    };
   },
 });
 </script>

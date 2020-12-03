@@ -21,8 +21,12 @@
           <div class="text-subtitle-1">
             <strong>{{ profile.name }}</strong><br>
             Full name<br>
-            {{ profile.description }}<br>
+            Description: {{ profile.description }}<br>
             {{ profile.role }} in  {{ profile.team.name }}<br>
+          </div>
+          <div>
+            <p>Score: {{ profile.score }}</p>
+            <p>Contribution: {{ profile.contribution }}</p>
           </div>
         </v-col>
         <v-col
@@ -59,10 +63,13 @@ export default defineComponent({
         role: 'CREWMATE',
         team_id: '1b03aa8e-0937-42c7-b8f1-27c21c47aabb',
         user_id: 'auth0|12345678910',
+        score: 0,
+        contribution: 0,
         team: {
           motto: 'TEST_MOCK_OG_1',
           name: 'MOCK_OG_!',
           picture_url: 'https://picsum.photos/200/300',
+          scores: [{ score: 50 }],
         },
       }),
     },
