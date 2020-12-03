@@ -42,7 +42,7 @@ mutation SubmitContest($submission_url: String!, $participant_id: uuid!) {
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: { submission: true }) {
+  update_participants(where: {}, _set: { submission: false }) {
     affected_rows
   }
 }
@@ -54,7 +54,7 @@ mutation SubmitContestVote($participant_id: uuid!) {
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: { vote: true }) {
+  update_participants(where: {}, _set: { vote: false }) {
     affected_rows
   }
 }

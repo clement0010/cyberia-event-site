@@ -106,10 +106,11 @@ export default defineComponent({
         } else {
           throw new Error('Submission Server Error');
         }
-      }).catch((err) => {
-        console.error(err);
-        snackbarHandler('Error! Try again later!');
-      });
+      })
+        .catch((err) => {
+          console.error(err);
+          snackbarHandler('Error! Try again later!');
+        });
     }
 
     async function upload() {
