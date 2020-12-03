@@ -30,7 +30,7 @@
             Close
           </v-btn>
           <submission-vote
-            v-if="contestantId!==participantId && !voted"
+            v-if="contestantId!==participantId && vote"
 
             :contestant-id="contestantId"
           />
@@ -62,7 +62,7 @@ export default defineComponent({
     participantId: {
       type: String,
     },
-    voted: {
+    vote: {
       type: Boolean,
       default: () => false,
     },

@@ -7,7 +7,7 @@
     >
       <div class="d-flex align-center">
         <v-toolbar-title>
-          Cyberia 2020 Site
+          Cyberia 2020
         </v-toolbar-title>
       </div>
 

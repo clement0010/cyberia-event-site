@@ -52,7 +52,7 @@ const link = split(
     && operation === 'subscription';
   },
   // Need to figure out why httplink doesnt work at first login
-  httpLink,
+  wsLink,
   wsLink,
 );
 

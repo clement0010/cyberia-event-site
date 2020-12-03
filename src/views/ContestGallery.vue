@@ -15,7 +15,7 @@
         <v-row justify="center">
           <div class="my-5">
             <contest-submission-form
-              v-if="!participantDetails.submission&&role !== 'admin' && isAuthenticated"
+              v-if="participantDetails.submission && role !== 'admin' && isAuthenticated"
 
               :participant-id="participantDetails.id"
             />
@@ -31,7 +31,7 @@
           :contestant-id="submission.participant_id"
           :picture-url="submission.submission_url"
           :participant-id="participantDetails.id"
-          :voted="participantDetails.vote"
+          :vote="participantDetails.vote"
         />
       </v-row>
       <v-row justify="center" />

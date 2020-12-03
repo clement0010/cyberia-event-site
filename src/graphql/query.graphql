@@ -1,18 +1,24 @@
 query getOneParticipantDetails {
   participants {
     description
-
     name
     role
     team_id
     user_id
+    score
+    contribution
     team {
       motto
       name
       picture_url
+      scores {
+        score
+      }
     }
   }
 }
+
+
 
 query GetContestSubmission($limit: Int!, $offset: Int!) {
   contest(offset: $offset, limit: $limit, order_by: {submission_time: asc}) {
@@ -27,5 +33,13 @@ query getParticipantVotingDetails {
     id
     submission
     vote
+  }
+}
+
+query GetControlState {
+  control {
+    vote
+    submission
+    leaderboard
   }
 }

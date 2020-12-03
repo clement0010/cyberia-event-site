@@ -22,3 +22,15 @@ subscription SubscibeToAllGames {
     }
   }
 }
+
+subscription GetParticipantsScore {
+  teams {
+    name
+    id
+    participants {
+      name
+      score
+      id
+    }
+  }
+}
