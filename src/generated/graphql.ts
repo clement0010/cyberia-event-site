@@ -3344,7 +3344,7 @@ export const SubmitContestDocument = gql`
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: {submission: true}) {
+  update_participants(where: {}, _set: {submission: false}) {
     affected_rows
   }
 }
@@ -3380,7 +3380,7 @@ export const SubmitContestVoteDocument = gql`
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: {vote: true}) {
+  update_participants(where: {}, _set: {vote: false}) {
     affected_rows
   }
 }
