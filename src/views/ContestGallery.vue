@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, onUnmounted, onMounted,
+  defineComponent, onUnmounted, onMounted, ref,
 } from '@vue/composition-api';
 import ContestSubmission from '@/components/molecules/ContestSubmission.vue';
 import ContestSubmissionForm from '@/components/molecules/ContestSubmissionForm.vue';
@@ -63,12 +63,14 @@ export default defineComponent({
     } = authComposition(root);
     const {
       result, loading, error, fetchMore,
-    } = useGetContestSubmissionQuery({ limit: 3, offset: 0 }, {
+    } = useGetContestSubmissionQuery({ limit: 6, offset: 0 }, {
       notifyOnNetworkStatusChange: true,
     });
+
+    const auth0_id = ref(root.$auth.user?.sub || '');
     const {
       result: result1,
-    } = useGetParticipantVotingDetailsQuery();
+    } = useGetParticipantVotingDetailsQuery({ auth0_id: auth0_id.value });
     const contestSubmissions = useResult(result, [], (data) => data.contest);
 
     const participantDetails = useResult(result1, [], (data) => {
@@ -76,8 +78,8 @@ export default defineComponent({
         // Public User
         return {
           id: '0',
-          submission: true,
-          vote: true,
+          submission: false,
+          vote: false,
         };
       }
       return data.participants[0];
@@ -107,7 +109,7 @@ export default defineComponent({
     }
 
     function scrollBehavior(e: any) {
-      if ((window.innerHeight + window.scrollY + 10) >= document.body.offsetHeight && !loading.value) {
+      if ((window.innerHeight + window.scrollY + 5) >= document.body.offsetHeight && !loading.value) {
         console.log('Loading More');
         loadMore();
       }

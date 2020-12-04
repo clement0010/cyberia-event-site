@@ -91,7 +91,6 @@ export default defineComponent({
       name: props.username || '',
       description: props.description || '',
     });
-    console.log(profile);
 
     const { mutate: updateDetails } = useUpdateParticipantDetailsMutation(() => ({}));
     function saveWrapper() {

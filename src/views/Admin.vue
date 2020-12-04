@@ -13,6 +13,9 @@
           :game="game"
         />
       </v-row>
+      <div class="my-5">
+        <h1 class="text-center">Participants</h1>
+      </div>
       <v-row>
         <TeamCard
           v-for="(team, index) in teams"

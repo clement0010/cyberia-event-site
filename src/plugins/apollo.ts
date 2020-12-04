@@ -4,21 +4,21 @@ import {
   ApolloClient, InMemoryCache, HttpLink, split,
 } from 'apollo-boost';
 
-const getHeaders = () => {
-  const token = window.localStorage.getItem('hasura-token');
+const getHeaders = async () => {
+  const token = await window.localStorage.getItem('hasura-token');
   if (token) {
     const headers = {
-      authorization: `Bearer ${token}`,
+      // 'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
+      // 'x-hasura-role': 'public',
+      // 'x-hasura-user-id': '0', // Change this to access as different user - DEV
+      authorization: '',
     };
-
+    headers.authorization = `Bearer ${token}`;
     console.log(headers);
     return headers;
   }
-
   const headers = {
-    // 'x-hasura-admin-secret': `${process.env.VUE_APP_ADMIN_SECRET}`,
-    // 'x-hasura-role': 'public',
-    // 'x-hasura-user-id': '0', // Change this to access as different user - DEV
+
   };
   return headers;
 };
@@ -28,8 +28,8 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     timeout: 30000,
-    connectionParams: () => ({
-      headers: getHeaders(),
+    connectionParams: async () => ({
+      headers: await getHeaders(),
     }),
   },
 });

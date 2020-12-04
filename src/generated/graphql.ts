@@ -913,6 +913,10 @@ export type Mutation_Root = {
   delete_roles?: Maybe<Roles_Mutation_Response>;
   /** delete single row from the table: "roles" */
   delete_roles_by_pk?: Maybe<Roles>;
+  /** delete data from the table: "status" */
+  delete_status?: Maybe<Status_Mutation_Response>;
+  /** delete single row from the table: "status" */
+  delete_status_by_pk?: Maybe<Status>;
   /** delete data from the table: "teams" */
   delete_teams?: Maybe<Teams_Mutation_Response>;
   /** delete single row from the table: "teams" */
@@ -945,6 +949,10 @@ export type Mutation_Root = {
   insert_roles?: Maybe<Roles_Mutation_Response>;
   /** insert a single row into the table: "roles" */
   insert_roles_one?: Maybe<Roles>;
+  /** insert data into the table: "status" */
+  insert_status?: Maybe<Status_Mutation_Response>;
+  /** insert a single row into the table: "status" */
+  insert_status_one?: Maybe<Status>;
   /** insert data into the table: "teams" */
   insert_teams?: Maybe<Teams_Mutation_Response>;
   /** insert a single row into the table: "teams" */
@@ -977,6 +985,10 @@ export type Mutation_Root = {
   update_roles?: Maybe<Roles_Mutation_Response>;
   /** update single row of the table: "roles" */
   update_roles_by_pk?: Maybe<Roles>;
+  /** update data of the table: "status" */
+  update_status?: Maybe<Status_Mutation_Response>;
+  /** update single row of the table: "status" */
+  update_status_by_pk?: Maybe<Status>;
   /** update data of the table: "teams" */
   update_teams?: Maybe<Teams_Mutation_Response>;
   /** update single row of the table: "teams" */
@@ -1039,6 +1051,16 @@ export type Mutation_RootDelete_RolesArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Roles_By_PkArgs = {
   role: Scalars['String'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_StatusArgs = {
+  where: Status_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Status_By_PkArgs = {
+  status: Scalars['String'];
 };
 
 /** mutation root */
@@ -1130,6 +1152,18 @@ export type Mutation_RootInsert_RolesArgs = {
 export type Mutation_RootInsert_Roles_OneArgs = {
   object: Roles_Insert_Input;
   on_conflict?: Maybe<Roles_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_StatusArgs = {
+  objects: Array<Status_Insert_Input>;
+  on_conflict?: Maybe<Status_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Status_OneArgs = {
+  object: Status_Insert_Input;
+  on_conflict?: Maybe<Status_On_Conflict>;
 };
 
 /** mutation root */
@@ -1233,6 +1267,18 @@ export type Mutation_RootUpdate_Roles_By_PkArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_StatusArgs = {
+  _set?: Maybe<Status_Set_Input>;
+  where: Status_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Status_By_PkArgs = {
+  _set?: Maybe<Status_Set_Input>;
+  pk_columns: Status_Pk_Columns_Input;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_TeamsArgs = {
   _set?: Maybe<Teams_Set_Input>;
   where: Teams_Bool_Exp;
@@ -1293,10 +1339,13 @@ export type Participants = {
   contest_submission?: Maybe<Contest>;
   contribution: Scalars['Int'];
   description?: Maybe<Scalars['String']>;
+  emergency_vote: Scalars['Boolean'];
   id: Scalars['uuid'];
+  imposter_vote_count: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   role: Roles_Enum;
   score: Scalars['Int'];
+  status: Status_Enum;
   submission: Scalars['Boolean'];
   /** An object relationship */
   team: Teams;
@@ -1361,12 +1410,14 @@ export type Participants_Arr_Rel_Insert_Input = {
 export type Participants_Avg_Fields = {
   __typename?: 'participants_avg_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "participants" */
 export type Participants_Avg_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1378,10 +1429,13 @@ export type Participants_Bool_Exp = {
   contest_submission?: Maybe<Contest_Bool_Exp>;
   contribution?: Maybe<Int_Comparison_Exp>;
   description?: Maybe<String_Comparison_Exp>;
+  emergency_vote?: Maybe<Boolean_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
+  imposter_vote_count?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
   role?: Maybe<Roles_Enum_Comparison_Exp>;
   score?: Maybe<Int_Comparison_Exp>;
+  status?: Maybe<Status_Enum_Comparison_Exp>;
   submission?: Maybe<Boolean_Comparison_Exp>;
   team?: Maybe<Teams_Bool_Exp>;
   team_id?: Maybe<Uuid_Comparison_Exp>;
@@ -1401,6 +1455,7 @@ export enum Participants_Constraint {
 /** input type for incrementing integer column in table "participants" */
 export type Participants_Inc_Input = {
   contribution?: Maybe<Scalars['Int']>;
+  imposter_vote_count?: Maybe<Scalars['Int']>;
   score?: Maybe<Scalars['Int']>;
 };
 
@@ -1409,10 +1464,13 @@ export type Participants_Insert_Input = {
   contest_submission?: Maybe<Contest_Obj_Rel_Insert_Input>;
   contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
+  emergency_vote?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['uuid']>;
+  imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   role?: Maybe<Roles_Enum>;
   score?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status_Enum>;
   submission?: Maybe<Scalars['Boolean']>;
   team?: Maybe<Teams_Obj_Rel_Insert_Input>;
   team_id?: Maybe<Scalars['uuid']>;
@@ -1427,6 +1485,7 @@ export type Participants_Max_Fields = {
   contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['Int']>;
   team_id?: Maybe<Scalars['uuid']>;
@@ -1438,6 +1497,7 @@ export type Participants_Max_Order_By = {
   contribution?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
   team_id?: Maybe<Order_By>;
@@ -1450,6 +1510,7 @@ export type Participants_Min_Fields = {
   contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['Int']>;
   team_id?: Maybe<Scalars['uuid']>;
@@ -1461,6 +1522,7 @@ export type Participants_Min_Order_By = {
   contribution?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
   team_id?: Maybe<Order_By>;
@@ -1494,10 +1556,13 @@ export type Participants_Order_By = {
   contest_submission?: Maybe<Contest_Order_By>;
   contribution?: Maybe<Order_By>;
   description?: Maybe<Order_By>;
+  emergency_vote?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
   role?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
+  status?: Maybe<Order_By>;
   submission?: Maybe<Order_By>;
   team?: Maybe<Teams_Order_By>;
   team_id?: Maybe<Order_By>;
@@ -1518,13 +1583,19 @@ export enum Participants_Select_Column {
   /** column name */
   Description = 'description',
   /** column name */
+  EmergencyVote = 'emergency_vote',
+  /** column name */
   Id = 'id',
+  /** column name */
+  ImposterVoteCount = 'imposter_vote_count',
   /** column name */
   Name = 'name',
   /** column name */
   Role = 'role',
   /** column name */
   Score = 'score',
+  /** column name */
+  Status = 'status',
   /** column name */
   Submission = 'submission',
   /** column name */
@@ -1539,10 +1610,13 @@ export enum Participants_Select_Column {
 export type Participants_Set_Input = {
   contribution?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
+  emergency_vote?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['uuid']>;
+  imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   role?: Maybe<Roles_Enum>;
   score?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status_Enum>;
   submission?: Maybe<Scalars['Boolean']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
@@ -1553,12 +1627,14 @@ export type Participants_Set_Input = {
 export type Participants_Stddev_Fields = {
   __typename?: 'participants_stddev_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "participants" */
 export type Participants_Stddev_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1566,12 +1642,14 @@ export type Participants_Stddev_Order_By = {
 export type Participants_Stddev_Pop_Fields = {
   __typename?: 'participants_stddev_pop_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "participants" */
 export type Participants_Stddev_Pop_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1579,12 +1657,14 @@ export type Participants_Stddev_Pop_Order_By = {
 export type Participants_Stddev_Samp_Fields = {
   __typename?: 'participants_stddev_samp_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "participants" */
 export type Participants_Stddev_Samp_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1592,12 +1672,14 @@ export type Participants_Stddev_Samp_Order_By = {
 export type Participants_Sum_Fields = {
   __typename?: 'participants_sum_fields';
   contribution?: Maybe<Scalars['Int']>;
+  imposter_vote_count?: Maybe<Scalars['Int']>;
   score?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "participants" */
 export type Participants_Sum_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1608,13 +1690,19 @@ export enum Participants_Update_Column {
   /** column name */
   Description = 'description',
   /** column name */
+  EmergencyVote = 'emergency_vote',
+  /** column name */
   Id = 'id',
+  /** column name */
+  ImposterVoteCount = 'imposter_vote_count',
   /** column name */
   Name = 'name',
   /** column name */
   Role = 'role',
   /** column name */
   Score = 'score',
+  /** column name */
+  Status = 'status',
   /** column name */
   Submission = 'submission',
   /** column name */
@@ -1629,12 +1717,14 @@ export enum Participants_Update_Column {
 export type Participants_Var_Pop_Fields = {
   __typename?: 'participants_var_pop_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "participants" */
 export type Participants_Var_Pop_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1642,12 +1732,14 @@ export type Participants_Var_Pop_Order_By = {
 export type Participants_Var_Samp_Fields = {
   __typename?: 'participants_var_samp_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "participants" */
 export type Participants_Var_Samp_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1655,12 +1747,14 @@ export type Participants_Var_Samp_Order_By = {
 export type Participants_Variance_Fields = {
   __typename?: 'participants_variance_fields';
   contribution?: Maybe<Scalars['Float']>;
+  imposter_vote_count?: Maybe<Scalars['Float']>;
   score?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "participants" */
 export type Participants_Variance_Order_By = {
   contribution?: Maybe<Order_By>;
+  imposter_vote_count?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
 };
 
@@ -1701,6 +1795,12 @@ export type Query_Root = {
   roles_aggregate: Roles_Aggregate;
   /** fetch data from the table: "roles" using primary key columns */
   roles_by_pk?: Maybe<Roles>;
+  /** fetch data from the table: "status" */
+  status: Array<Status>;
+  /** fetch aggregated fields from the table: "status" */
+  status_aggregate: Status_Aggregate;
+  /** fetch data from the table: "status" using primary key columns */
+  status_by_pk?: Maybe<Status>;
   /** fetch data from the table: "teams" */
   teams: Array<Teams>;
   /** fetch aggregated fields from the table: "teams" */
@@ -1852,6 +1952,29 @@ export type Query_RootRoles_AggregateArgs = {
 /** query root */
 export type Query_RootRoles_By_PkArgs = {
   role: Scalars['String'];
+};
+
+/** query root */
+export type Query_RootStatusArgs = {
+  distinct_on?: Maybe<Array<Status_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Status_Order_By>>;
+  where?: Maybe<Status_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootStatus_AggregateArgs = {
+  distinct_on?: Maybe<Array<Status_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Status_Order_By>>;
+  where?: Maybe<Status_Bool_Exp>;
+};
+
+/** query root */
+export type Query_RootStatus_By_PkArgs = {
+  status: Scalars['String'];
 };
 
 /** query root */
@@ -2069,6 +2192,175 @@ export enum Roles_Update_Column {
   Role = 'role'
 }
 
+/** columns and relationships of "status" */
+export type Status = {
+  __typename?: 'status';
+  /** An array relationship */
+  participants: Array<Participants>;
+  /** An aggregated array relationship */
+  participants_aggregate: Participants_Aggregate;
+  status: Scalars['String'];
+};
+
+/** columns and relationships of "status" */
+export type StatusParticipantsArgs = {
+  distinct_on?: Maybe<Array<Participants_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Participants_Order_By>>;
+  where?: Maybe<Participants_Bool_Exp>;
+};
+
+/** columns and relationships of "status" */
+export type StatusParticipants_AggregateArgs = {
+  distinct_on?: Maybe<Array<Participants_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Participants_Order_By>>;
+  where?: Maybe<Participants_Bool_Exp>;
+};
+
+/** aggregated selection of "status" */
+export type Status_Aggregate = {
+  __typename?: 'status_aggregate';
+  aggregate?: Maybe<Status_Aggregate_Fields>;
+  nodes: Array<Status>;
+};
+
+/** aggregate fields of "status" */
+export type Status_Aggregate_Fields = {
+  __typename?: 'status_aggregate_fields';
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<Status_Max_Fields>;
+  min?: Maybe<Status_Min_Fields>;
+};
+
+/** aggregate fields of "status" */
+export type Status_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Status_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "status" */
+export type Status_Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Status_Max_Order_By>;
+  min?: Maybe<Status_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "status" */
+export type Status_Arr_Rel_Insert_Input = {
+  data: Array<Status_Insert_Input>;
+  on_conflict?: Maybe<Status_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "status". All fields are combined with a logical 'AND'. */
+export type Status_Bool_Exp = {
+  _and?: Maybe<Array<Maybe<Status_Bool_Exp>>>;
+  _not?: Maybe<Status_Bool_Exp>;
+  _or?: Maybe<Array<Maybe<Status_Bool_Exp>>>;
+  participants?: Maybe<Participants_Bool_Exp>;
+  status?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "status" */
+export enum Status_Constraint {
+  /** unique or primary key constraint */
+  StatusPkey = 'status_pkey'
+}
+
+export enum Status_Enum {
+  Alive = 'ALIVE',
+  Dead = 'DEAD'
+}
+
+/** expression to compare columns of type status_enum. All fields are combined with logical 'AND'. */
+export type Status_Enum_Comparison_Exp = {
+  _eq?: Maybe<Status_Enum>;
+  _in?: Maybe<Array<Status_Enum>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _neq?: Maybe<Status_Enum>;
+  _nin?: Maybe<Array<Status_Enum>>;
+};
+
+/** input type for inserting data into table "status" */
+export type Status_Insert_Input = {
+  participants?: Maybe<Participants_Arr_Rel_Insert_Input>;
+  status?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Status_Max_Fields = {
+  __typename?: 'status_max_fields';
+  status?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "status" */
+export type Status_Max_Order_By = {
+  status?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Status_Min_Fields = {
+  __typename?: 'status_min_fields';
+  status?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "status" */
+export type Status_Min_Order_By = {
+  status?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "status" */
+export type Status_Mutation_Response = {
+  __typename?: 'status_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Status>;
+};
+
+/** input type for inserting object relation for remote table "status" */
+export type Status_Obj_Rel_Insert_Input = {
+  data: Status_Insert_Input;
+  on_conflict?: Maybe<Status_On_Conflict>;
+};
+
+/** on conflict condition type for table "status" */
+export type Status_On_Conflict = {
+  constraint: Status_Constraint;
+  update_columns: Array<Status_Update_Column>;
+  where?: Maybe<Status_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "status" */
+export type Status_Order_By = {
+  participants_aggregate?: Maybe<Participants_Aggregate_Order_By>;
+  status?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "status" */
+export type Status_Pk_Columns_Input = {
+  status: Scalars['String'];
+};
+
+/** select columns of table "status" */
+export enum Status_Select_Column {
+  /** column name */
+  Status = 'status'
+}
+
+/** input type for updating data in table "status" */
+export type Status_Set_Input = {
+  status?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "status" */
+export enum Status_Update_Column {
+  /** column name */
+  Status = 'status'
+}
+
 /** subscription root */
 export type Subscription_Root = {
   __typename?: 'subscription_root';
@@ -2106,6 +2398,12 @@ export type Subscription_Root = {
   roles_aggregate: Roles_Aggregate;
   /** fetch data from the table: "roles" using primary key columns */
   roles_by_pk?: Maybe<Roles>;
+  /** fetch data from the table: "status" */
+  status: Array<Status>;
+  /** fetch aggregated fields from the table: "status" */
+  status_aggregate: Status_Aggregate;
+  /** fetch data from the table: "status" using primary key columns */
+  status_by_pk?: Maybe<Status>;
   /** fetch data from the table: "teams" */
   teams: Array<Teams>;
   /** fetch aggregated fields from the table: "teams" */
@@ -2260,6 +2558,29 @@ export type Subscription_RootRoles_By_PkArgs = {
 };
 
 /** subscription root */
+export type Subscription_RootStatusArgs = {
+  distinct_on?: Maybe<Array<Status_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Status_Order_By>>;
+  where?: Maybe<Status_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootStatus_AggregateArgs = {
+  distinct_on?: Maybe<Array<Status_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Status_Order_By>>;
+  where?: Maybe<Status_Bool_Exp>;
+};
+
+/** subscription root */
+export type Subscription_RootStatus_By_PkArgs = {
+  status: Scalars['String'];
+};
+
+/** subscription root */
 export type Subscription_RootTeamsArgs = {
   distinct_on?: Maybe<Array<Teams_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -2332,6 +2653,7 @@ export type Subscription_RootUsers_By_PkArgs = {
 /** columns and relationships of "teams" */
 export type Teams = {
   __typename?: 'teams';
+  emergency_meeting: Scalars['Boolean'];
   id: Scalars['uuid'];
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -2421,6 +2743,7 @@ export type Teams_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Teams_Bool_Exp>>>;
   _not?: Maybe<Teams_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Teams_Bool_Exp>>>;
+  emergency_meeting?: Maybe<Boolean_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   motto?: Maybe<String_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
@@ -2439,6 +2762,7 @@ export enum Teams_Constraint {
 
 /** input type for inserting data into table "teams" */
 export type Teams_Insert_Input = {
+  emergency_meeting?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -2505,6 +2829,7 @@ export type Teams_On_Conflict = {
 
 /** ordering options when selecting data from "teams" */
 export type Teams_Order_By = {
+  emergency_meeting?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   motto?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
@@ -2797,6 +3122,8 @@ export type Teams_Scores_Variance_Order_By = {
 /** select columns of table "teams" */
 export enum Teams_Select_Column {
   /** column name */
+  EmergencyMeeting = 'emergency_meeting',
+  /** column name */
   Id = 'id',
   /** column name */
   Motto = 'motto',
@@ -2808,6 +3135,7 @@ export enum Teams_Select_Column {
 
 /** input type for updating data in table "teams" */
 export type Teams_Set_Input = {
+  emergency_meeting?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -2816,6 +3144,8 @@ export type Teams_Set_Input = {
 
 /** update columns of table "teams" */
 export enum Teams_Update_Column {
+  /** column name */
+  EmergencyMeeting = 'emergency_meeting',
   /** column name */
   Id = 'id',
   /** column name */
@@ -2844,6 +3174,7 @@ export type Users = {
   __typename?: 'users';
   admin: Scalars['Boolean'];
   auth0_id: Scalars['String'];
+  created_at: Scalars['timestamptz'];
   /** An object relationship */
   participant?: Maybe<Participants>;
 };
@@ -2889,6 +3220,7 @@ export type Users_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   admin?: Maybe<Boolean_Comparison_Exp>;
   auth0_id?: Maybe<String_Comparison_Exp>;
+  created_at?: Maybe<Timestamptz_Comparison_Exp>;
   participant?: Maybe<Participants_Bool_Exp>;
 };
 
@@ -2902,6 +3234,7 @@ export enum Users_Constraint {
 export type Users_Insert_Input = {
   admin?: Maybe<Scalars['Boolean']>;
   auth0_id?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   participant?: Maybe<Participants_Obj_Rel_Insert_Input>;
 };
 
@@ -2909,22 +3242,26 @@ export type Users_Insert_Input = {
 export type Users_Max_Fields = {
   __typename?: 'users_max_fields';
   auth0_id?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** order by max() on columns of table "users" */
 export type Users_Max_Order_By = {
   auth0_id?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Users_Min_Fields = {
   __typename?: 'users_min_fields';
   auth0_id?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** order by min() on columns of table "users" */
 export type Users_Min_Order_By = {
   auth0_id?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "users" */
@@ -2953,6 +3290,7 @@ export type Users_On_Conflict = {
 export type Users_Order_By = {
   admin?: Maybe<Order_By>;
   auth0_id?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
   participant?: Maybe<Participants_Order_By>;
 };
 
@@ -2966,13 +3304,16 @@ export enum Users_Select_Column {
   /** column name */
   Admin = 'admin',
   /** column name */
-  Auth0Id = 'auth0_id'
+  Auth0Id = 'auth0_id',
+  /** column name */
+  CreatedAt = 'created_at'
 }
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
   admin?: Maybe<Scalars['Boolean']>;
   auth0_id?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
 };
 
 /** update columns of table "users" */
@@ -2980,7 +3321,9 @@ export enum Users_Update_Column {
   /** column name */
   Admin = 'admin',
   /** column name */
-  Auth0Id = 'auth0_id'
+  Auth0Id = 'auth0_id',
+  /** column name */
+  CreatedAt = 'created_at'
 }
 
 /** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
@@ -3067,7 +3410,7 @@ export type SubmitContestVoteMutation = (
 );
 
 export type SubmissionControlMutationVariables = Exact<{
-  submission?: Maybe<Scalars['Boolean']>;
+  submission: Scalars['Boolean'];
 }>;
 
 export type SubmissionControlMutation = (
@@ -3079,7 +3422,7 @@ export type SubmissionControlMutation = (
 );
 
 export type VotingControlMutationVariables = Exact<{
-  vote?: Maybe<Scalars['Boolean']>;
+  vote: Scalars['Boolean'];
 }>;
 
 export type VotingControlMutation = (
@@ -3159,16 +3502,34 @@ export type UpdateContestStateMutation = (
   )>; }
 );
 
-export type GetOneParticipantDetailsQueryVariables = Exact<{ [key: string]: never }>;
+export type EmergencyMeetingVoteMutationVariables = Exact<{
+  participant_id: Scalars['String'];
+  user_id: Scalars['String'];
+}>;
+
+export type EmergencyMeetingVoteMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; update_my_vote?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type GetOneParticipantDetailsQueryVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
 
 export type GetOneParticipantDetailsQuery = (
   { __typename?: 'query_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
-    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution'>
+    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote'>
     & { team: (
       { __typename?: 'teams' }
-      & Pick<Teams, 'motto' | 'name' | 'picture_url'>
+      & Pick<Teams, 'motto' | 'name' | 'picture_url' | 'emergency_meeting'>
       & { scores: Array<(
         { __typename?: 'teams_scores' }
         & Pick<Teams_Scores, 'score'>
@@ -3190,7 +3551,9 @@ export type GetContestSubmissionQuery = (
   )>; }
 );
 
-export type GetParticipantVotingDetailsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetParticipantVotingDetailsQueryVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
 
 export type GetParticipantVotingDetailsQuery = (
   { __typename?: 'query_root' }
@@ -3256,6 +3619,16 @@ export type GetParticipantsScoreSubscription = (
   )>; }
 );
 
+export type EmergencyMeetingDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type EmergencyMeetingDetailsSubscription = (
+  { __typename?: 'subscription_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'emergency_vote' | 'imposter_vote_count' | 'name' | 'status' | 'user_id'>
+  )>; }
+);
+
 export const UpdateParticipantDetailsDocument = gql`
     mutation UpdateParticipantDetails($description: String!, $name: String!) {
   update_participants(where: {}, _set: {description: $description, name: $name}) {
@@ -3307,7 +3680,7 @@ export const UpdateGameScoreDocument = gql`
     mutation UpdateGameScore($game_id: uuid!, $score: Int!, $team_id: uuid!) {
   update_teams_scores(
     where: {game_id: {_eq: $game_id}, team_id: {_eq: $team_id}}
-    _set: {score: $score}
+    _inc: {score: $score}
   ) {
     affected_rows
   }
@@ -3408,7 +3781,7 @@ export function useSubmitContestVoteMutation(options: VueApolloComposable.UseMut
 }
 export type SubmitContestVoteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<SubmitContestVoteMutation, SubmitContestVoteMutationVariables>;
 export const SubmissionControlDocument = gql`
-    mutation SubmissionControl($submission: Boolean) {
+    mutation SubmissionControl($submission: Boolean!) {
   update_participants(where: {}, _set: {submission: $submission}) {
     affected_rows
   }
@@ -3432,12 +3805,12 @@ export const SubmissionControlDocument = gql`
  *   },
  * });
  */
-export function useSubmissionControlMutation(options: VueApolloComposable.UseMutationOptions<SubmissionControlMutation, SubmissionControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<SubmissionControlMutation, SubmissionControlMutationVariables>> = {}) {
+export function useSubmissionControlMutation(options: VueApolloComposable.UseMutationOptions<SubmissionControlMutation, SubmissionControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<SubmissionControlMutation, SubmissionControlMutationVariables>>) {
   return VueApolloComposable.useMutation<SubmissionControlMutation, SubmissionControlMutationVariables>(SubmissionControlDocument, options);
 }
 export type SubmissionControlMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<SubmissionControlMutation, SubmissionControlMutationVariables>;
 export const VotingControlDocument = gql`
-    mutation VotingControl($vote: Boolean) {
+    mutation VotingControl($vote: Boolean!) {
   update_participants(where: {}, _set: {vote: $vote}) {
     affected_rows
   }
@@ -3461,7 +3834,7 @@ export const VotingControlDocument = gql`
  *   },
  * });
  */
-export function useVotingControlMutation(options: VueApolloComposable.UseMutationOptions<VotingControlMutation, VotingControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<VotingControlMutation, VotingControlMutationVariables>> = {}) {
+export function useVotingControlMutation(options: VueApolloComposable.UseMutationOptions<VotingControlMutation, VotingControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<VotingControlMutation, VotingControlMutationVariables>>) {
   return VueApolloComposable.useMutation<VotingControlMutation, VotingControlMutationVariables>(VotingControlDocument, options);
 }
 export type VotingControlMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<VotingControlMutation, VotingControlMutationVariables>;
@@ -3607,9 +3980,48 @@ export function useUpdateContestStateMutation(options: VueApolloComposable.UseMu
   return VueApolloComposable.useMutation<UpdateContestStateMutation, UpdateContestStateMutationVariables>(UpdateContestStateDocument, options);
 }
 export type UpdateContestStateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateContestStateMutation, UpdateContestStateMutationVariables>;
+export const EmergencyMeetingVoteDocument = gql`
+    mutation EmergencyMeetingVote($participant_id: String!, $user_id: String!) {
+  update_participants: update_participants(
+    where: {user_id: {_eq: $participant_id}}
+    _inc: {imposter_vote_count: 1}
+  ) {
+    affected_rows
+  }
+  update_my_vote: update_participants(
+    where: {user_id: {_eq: $user_id}}
+    _set: {emergency_vote: true}
+  ) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useEmergencyMeetingVoteMutation__
+ *
+ * To run a mutation, you first call `useEmergencyMeetingVoteMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useEmergencyMeetingVoteMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useEmergencyMeetingVoteMutation({
+ *   variables: {
+ *     participant_id: // value for 'participant_id'
+ *     user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useEmergencyMeetingVoteMutation(options: VueApolloComposable.UseMutationOptions<EmergencyMeetingVoteMutation, EmergencyMeetingVoteMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<EmergencyMeetingVoteMutation, EmergencyMeetingVoteMutationVariables>>) {
+  return VueApolloComposable.useMutation<EmergencyMeetingVoteMutation, EmergencyMeetingVoteMutationVariables>(EmergencyMeetingVoteDocument, options);
+}
+export type EmergencyMeetingVoteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<EmergencyMeetingVoteMutation, EmergencyMeetingVoteMutationVariables>;
 export const GetOneParticipantDetailsDocument = gql`
-    query getOneParticipantDetails {
-  participants {
+    query getOneParticipantDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
     description
     name
     role
@@ -3617,10 +4029,13 @@ export const GetOneParticipantDetailsDocument = gql`
     user_id
     score
     contribution
+    status
+    emergency_vote
     team {
       motto
       name
       picture_url
+      emergency_meeting
       scores {
         score
       }
@@ -3636,13 +4051,16 @@ export const GetOneParticipantDetailsDocument = gql`
  * When your component renders, `useGetOneParticipantDetailsQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
+ * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetOneParticipantDetailsQuery();
+ * const { result, loading, error } = useGetOneParticipantDetailsQuery({
+ *   auth0_id: // value for 'auth0_id'
+ * });
  */
-export function useGetOneParticipantDetailsQuery(options: VueApolloComposable.UseQueryOptions<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>(GetOneParticipantDetailsDocument, {}, options);
+export function useGetOneParticipantDetailsQuery(variables: GetOneParticipantDetailsQueryVariables | VueCompositionApi.Ref<GetOneParticipantDetailsQueryVariables> | ReactiveFunction<GetOneParticipantDetailsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>(GetOneParticipantDetailsDocument, variables, options);
 }
 export type GetOneParticipantDetailsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetOneParticipantDetailsQuery, GetOneParticipantDetailsQueryVariables>;
 export const GetContestSubmissionDocument = gql`
@@ -3675,8 +4093,8 @@ export function useGetContestSubmissionQuery(variables: GetContestSubmissionQuer
 }
 export type GetContestSubmissionQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetContestSubmissionQuery, GetContestSubmissionQueryVariables>;
 export const GetParticipantVotingDetailsDocument = gql`
-    query getParticipantVotingDetails {
-  participants {
+    query getParticipantVotingDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
     id
     submission
     vote
@@ -3691,13 +4109,16 @@ export const GetParticipantVotingDetailsDocument = gql`
  * When your component renders, `useGetParticipantVotingDetailsQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
+ * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetParticipantVotingDetailsQuery();
+ * const { result, loading, error } = useGetParticipantVotingDetailsQuery({
+ *   auth0_id: // value for 'auth0_id'
+ * });
  */
-export function useGetParticipantVotingDetailsQuery(options: VueApolloComposable.UseQueryOptions<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>(GetParticipantVotingDetailsDocument, {}, options);
+export function useGetParticipantVotingDetailsQuery(variables: GetParticipantVotingDetailsQueryVariables | VueCompositionApi.Ref<GetParticipantVotingDetailsQueryVariables> | ReactiveFunction<GetParticipantVotingDetailsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>(GetParticipantVotingDetailsDocument, variables, options);
 }
 export type GetParticipantVotingDetailsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetParticipantVotingDetailsQuery, GetParticipantVotingDetailsQueryVariables>;
 export const GetControlStateDocument = gql`
@@ -3817,3 +4238,31 @@ export function useGetParticipantsScoreSubscription(options: VueApolloComposable
   return VueApolloComposable.useSubscription<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>(GetParticipantsScoreDocument, {}, options);
 }
 export type GetParticipantsScoreSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>;
+export const EmergencyMeetingDetailsDocument = gql`
+    subscription EmergencyMeetingDetails {
+  participants {
+    emergency_vote
+    imposter_vote_count
+    name
+    status
+    user_id
+  }
+}
+    `;
+
+/**
+ * __useEmergencyMeetingDetailsSubscription__
+ *
+ * To run a query within a Vue component, call `useEmergencyMeetingDetailsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useEmergencyMeetingDetailsSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useEmergencyMeetingDetailsSubscription();
+ */
+export function useEmergencyMeetingDetailsSubscription(options: VueApolloComposable.UseSubscriptionOptions<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>(EmergencyMeetingDetailsDocument, {}, options);
+}
+export type EmergencyMeetingDetailsSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>;
