@@ -17,17 +17,19 @@
       />
     </v-row>
     <ContributePointsForm />
-    <h1 class="text-center">
-      Emergency Meeting
-    </h1>
+    <div class="mt-10 mb-5">
+      <h1 class="text-center red--text">
+        Emergency Meeting
+      </h1>
+    </div>
     <EmergencyMeeting
       v-if="team.emergency_meeting"
       :meeting-participants="meetingParticipants"
       :emergency-vote="emergencyVote"
     />
-    <p
+    <emergency-meeting-result
       v-else
-    >No emergency meeting right now.</p>
+    />
   </v-container>
 </template>
 
@@ -35,6 +37,7 @@
 import { computed, defineComponent } from '@vue/composition-api';
 import ContributePointsForm from '@/components/molecules/ContributePointsForm.vue';
 import EmergencyMeeting from '@/components/organisms/EmergencyMeeting.vue';
+import EmergencyMeetingResult from './EmergencyMeetingResult.vue';
 
 export default defineComponent({
   name: 'TeamProfile',
@@ -42,6 +45,7 @@ export default defineComponent({
   components: {
     ContributePointsForm,
     EmergencyMeeting,
+    EmergencyMeetingResult,
   },
 
   props: {
@@ -68,10 +72,6 @@ export default defineComponent({
     emergencyVote: {
       type: Boolean,
       default: true,
-    },
-    skill: {
-      type: Number,
-      default: () => 250,
     },
   },
   setup(props) {
