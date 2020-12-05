@@ -16,10 +16,12 @@
           <template v-slot:item.name="{ item }">
             <v-row align="center">
               <div class="mx-5 my-5">
+                <v-avatar :size="$vuetify.breakpoint.xs ? 25 : 50">
                 <v-img
                   :src="item.team_name.picture_url"
-                  max-width="50"
+                  :max-width="$vuetify.breakpoint.xs ? 25 : 50"
                 />
+                </v-avatar>
               </div>
               {{ item.team_name.name }}
             </v-row>
