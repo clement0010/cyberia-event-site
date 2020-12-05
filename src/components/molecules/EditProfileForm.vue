@@ -81,7 +81,7 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { root }) {
     // Create apollo client for caching purposes
     const { resolveClient } = useApolloClient();
     const client = resolveClient();
@@ -90,6 +90,7 @@ export default defineComponent({
     const profile = reactive({
       name: props.username || '',
       description: props.description || '',
+      auth0_id: root.$auth.user?.sub || '',
     });
 
     const { mutate: updateDetails } = useUpdateParticipantDetailsMutation(() => ({}));

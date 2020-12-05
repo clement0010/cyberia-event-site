@@ -67,6 +67,7 @@ export default defineComponent({
       notifyOnNetworkStatusChange: true,
     });
 
+    // Refresh page bug
     const auth0_id = ref(root.$auth.user?.sub || '');
     const {
       result: result1,

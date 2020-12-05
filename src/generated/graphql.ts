@@ -3342,6 +3342,7 @@ export type Uuid_Comparison_Exp = {
 export type UpdateParticipantDetailsMutationVariables = Exact<{
   description: Scalars['String'];
   name: Scalars['String'];
+  auth0_id: Scalars['String'];
 }>;
 
 export type UpdateParticipantDetailsMutation = (
@@ -3351,10 +3352,10 @@ export type UpdateParticipantDetailsMutation = (
     & Pick<Participants_Mutation_Response, 'affected_rows'>
     & { returning: Array<(
       { __typename?: 'participants' }
-      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution'>
+      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote'>
       & { team: (
         { __typename?: 'teams' }
-        & Pick<Teams, 'motto' | 'name' | 'picture_url'>
+        & Pick<Teams, 'motto' | 'name' | 'picture_url' | 'emergency_meeting'>
         & { scores: Array<(
           { __typename?: 'teams_scores' }
           & Pick<Teams_Scores, 'score'>
@@ -3381,6 +3382,7 @@ export type UpdateGameScoreMutation = (
 export type SubmitContestMutationVariables = Exact<{
   submission_url: Scalars['String'];
   participant_id: Scalars['uuid'];
+  auth0_id: Scalars['String'];
 }>;
 
 export type SubmitContestMutation = (
@@ -3396,6 +3398,7 @@ export type SubmitContestMutation = (
 
 export type SubmitContestVoteMutationVariables = Exact<{
   participant_id: Scalars['uuid'];
+  auth0_id: Scalars['String'];
 }>;
 
 export type SubmitContestVoteMutation = (
@@ -3411,6 +3414,7 @@ export type SubmitContestVoteMutation = (
 
 export type SubmissionControlMutationVariables = Exact<{
   submission: Scalars['Boolean'];
+  auth0_id: Scalars['String'];
 }>;
 
 export type SubmissionControlMutation = (
@@ -3449,6 +3453,7 @@ export type UpdateParticipantsScoreMutation = (
 export type AddScoreToTeamMutationVariables = Exact<{
   crewmate: Scalars['Int'];
   team: Scalars['Int'];
+  auth0_id: Scalars['String'];
 }>;
 
 export type AddScoreToTeamMutation = (
@@ -3630,8 +3635,11 @@ export type EmergencyMeetingDetailsSubscription = (
 );
 
 export const UpdateParticipantDetailsDocument = gql`
-    mutation UpdateParticipantDetails($description: String!, $name: String!) {
-  update_participants(where: {}, _set: {description: $description, name: $name}) {
+    mutation UpdateParticipantDetails($description: String!, $name: String!, $auth0_id: String!) {
+  update_participants(
+    where: {user_id: {_eq: $auth0_id}}
+    _set: {description: $description, name: $name}
+  ) {
     affected_rows
     returning {
       description
@@ -3641,10 +3649,13 @@ export const UpdateParticipantDetailsDocument = gql`
       user_id
       score
       contribution
+      status
+      emergency_vote
       team {
         motto
         name
         picture_url
+        emergency_meeting
         scores {
           score
         }
@@ -3669,6 +3680,7 @@ export const UpdateParticipantDetailsDocument = gql`
  *   variables: {
  *     description: // value for 'description'
  *     name: // value for 'name'
+ *     auth0_id: // value for 'auth0_id'
  *   },
  * });
  */
@@ -3711,13 +3723,16 @@ export function useUpdateGameScoreMutation(options: VueApolloComposable.UseMutat
 }
 export type UpdateGameScoreMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateGameScoreMutation, UpdateGameScoreMutationVariables>;
 export const SubmitContestDocument = gql`
-    mutation SubmitContest($submission_url: String!, $participant_id: uuid!) {
+    mutation SubmitContest($submission_url: String!, $participant_id: uuid!, $auth0_id: String!) {
   insert_contest(
     objects: {submission_url: $submission_url, participant_id: $participant_id}
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: {submission: false}) {
+  update_participants(
+    where: {user_id: {_eq: $auth0_id}}
+    _set: {submission: false}
+  ) {
     affected_rows
   }
 }
@@ -3738,6 +3753,7 @@ export const SubmitContestDocument = gql`
  *   variables: {
  *     submission_url: // value for 'submission_url'
  *     participant_id: // value for 'participant_id'
+ *     auth0_id: // value for 'auth0_id'
  *   },
  * });
  */
@@ -3746,14 +3762,14 @@ export function useSubmitContestMutation(options: VueApolloComposable.UseMutatio
 }
 export type SubmitContestMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<SubmitContestMutation, SubmitContestMutationVariables>;
 export const SubmitContestVoteDocument = gql`
-    mutation SubmitContestVote($participant_id: uuid!) {
+    mutation SubmitContestVote($participant_id: uuid!, $auth0_id: String!) {
   update_contest(
     where: {participant_id: {_eq: $participant_id}}
     _inc: {vote_count: 1}
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: {vote: false}) {
+  update_participants(where: {user_id: {_eq: $auth0_id}}, _set: {vote: false}) {
     affected_rows
   }
 }
@@ -3773,6 +3789,7 @@ export const SubmitContestVoteDocument = gql`
  * const { mutate, loading, error, onDone } = useSubmitContestVoteMutation({
  *   variables: {
  *     participant_id: // value for 'participant_id'
+ *     auth0_id: // value for 'auth0_id'
  *   },
  * });
  */
@@ -3781,7 +3798,7 @@ export function useSubmitContestVoteMutation(options: VueApolloComposable.UseMut
 }
 export type SubmitContestVoteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<SubmitContestVoteMutation, SubmitContestVoteMutationVariables>;
 export const SubmissionControlDocument = gql`
-    mutation SubmissionControl($submission: Boolean!) {
+    mutation SubmissionControl($submission: Boolean!, $auth0_id: String!) {
   update_participants(where: {}, _set: {submission: $submission}) {
     affected_rows
   }
@@ -3802,6 +3819,7 @@ export const SubmissionControlDocument = gql`
  * const { mutate, loading, error, onDone } = useSubmissionControlMutation({
  *   variables: {
  *     submission: // value for 'submission'
+ *     auth0_id: // value for 'auth0_id'
  *   },
  * });
  */
@@ -3869,8 +3887,11 @@ export function useUpdateParticipantsScoreMutation(options: VueApolloComposable.
 }
 export type UpdateParticipantsScoreMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParticipantsScoreMutation, UpdateParticipantsScoreMutationVariables>;
 export const AddScoreToTeamDocument = gql`
-    mutation AddScoreToTeam($crewmate: Int!, $team: Int!) {
-  update_participants(where: {}, _inc: {score: $crewmate, contribution: $team}) {
+    mutation AddScoreToTeam($crewmate: Int!, $team: Int!, $auth0_id: String!) {
+  update_participants(
+    where: {user_id: {_eq: $auth0_id}}
+    _inc: {score: $crewmate, contribution: $team}
+  ) {
     affected_rows
     returning {
       description
@@ -3911,6 +3932,7 @@ export const AddScoreToTeamDocument = gql`
  *   variables: {
  *     crewmate: // value for 'crewmate'
  *     team: // value for 'team'
+ *     auth0_id: // value for 'auth0_id'
  *   },
  * });
  */
