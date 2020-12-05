@@ -62,7 +62,7 @@ import CacheService from '@/services/cacheService';
 export default defineComponent({
   name: 'ContributePointsForm',
 
-  setup() {
+  setup(_, { root }) {
     const { resolveClient } = useApolloClient();
     const client = resolveClient();
     const dialog = ref(false);
@@ -76,6 +76,7 @@ export default defineComponent({
       contributePoints({
         crewmate: -points.value,
         team: +points.value,
+        auth0_id: root.$auth.user?.sub || '',
       }).then((result) => {
         const cache = new CacheService(client);
         const participants = result.data.update_participants.returning;

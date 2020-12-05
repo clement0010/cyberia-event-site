@@ -65,7 +65,7 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { root }) {
     const dialog = ref(false);
     const {
       timeout, snackbar, message, snackbarHandler,
@@ -80,11 +80,12 @@ export default defineComponent({
       console.log(props.contestantId, 'Voted contestant id');
       submitContestVote({
         participant_id: props.contestantId,
+        auth0_id: root.$auth.user?.sub || '',
       }).then((result) => {
         if (result.data.update_contest.affected_rows) {
           const cache = new CacheService(client);
 
-          const { participants } = cache.read(GetParticipantVotingDetailsDocument, {});
+          const { participants } = cache.read(GetParticipantVotingDetailsDocument, { auth0_id: root.$auth.user?.sub });
           participants[0].vote = true;
           cache.write(GetParticipantVotingDetailsDocument, { participants });
         } else {

@@ -1,12 +1,16 @@
 <template>
   <v-container class="pt-10">
     <ProfileSelf :profile="profile" />
-    <ProfileTeam :team="profile.team" />
+    <ProfileTeam
+      :team="profile.team"
+      :meeting-participants="meetingParticipants"
+      :emergency-vote="profile.emergency_vote"
+    />
   </v-container>
 </template>
 
 <script>
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
 import ProfileSelf from '@/components/organisms/ProfileSelf.vue';
 import ProfileTeam from '@/components/organisms/ProfileTeam.vue';
@@ -22,11 +26,15 @@ export default defineComponent({
     profile: {
       type: Object,
       default: () => ({
-        name: 'LOREM_IPSUM',
-        description: 'TEST123',
+        description: null,
+        name: 'LEE SHAO CHEN CONAN',
         role: 'CREWMATE',
-        team_id: '1b03aa8e-0937-42c7-b8f1-27c21c47aabb',
-        user_id: 'auth0|12345678910',
+        team_id: 'c15a5929-0564-4e24-8811-930ab511408c',
+        user_id: 'auth0|5fca77ed804107007611d218',
+        score: 0,
+        contribution: 0,
+        status: 'ALIVE',
+        emergency_vote: false,
         team: {
           motto: 'TEST_MOCK_OG_1',
           name: 'MOCK_OG_!',
@@ -34,26 +42,16 @@ export default defineComponent({
         },
       }),
     },
-    loading: {
-      type: Boolean,
-      default: () => true,
+    meetingParticipants: {
+      type: Array,
+      default: () => [{
+        emergency_vote: false,
+        imposter_vote_count: 0,
+        name: 'Test User',
+        status: 'ALIVE',
+        user_id: '0',
+      }],
     },
-    skill: {
-      type: Number,
-      default: () => 25,
-    },
-  },
-
-  setup(_, { root }) {
-    const selection = ref(0);
-    function reserve() {
-      console.log(selection.value);
-      return root.$router.push({ path: '/' });
-    }
-    return {
-      selection,
-      reserve,
-    };
   },
 });
 </script>

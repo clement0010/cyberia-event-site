@@ -1,5 +1,5 @@
-query getOneParticipantDetails {
-  participants {
+query getOneParticipantDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
     description
     name
     role
@@ -7,18 +7,19 @@ query getOneParticipantDetails {
     user_id
     score
     contribution
+    status
+    emergency_vote
     team {
       motto
       name
       picture_url
+      emergency_meeting
       scores {
         score
       }
     }
   }
 }
-
-
 
 query GetContestSubmission($limit: Int!, $offset: Int!) {
   contest(offset: $offset, limit: $limit, order_by: {submission_time: asc}) {
@@ -27,9 +28,8 @@ query GetContestSubmission($limit: Int!, $offset: Int!) {
   }
 }
 
-
-query getParticipantVotingDetails {
-  participants {
+query getParticipantVotingDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
     id
     submission
     vote

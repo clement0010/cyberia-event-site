@@ -1,6 +1,10 @@
-mutation UpdateParticipantDetails($description: String!, $name: String!) {
+mutation UpdateParticipantDetails(
+  $description: String!
+  $name: String!
+  $auth0_id: String!
+) {
   update_participants(
-    where: {}
+    where: { user_id: { _eq: $auth0_id } }
     _set: { description: $description, name: $name }
   ) {
     affected_rows
@@ -12,10 +16,14 @@ mutation UpdateParticipantDetails($description: String!, $name: String!) {
       user_id
       score
       contribution
+      status
+      emergency_vote
       team {
         motto
         name
         picture_url
+        emergency_meeting
+
         scores {
           score
         }
@@ -27,13 +35,17 @@ mutation UpdateParticipantDetails($description: String!, $name: String!) {
 mutation UpdateGameScore($game_id: uuid!, $score: Int!, $team_id: uuid!) {
   update_teams_scores(
     where: { game_id: { _eq: $game_id }, team_id: { _eq: $team_id } }
-    _set: { score: $score }
+    _inc: { score: $score }
   ) {
     affected_rows
   }
 }
 
-mutation SubmitContest($submission_url: String!, $participant_id: uuid!) {
+mutation SubmitContest(
+  $submission_url: String!
+  $participant_id: uuid!
+  $auth0_id: String!
+) {
   insert_contest(
     objects: {
       submission_url: $submission_url
@@ -42,44 +54,55 @@ mutation SubmitContest($submission_url: String!, $participant_id: uuid!) {
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: { submission: false }) {
+  update_participants(
+    where: { user_id: { _eq: $auth0_id } }
+    _set: { submission: false }
+  ) {
     affected_rows
   }
 }
 
-mutation SubmitContestVote($participant_id: uuid!) {
+mutation SubmitContestVote($participant_id: uuid!, $auth0_id: String!) {
   update_contest(
     where: { participant_id: { _eq: $participant_id } }
     _inc: { vote_count: 1 }
   ) {
     affected_rows
   }
-  update_participants(where: {}, _set: { vote: false }) {
+  update_participants(
+    where: { user_id: { _eq: $auth0_id } }
+    _set: { vote: false }
+  ) {
     affected_rows
   }
 }
 
-mutation SubmissionControl($submission: Boolean) {
+mutation SubmissionControl($submission: Boolean!, $auth0_id: String!) {
   update_participants(where: {}, _set: { submission: $submission }) {
     affected_rows
   }
 }
 
-mutation VotingControl($vote: Boolean) {
+mutation VotingControl($vote: Boolean!) {
   update_participants(where: {}, _set: { vote: $vote }) {
     affected_rows
   }
 }
 
 mutation UpdateParticipantsScore($participant_id: uuid!, $score: Int!) {
-  update_participants(where: {id: {_eq: $participant_id}}, _inc: {score: $score}) {
+  update_participants(
+    where: { id: { _eq: $participant_id } }
+    _inc: { score: $score }
+  ) {
     affected_rows
   }
 }
 
-
-mutation AddScoreToTeam($crewmate: Int!, $team: Int!) {
-  update_participants(where: {}, _inc: { score: $crewmate, contribution:$team }) {
+mutation AddScoreToTeam($crewmate: Int!, $team: Int!, $auth0_id: String!) {
+  update_participants(
+    where: { user_id: { _eq: $auth0_id } }
+    _inc: { score: $crewmate, contribution: $team }
+  ) {
     affected_rows
     returning {
       description
@@ -117,6 +140,21 @@ mutation UpdateContestState($submission: Boolean!, $vote: Boolean!) {
   update_participants(
     where: {}
     _set: { submission: $submission, vote: $vote }
+  ) {
+    affected_rows
+  }
+}
+
+mutation EmergencyMeetingVote($participant_id: String!, $user_id: String!) {
+  update_participants: update_participants(
+    where: { user_id: { _eq: $participant_id } }
+    _inc: { imposter_vote_count: 1 }
+  ) {
+    affected_rows
+  }
+  update_my_vote: update_participants(
+    where: { user_id: { _eq: $user_id } }
+    _set: { emergency_vote: true }
   ) {
     affected_rows
   }
