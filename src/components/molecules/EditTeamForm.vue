@@ -94,7 +94,7 @@ export default defineComponent({
     const { mutate: updateScore } = useUpdateParticipantsScoreMutation(() => ({}));
 
     const updateData = reactive({
-      participant_id: props.id || '',
+      participant_id: '',
       score: 0,
     });
 

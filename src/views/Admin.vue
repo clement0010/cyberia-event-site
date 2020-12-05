@@ -24,6 +24,28 @@
         />
       </v-row>
       <div class="my-5">
+        <h1 class="text-center">Picometer</h1>
+      </div>
+      <v-row>
+        <ArtifactCard
+          v-for="(team, index) in picometer"
+          :key="index"
+          :team="team"
+          :type="'picometer'"
+        />
+      </v-row>
+      <div class="my-5">
+        <h1 class="text-center">Viewfinder</h1>
+      </div>
+      <v-row>
+        <ArtifactCard
+          v-for="(team, index) in viewfinder"
+          :key="index"
+          :team="team"
+          :type="'viewfinder'"
+        />
+      </v-row>
+      <div class="my-5">
         <h1 class="text-center">Main Control</h1>
       </div>
       <v-row justify="center">
@@ -37,8 +59,11 @@
 import { defineComponent, ref, watch } from '@vue/composition-api';
 import GameCard from '@/components/organisms/GameCard.vue';
 import TeamCard from '@/components/organisms/TeamCard.vue';
+import ArtifactCard from '@/components/organisms/ArtifactCard.vue';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
-import { useSubscibeToAllGamesSubscription, useGetParticipantsScoreSubscription } from '@/generated/graphql';
+import {
+  useSubscibeToAllGamesSubscription, useGetParticipantsScoreSubscription, useGetParticipantsPicometerDetailsSubscription, useGetParticipantsViewfinderDetailsSubscription,
+} from '@/generated/graphql';
 import ContestControlButton from '@/components/atoms/ContestControlButton.vue';
 
 export default defineComponent({
@@ -49,6 +74,7 @@ export default defineComponent({
     TeamCard,
     LoaderSpin,
     ContestControlButton,
+    ArtifactCard,
   },
 
   setup() {
@@ -68,12 +94,30 @@ export default defineComponent({
         teams.value = data.teams;
       },
     );
+    const { result: result2, loading: loading2, error: error2 } = useGetParticipantsPicometerDetailsSubscription();
+    const picometer = ref();
+    watch(
+      result2,
+      (data) => {
+        picometer.value = data.teams;
+      },
+    );
+    const { result: result3, loading: loading3, error: error3 } = useGetParticipantsViewfinderDetailsSubscription();
+    const viewfinder = ref();
+    watch(
+      result3,
+      (data) => {
+        viewfinder.value = data.teams;
+      },
+    );
 
     return {
       games,
-      loading,
+      picometer,
+      viewfinder,
       error,
       teams,
+      loading,
       loading1,
       error1,
     };

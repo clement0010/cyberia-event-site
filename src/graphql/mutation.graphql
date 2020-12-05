@@ -159,3 +159,16 @@ mutation EmergencyMeetingVote($participant_id: String!, $user_id: String!) {
     affected_rows
   }
 }
+
+mutation UpdateParticipantsPicometer($participant_id: uuid!, $picometer_hint: String!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {picometer_hint: $picometer_hint}) {
+    affected_rows
+  }
+}
+
+mutation UpdateParticipantsViewfinder($participant_id: uuid!, $viewfinder_hint: String!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {viewfinder_hint: $viewfinder_hint}) {
+    affected_rows
+  }
+}
+

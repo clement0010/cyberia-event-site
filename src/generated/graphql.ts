@@ -1343,6 +1343,8 @@ export type Participants = {
   id: Scalars['uuid'];
   imposter_vote_count: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
+  picometer: Scalars['Boolean'];
+  picometer_hint: Scalars['String'];
   role: Roles_Enum;
   score: Scalars['Int'];
   status: Status_Enum;
@@ -1353,6 +1355,8 @@ export type Participants = {
   /** An object relationship */
   user: Users;
   user_id: Scalars['String'];
+  viewfinder: Scalars['Boolean'];
+  viewfinder_hint?: Maybe<Scalars['String']>;
   vote: Scalars['Boolean'];
 };
 
@@ -1433,6 +1437,8 @@ export type Participants_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>;
   imposter_vote_count?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  picometer?: Maybe<Boolean_Comparison_Exp>;
+  picometer_hint?: Maybe<String_Comparison_Exp>;
   role?: Maybe<Roles_Enum_Comparison_Exp>;
   score?: Maybe<Int_Comparison_Exp>;
   status?: Maybe<Status_Enum_Comparison_Exp>;
@@ -1441,6 +1447,8 @@ export type Participants_Bool_Exp = {
   team_id?: Maybe<Uuid_Comparison_Exp>;
   user?: Maybe<Users_Bool_Exp>;
   user_id?: Maybe<String_Comparison_Exp>;
+  viewfinder?: Maybe<Boolean_Comparison_Exp>;
+  viewfinder_hint?: Maybe<String_Comparison_Exp>;
   vote?: Maybe<Boolean_Comparison_Exp>;
 };
 
@@ -1468,6 +1476,8 @@ export type Participants_Insert_Input = {
   id?: Maybe<Scalars['uuid']>;
   imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  picometer?: Maybe<Scalars['Boolean']>;
+  picometer_hint?: Maybe<Scalars['String']>;
   role?: Maybe<Roles_Enum>;
   score?: Maybe<Scalars['Int']>;
   status?: Maybe<Status_Enum>;
@@ -1476,6 +1486,8 @@ export type Participants_Insert_Input = {
   team_id?: Maybe<Scalars['uuid']>;
   user?: Maybe<Users_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['String']>;
+  viewfinder?: Maybe<Scalars['Boolean']>;
+  viewfinder_hint?: Maybe<Scalars['String']>;
   vote?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1487,9 +1499,11 @@ export type Participants_Max_Fields = {
   id?: Maybe<Scalars['uuid']>;
   imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  picometer_hint?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['Int']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
+  viewfinder_hint?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "participants" */
@@ -1499,9 +1513,11 @@ export type Participants_Max_Order_By = {
   id?: Maybe<Order_By>;
   imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  picometer_hint?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
   team_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
+  viewfinder_hint?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -1512,9 +1528,11 @@ export type Participants_Min_Fields = {
   id?: Maybe<Scalars['uuid']>;
   imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  picometer_hint?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['Int']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
+  viewfinder_hint?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "participants" */
@@ -1524,9 +1542,11 @@ export type Participants_Min_Order_By = {
   id?: Maybe<Order_By>;
   imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  picometer_hint?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
   team_id?: Maybe<Order_By>;
   user_id?: Maybe<Order_By>;
+  viewfinder_hint?: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "participants" */
@@ -1560,6 +1580,8 @@ export type Participants_Order_By = {
   id?: Maybe<Order_By>;
   imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  picometer?: Maybe<Order_By>;
+  picometer_hint?: Maybe<Order_By>;
   role?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
   status?: Maybe<Order_By>;
@@ -1568,6 +1590,8 @@ export type Participants_Order_By = {
   team_id?: Maybe<Order_By>;
   user?: Maybe<Users_Order_By>;
   user_id?: Maybe<Order_By>;
+  viewfinder?: Maybe<Order_By>;
+  viewfinder_hint?: Maybe<Order_By>;
   vote?: Maybe<Order_By>;
 };
 
@@ -1591,6 +1615,10 @@ export enum Participants_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  Picometer = 'picometer',
+  /** column name */
+  PicometerHint = 'picometer_hint',
+  /** column name */
   Role = 'role',
   /** column name */
   Score = 'score',
@@ -1603,6 +1631,10 @@ export enum Participants_Select_Column {
   /** column name */
   UserId = 'user_id',
   /** column name */
+  Viewfinder = 'viewfinder',
+  /** column name */
+  ViewfinderHint = 'viewfinder_hint',
+  /** column name */
   Vote = 'vote'
 }
 
@@ -1614,12 +1646,16 @@ export type Participants_Set_Input = {
   id?: Maybe<Scalars['uuid']>;
   imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  picometer?: Maybe<Scalars['Boolean']>;
+  picometer_hint?: Maybe<Scalars['String']>;
   role?: Maybe<Roles_Enum>;
   score?: Maybe<Scalars['Int']>;
   status?: Maybe<Status_Enum>;
   submission?: Maybe<Scalars['Boolean']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
+  viewfinder?: Maybe<Scalars['Boolean']>;
+  viewfinder_hint?: Maybe<Scalars['String']>;
   vote?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1698,6 +1734,10 @@ export enum Participants_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  Picometer = 'picometer',
+  /** column name */
+  PicometerHint = 'picometer_hint',
+  /** column name */
   Role = 'role',
   /** column name */
   Score = 'score',
@@ -1709,6 +1749,10 @@ export enum Participants_Update_Column {
   TeamId = 'team_id',
   /** column name */
   UserId = 'user_id',
+  /** column name */
+  Viewfinder = 'viewfinder',
+  /** column name */
+  ViewfinderHint = 'viewfinder_hint',
   /** column name */
   Vote = 'vote'
 }
@@ -3523,6 +3567,32 @@ export type EmergencyMeetingVoteMutation = (
   )>; }
 );
 
+export type UpdateParticipantsPicometerMutationVariables = Exact<{
+  participant_id: Scalars['uuid'];
+  picometer_hint: Scalars['String'];
+}>;
+
+export type UpdateParticipantsPicometerMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type UpdateParticipantsViewfinderMutationVariables = Exact<{
+  participant_id: Scalars['uuid'];
+  viewfinder_hint: Scalars['String'];
+}>;
+
+export type UpdateParticipantsViewfinderMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
 export type GetOneParticipantDetailsQueryVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
@@ -3631,6 +3701,34 @@ export type EmergencyMeetingDetailsSubscription = (
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'emergency_vote' | 'imposter_vote_count' | 'name' | 'status' | 'user_id'>
+  )>; }
+);
+
+export type GetParticipantsPicometerDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type GetParticipantsPicometerDetailsSubscription = (
+  { __typename?: 'subscription_root' }
+  & { teams: Array<(
+    { __typename?: 'teams' }
+    & Pick<Teams, 'name'>
+    & { participants: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'id' | 'name'>
+    )>; }
+  )>; }
+);
+
+export type GetParticipantsViewfinderDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type GetParticipantsViewfinderDetailsSubscription = (
+  { __typename?: 'subscription_root' }
+  & { teams: Array<(
+    { __typename?: 'teams' }
+    & Pick<Teams, 'name'>
+    & { participants: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'id' | 'name'>
+    )>; }
   )>; }
 );
 
@@ -4041,6 +4139,72 @@ export function useEmergencyMeetingVoteMutation(options: VueApolloComposable.Use
   return VueApolloComposable.useMutation<EmergencyMeetingVoteMutation, EmergencyMeetingVoteMutationVariables>(EmergencyMeetingVoteDocument, options);
 }
 export type EmergencyMeetingVoteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<EmergencyMeetingVoteMutation, EmergencyMeetingVoteMutationVariables>;
+export const UpdateParticipantsPicometerDocument = gql`
+    mutation UpdateParticipantsPicometer($participant_id: uuid!, $picometer_hint: String!) {
+  update_participants(
+    where: {id: {_eq: $participant_id}}
+    _set: {picometer_hint: $picometer_hint}
+  ) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useUpdateParticipantsPicometerMutation__
+ *
+ * To run a mutation, you first call `useUpdateParticipantsPicometerMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateParticipantsPicometerMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useUpdateParticipantsPicometerMutation({
+ *   variables: {
+ *     participant_id: // value for 'participant_id'
+ *     picometer_hint: // value for 'picometer_hint'
+ *   },
+ * });
+ */
+export function useUpdateParticipantsPicometerMutation(options: VueApolloComposable.UseMutationOptions<UpdateParticipantsPicometerMutation, UpdateParticipantsPicometerMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateParticipantsPicometerMutation, UpdateParticipantsPicometerMutationVariables>>) {
+  return VueApolloComposable.useMutation<UpdateParticipantsPicometerMutation, UpdateParticipantsPicometerMutationVariables>(UpdateParticipantsPicometerDocument, options);
+}
+export type UpdateParticipantsPicometerMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParticipantsPicometerMutation, UpdateParticipantsPicometerMutationVariables>;
+export const UpdateParticipantsViewfinderDocument = gql`
+    mutation UpdateParticipantsViewfinder($participant_id: uuid!, $viewfinder_hint: String!) {
+  update_participants(
+    where: {id: {_eq: $participant_id}}
+    _set: {viewfinder_hint: $viewfinder_hint}
+  ) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useUpdateParticipantsViewfinderMutation__
+ *
+ * To run a mutation, you first call `useUpdateParticipantsViewfinderMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateParticipantsViewfinderMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useUpdateParticipantsViewfinderMutation({
+ *   variables: {
+ *     participant_id: // value for 'participant_id'
+ *     viewfinder_hint: // value for 'viewfinder_hint'
+ *   },
+ * });
+ */
+export function useUpdateParticipantsViewfinderMutation(options: VueApolloComposable.UseMutationOptions<UpdateParticipantsViewfinderMutation, UpdateParticipantsViewfinderMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<UpdateParticipantsViewfinderMutation, UpdateParticipantsViewfinderMutationVariables>>) {
+  return VueApolloComposable.useMutation<UpdateParticipantsViewfinderMutation, UpdateParticipantsViewfinderMutationVariables>(UpdateParticipantsViewfinderDocument, options);
+}
+export type UpdateParticipantsViewfinderMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParticipantsViewfinderMutation, UpdateParticipantsViewfinderMutationVariables>;
 export const GetOneParticipantDetailsDocument = gql`
     query getOneParticipantDetails($auth0_id: String!) {
   participants(where: {user_id: {_eq: $auth0_id}}) {
@@ -4288,3 +4452,59 @@ export function useEmergencyMeetingDetailsSubscription(options: VueApolloComposa
   return VueApolloComposable.useSubscription<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>(EmergencyMeetingDetailsDocument, {}, options);
 }
 export type EmergencyMeetingDetailsSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>;
+export const GetParticipantsPicometerDetailsDocument = gql`
+    subscription GetParticipantsPicometerDetails {
+  teams {
+    name
+    participants(where: {picometer: {_eq: true}, picometer_hint: {_eq: "None"}}) {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetParticipantsPicometerDetailsSubscription__
+ *
+ * To run a query within a Vue component, call `useGetParticipantsPicometerDetailsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetParticipantsPicometerDetailsSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetParticipantsPicometerDetailsSubscription();
+ */
+export function useGetParticipantsPicometerDetailsSubscription(options: VueApolloComposable.UseSubscriptionOptions<GetParticipantsPicometerDetailsSubscription, GetParticipantsPicometerDetailsSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<GetParticipantsPicometerDetailsSubscription, GetParticipantsPicometerDetailsSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<GetParticipantsPicometerDetailsSubscription, GetParticipantsPicometerDetailsSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<GetParticipantsPicometerDetailsSubscription, GetParticipantsPicometerDetailsSubscriptionVariables>(GetParticipantsPicometerDetailsDocument, {}, options);
+}
+export type GetParticipantsPicometerDetailsSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetParticipantsPicometerDetailsSubscription, GetParticipantsPicometerDetailsSubscriptionVariables>;
+export const GetParticipantsViewfinderDetailsDocument = gql`
+    subscription GetParticipantsViewfinderDetails {
+  teams {
+    name
+    participants(where: {viewfinder: {_eq: true}, viewfinder_hint: {_eq: "None"}}) {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetParticipantsViewfinderDetailsSubscription__
+ *
+ * To run a query within a Vue component, call `useGetParticipantsViewfinderDetailsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetParticipantsViewfinderDetailsSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetParticipantsViewfinderDetailsSubscription();
+ */
+export function useGetParticipantsViewfinderDetailsSubscription(options: VueApolloComposable.UseSubscriptionOptions<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables>(GetParticipantsViewfinderDetailsDocument, {}, options);
+}
+export type GetParticipantsViewfinderDetailsSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables>;
