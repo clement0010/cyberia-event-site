@@ -6,7 +6,8 @@
       :disabled="bought"
       @click="confirmationDialog = true"
     >
-      {{ bought ? "Bought" : "Buy" }}
+      <p v-if="bought">Bought</p>
+      <p v-else>Buy</p>
     </v-btn>
 
     <v-dialog
@@ -27,7 +28,7 @@
           <v-spacer />
           <v-btn
             color="primary"
-            @click="buyViewfinderWrapper()"
+            @click="buyViewfinderWrapper"
           >
             Yes
           </v-btn>
@@ -40,34 +41,90 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <SnackBar
+      :text="message"
+      :timeout="timeout"
+      :snackbar="snackbar"
+    />
   </v-row>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
+import { GetArtifactsDetailsDocument, GetOneParticipantDetailsDocument, useBuyViewfinderMutation } from '@/generated/graphql';
+import { useApolloClient } from '@vue/apollo-composable';
+import CacheService from '@/services/cacheService';
+import SnackBar from '@/components/atoms/Snackbars.vue';
+import snackBarComposition from '@/composable/snackbar';
 
 export default defineComponent({
   name: 'BuyViewfinder',
 
   components: {
+    SnackBar,
+
   },
 
   props: {
     bought: {
       type: Boolean,
+      default: true,
+    },
+    score: {
+      type: Number,
+      default: 0,
     },
   },
 
-  setup(props) {
+  setup(props, { root }) {
     const confirmationDialog = ref(false);
+    const { resolveClient } = useApolloClient();
+    const client = resolveClient();
+
+    const {
+      timeout, snackbar, message, snackbarHandler,
+    } = snackBarComposition();
+
+    const { mutate: buyViewfinder } = useBuyViewfinderMutation({});
 
     function buyViewfinderWrapper() {
+      if (props.score < 200) {
+        snackbarHandler('Insufficient Points!');
+        return;
+      }
+
+      buyViewfinder({
+        auth0_id: root.$auth.user?.sub || '',
+      }).then((result) => {
+        if (result.data.update_participants.affected_rows) {
+          const cache = new CacheService(client);
+
+          const data = cache.read(GetArtifactsDetailsDocument, { auth0_id: root.$auth.user?.sub });
+          data.participants[0].viewfinder = true;
+          cache.write(GetArtifactsDetailsDocument, { participants: data.participants[0] });
+
+          const cacheData = cache.read(GetOneParticipantDetailsDocument, { auth0_id: root.$auth.user?.sub });
+          const participants = cacheData.participants[0];
+          participants.score -= 200;
+          cache.write(GetOneParticipantDetailsDocument, { participants });
+
+          snackbarHandler('Purchase Successfully!');
+        } else {
+          snackbarHandler('Uh oh! Error!');
+        }
+      }).catch((err) => {
+        console.error(err);
+        snackbarHandler('Error! Try again later!');
+      });
       confirmationDialog.value = false;
     }
 
     return {
       confirmationDialog,
       buyViewfinderWrapper,
+      timeout,
+      message,
+      snackbar,
     };
   },
 });

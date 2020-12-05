@@ -5,8 +5,11 @@
       :team="profile.team"
       :meeting-participants="meetingParticipants"
       :emergency-vote="profile.emergency_vote"
+      :dead-participants="deadParticipants"
     />
-    <Shop />
+    <Shop
+      :artifact-details="artifactDetails"
+    />
   </v-container>
 </template>
 
@@ -54,6 +57,18 @@ export default defineComponent({
         status: 'ALIVE',
         user_id: '0',
       }],
+    },
+    deadParticipants: {
+      type: Array,
+      default: () => [],
+    },
+    artifactDetails: {
+      type: Object,
+      default: () => ({
+        picometer: true,
+        viewfinder: true,
+        score: 0,
+      }),
     },
   },
 });

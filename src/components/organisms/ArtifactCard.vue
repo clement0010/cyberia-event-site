@@ -36,7 +36,7 @@ import { defineComponent } from '@vue/composition-api';
 import AdminArtifact from '@/components/molecules/AdminArtifact.vue';
 
 export default defineComponent({
-  name: 'TeamCard',
+  name: 'ArtifactCard',
   components: {
     AdminArtifact,
   },

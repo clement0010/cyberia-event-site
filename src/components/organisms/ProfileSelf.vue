@@ -23,11 +23,14 @@
             Full name<br>
             Description: {{ profile.description }}<br>
             {{ profile.role }} in  {{ profile.team.name }}<br>
+            Score: {{ profile.score }}<br>
+            Contribution: {{ profile.contribution }}<br>
+            Picometer Hint: {{ profile.picometer_hint }}<br>
+            Viewfinder Hint: {{ profile.viewfinder_hint }}<br>
           </div>
-          <div>
-            <p>Score: {{ profile.score }}</p>
-            <p>Contribution: {{ profile.contribution }}</p>
-          </div>
+          <div />
+          <div />
+          <div />
         </v-col>
         <v-col
           cols="12"

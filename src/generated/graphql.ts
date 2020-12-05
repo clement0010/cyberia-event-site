@@ -3396,7 +3396,7 @@ export type UpdateParticipantDetailsMutation = (
     & Pick<Participants_Mutation_Response, 'affected_rows'>
     & { returning: Array<(
       { __typename?: 'participants' }
-      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote'>
+      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote' | 'picometer_hint' | 'viewfinder_hint'>
       & { team: (
         { __typename?: 'teams' }
         & Pick<Teams, 'motto' | 'name' | 'picture_url' | 'emergency_meeting'>
@@ -3507,7 +3507,7 @@ export type AddScoreToTeamMutation = (
     & Pick<Participants_Mutation_Response, 'affected_rows'>
     & { returning: Array<(
       { __typename?: 'participants' }
-      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution'>
+      & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote' | 'picometer_hint' | 'viewfinder_hint'>
       & { team: (
         { __typename?: 'teams' }
         & Pick<Teams, 'motto' | 'name' | 'picture_url'>
@@ -3593,6 +3593,38 @@ export type UpdateParticipantsViewfinderMutation = (
   )>; }
 );
 
+export type BuyPicometerMutationVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
+
+export type BuyPicometerMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'score' | 'picometer' | 'viewfinder'>
+    )>; }
+  )>; }
+);
+
+export type BuyViewfinderMutationVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
+
+export type BuyViewfinderMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'score' | 'picometer' | 'viewfinder'>
+    )>; }
+  )>; }
+);
+
 export type GetOneParticipantDetailsQueryVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
@@ -3601,7 +3633,7 @@ export type GetOneParticipantDetailsQuery = (
   { __typename?: 'query_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
-    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote'>
+    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote' | 'viewfinder_hint' | 'picometer_hint'>
     & { team: (
       { __typename?: 'teams' }
       & Pick<Teams, 'motto' | 'name' | 'picture_url' | 'emergency_meeting'>
@@ -3645,6 +3677,28 @@ export type GetControlStateQuery = (
   & { control: Array<(
     { __typename?: 'control' }
     & Pick<Control, 'vote' | 'submission' | 'leaderboard'>
+  )>; }
+);
+
+export type GetArtifactsDetailsQueryVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
+
+export type GetArtifactsDetailsQuery = (
+  { __typename?: 'query_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'viewfinder' | 'picometer' | 'score'>
+  )>; }
+);
+
+export type GetEmergencyMeetingResultQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetEmergencyMeetingResultQuery = (
+  { __typename?: 'query_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'name' | 'role'>
   )>; }
 );
 
@@ -3749,6 +3803,8 @@ export const UpdateParticipantDetailsDocument = gql`
       contribution
       status
       emergency_vote
+      picometer_hint
+      viewfinder_hint
       team {
         motto
         name
@@ -3999,6 +4055,10 @@ export const AddScoreToTeamDocument = gql`
       user_id
       score
       contribution
+      status
+      emergency_vote
+      picometer_hint
+      viewfinder_hint
       team {
         motto
         name
@@ -4205,6 +4265,82 @@ export function useUpdateParticipantsViewfinderMutation(options: VueApolloCompos
   return VueApolloComposable.useMutation<UpdateParticipantsViewfinderMutation, UpdateParticipantsViewfinderMutationVariables>(UpdateParticipantsViewfinderDocument, options);
 }
 export type UpdateParticipantsViewfinderMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UpdateParticipantsViewfinderMutation, UpdateParticipantsViewfinderMutationVariables>;
+export const BuyPicometerDocument = gql`
+    mutation BuyPicometer($auth0_id: String!) {
+  update_participants(
+    where: {user_id: {_eq: $auth0_id}}
+    _inc: {score: -200}
+    _set: {picometer: true}
+  ) {
+    affected_rows
+    returning {
+      score
+      picometer
+      viewfinder
+    }
+  }
+}
+    `;
+
+/**
+ * __useBuyPicometerMutation__
+ *
+ * To run a mutation, you first call `useBuyPicometerMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useBuyPicometerMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useBuyPicometerMutation({
+ *   variables: {
+ *     auth0_id: // value for 'auth0_id'
+ *   },
+ * });
+ */
+export function useBuyPicometerMutation(options: VueApolloComposable.UseMutationOptions<BuyPicometerMutation, BuyPicometerMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<BuyPicometerMutation, BuyPicometerMutationVariables>>) {
+  return VueApolloComposable.useMutation<BuyPicometerMutation, BuyPicometerMutationVariables>(BuyPicometerDocument, options);
+}
+export type BuyPicometerMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<BuyPicometerMutation, BuyPicometerMutationVariables>;
+export const BuyViewfinderDocument = gql`
+    mutation BuyViewfinder($auth0_id: String!) {
+  update_participants(
+    where: {user_id: {_eq: $auth0_id}}
+    _inc: {score: -200}
+    _set: {viewfinder: true}
+  ) {
+    affected_rows
+    returning {
+      score
+      picometer
+      viewfinder
+    }
+  }
+}
+    `;
+
+/**
+ * __useBuyViewfinderMutation__
+ *
+ * To run a mutation, you first call `useBuyViewfinderMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useBuyViewfinderMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useBuyViewfinderMutation({
+ *   variables: {
+ *     auth0_id: // value for 'auth0_id'
+ *   },
+ * });
+ */
+export function useBuyViewfinderMutation(options: VueApolloComposable.UseMutationOptions<BuyViewfinderMutation, BuyViewfinderMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<BuyViewfinderMutation, BuyViewfinderMutationVariables>>) {
+  return VueApolloComposable.useMutation<BuyViewfinderMutation, BuyViewfinderMutationVariables>(BuyViewfinderDocument, options);
+}
+export type BuyViewfinderMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<BuyViewfinderMutation, BuyViewfinderMutationVariables>;
 export const GetOneParticipantDetailsDocument = gql`
     query getOneParticipantDetails($auth0_id: String!) {
   participants(where: {user_id: {_eq: $auth0_id}}) {
@@ -4217,6 +4353,8 @@ export const GetOneParticipantDetailsDocument = gql`
     contribution
     status
     emergency_vote
+    viewfinder_hint
+    picometer_hint
     team {
       motto
       name
@@ -4333,6 +4471,60 @@ export function useGetControlStateQuery(options: VueApolloComposable.UseQueryOpt
   return VueApolloComposable.useQuery<GetControlStateQuery, GetControlStateQueryVariables>(GetControlStateDocument, {}, options);
 }
 export type GetControlStateQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetControlStateQuery, GetControlStateQueryVariables>;
+export const GetArtifactsDetailsDocument = gql`
+    query GetArtifactsDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
+    viewfinder
+    picometer
+    score
+  }
+}
+`;
+
+/**
+ * __useGetArtifactsDetailsQuery__
+ *
+ * To run a query within a Vue component, call `useGetArtifactsDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArtifactsDetailsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetArtifactsDetailsQuery({
+ *   auth0_id: // value for 'auth0_id'
+ * });
+ */
+export function useGetArtifactsDetailsQuery(variables: GetArtifactsDetailsQueryVariables | VueCompositionApi.Ref<GetArtifactsDetailsQueryVariables> | ReactiveFunction<GetArtifactsDetailsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>(GetArtifactsDetailsDocument, variables, options);
+}
+export type GetArtifactsDetailsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>;
+export const GetEmergencyMeetingResultDocument = gql`
+    query GetEmergencyMeetingResult {
+  participants(where: {status: {_eq: DEAD}}) {
+    name
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetEmergencyMeetingResultQuery__
+ *
+ * To run a query within a Vue component, call `useGetEmergencyMeetingResultQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEmergencyMeetingResultQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetEmergencyMeetingResultQuery();
+ */
+export function useGetEmergencyMeetingResultQuery(options: VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>(GetEmergencyMeetingResultDocument, {}, options);
+}
+export type GetEmergencyMeetingResultQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>;
 export const SubscribePublicLeaderboardDocument = gql`
     subscription SubscribePublicLeaderboard {
   leaderboard_public {

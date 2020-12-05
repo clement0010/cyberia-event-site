@@ -73,7 +73,7 @@ import snackBarComposition from '@/composable/snackbar';
 import LoaderSpinMini from '@/components/atoms/LoaderSpinMini.vue';
 
 export default defineComponent({
-  name: 'EditGameForm',
+  name: 'AdminArtifact',
 
   components: {
     SnackBar,
