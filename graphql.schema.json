@@ -7280,6 +7280,22 @@
             "deprecationReason": null
           },
           {
+            "name": "picometer",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "role",
             "description": null,
             "args": [],
@@ -7401,6 +7417,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "viewfinder",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -8015,6 +8047,16 @@
             "defaultValue": null
           },
           {
+            "name": "picometer",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "role",
             "description": null,
             "type": {
@@ -8090,6 +8132,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "viewfinder",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Boolean_comparison_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -8250,6 +8302,16 @@
             "defaultValue": null
           },
           {
+            "name": "picometer",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "role",
             "description": null,
             "type": {
@@ -8325,6 +8387,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "viewfinder",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null
@@ -8960,6 +9032,16 @@
             "defaultValue": null
           },
           {
+            "name": "picometer",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "role",
             "description": null,
             "type": {
@@ -9031,6 +9113,16 @@
           },
           {
             "name": "user_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "viewfinder",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -9124,6 +9216,12 @@
             "deprecationReason": null
           },
           {
+            "name": "picometer",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "role",
             "description": "column name",
             "isDeprecated": false,
@@ -9155,6 +9253,12 @@
           },
           {
             "name": "user_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "viewfinder",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -9235,6 +9339,16 @@
             "defaultValue": null
           },
           {
+            "name": "picometer",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "role",
             "description": null,
             "type": {
@@ -9290,6 +9404,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "viewfinder",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null
@@ -9706,6 +9830,12 @@
             "deprecationReason": null
           },
           {
+            "name": "picometer",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "role",
             "description": "column name",
             "isDeprecated": false,
@@ -9737,6 +9867,12 @@
           },
           {
             "name": "user_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "viewfinder",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

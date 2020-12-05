@@ -43,3 +43,17 @@ query GetControlState {
     leaderboard
   }
 }
+
+query GetArtifactsDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
+    viewfinder
+    picometer
+  }
+}
+
+query GetEmergencyMeetingResult {
+  participants(where: {status: {_eq: DEAD}}) {
+    name
+    role
+  }
+}

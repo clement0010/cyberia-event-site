@@ -29,6 +29,7 @@
     />
     <emergency-meeting-result
       v-else
+      :deadParticipants="deadParticipants"
     />
   </v-container>
 </template>
@@ -72,6 +73,10 @@ export default defineComponent({
     emergencyVote: {
       type: Boolean,
       default: true,
+    },
+    deadParticipants: {
+      type: Array,
+      default: () => [],
     },
   },
   setup(props) {

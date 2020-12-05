@@ -15,8 +15,8 @@
                 Item
               </th>
               <th
-                class="text-left"
                 v-if="!$vuetify.breakpoint.xs"
+                class="text-left"
               >
                 Description
               </th>
@@ -30,7 +30,7 @@
                   {{ picometer.name }}
                   <artifact-info
                     v-if="$vuetify.breakpoint.xs"
-                    :itemName="picometer.name"
+                    :item-name="picometer.name"
                     :ability="picometer.ability"
                     :description="picometer.description"
                   />
@@ -46,7 +46,7 @@
               </td>
               <td>
                 <div class="mx-4">
-                  <buy-picometer :bought="true" />
+                  <buy-picometer :bought="artifactDetails.picometer" />
                 </div>
               </td>
             </tr>
@@ -56,7 +56,7 @@
                   {{ viewfinder.name }}
                   <artifact-info
                     v-if="$vuetify.breakpoint.xs"
-                    :itemName="viewfinder.name"
+                    :item-name="viewfinder.name"
                     :ability="viewfinder.ability"
                     :description="viewfinder.description"
                   />
@@ -72,7 +72,7 @@
               </td>
               <td>
                 <div class="mx-4">
-                  <buy-viewfinder :bought="false" />
+                  <buy-viewfinder :bought="artifactDetails.viewfinder" />
                 </div>
               </td>
             </tr>
@@ -96,6 +96,16 @@ export default defineComponent({
     BuyPicometer,
     BuyViewfinder,
     ArtifactInfo,
+  },
+
+  props: {
+    artifactDetails: {
+      type: Object,
+      default: () => ({
+        picometer: true,
+        viewfinder: true,
+      }),
+    },
   },
 
   setup() {

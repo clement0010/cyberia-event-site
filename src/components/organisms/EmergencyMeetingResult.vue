@@ -4,8 +4,13 @@
       Emergency Meeting Results
     </h1>
     <v-row class="mt-5">
-      {{ votedOutUser.name + (votedOutUser.role == "IMPOSTOR" ? " (IMPOSTOR)" : " (Crewmate)") }}
-      has been voted out! He/she will still be able to participate in the games as a ghost.
+      The following members have been voted out! He/she will still be able to participate in the games as a ghost.
+      <div
+        v-for="(member, index) in deadParticipants"
+        :key="index"
+      >
+        {{ member.name + " " + member.role }}
+      </div>
     </v-row>
   </v-container>
 </template>
@@ -20,12 +25,12 @@ export default defineComponent({
   },
 
   props: {
-    votedOutUser: {
-      type: Object,
-      default: () => ({
+    deadParticipants: {
+      type: Array,
+      default: () => [({
         name: 'HUMAN2077',
         role: 'IMPOSTOR',
-      }),
+      })],
     },
   },
 });

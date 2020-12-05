@@ -1343,6 +1343,7 @@ export type Participants = {
   id: Scalars['uuid'];
   imposter_vote_count: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
+  picometer: Scalars['Boolean'];
   role: Roles_Enum;
   score: Scalars['Int'];
   status: Status_Enum;
@@ -1353,6 +1354,7 @@ export type Participants = {
   /** An object relationship */
   user: Users;
   user_id: Scalars['String'];
+  viewfinder: Scalars['Boolean'];
   vote: Scalars['Boolean'];
 };
 
@@ -1433,6 +1435,7 @@ export type Participants_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>;
   imposter_vote_count?: Maybe<Int_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  picometer?: Maybe<Boolean_Comparison_Exp>;
   role?: Maybe<Roles_Enum_Comparison_Exp>;
   score?: Maybe<Int_Comparison_Exp>;
   status?: Maybe<Status_Enum_Comparison_Exp>;
@@ -1441,6 +1444,7 @@ export type Participants_Bool_Exp = {
   team_id?: Maybe<Uuid_Comparison_Exp>;
   user?: Maybe<Users_Bool_Exp>;
   user_id?: Maybe<String_Comparison_Exp>;
+  viewfinder?: Maybe<Boolean_Comparison_Exp>;
   vote?: Maybe<Boolean_Comparison_Exp>;
 };
 
@@ -1468,6 +1472,7 @@ export type Participants_Insert_Input = {
   id?: Maybe<Scalars['uuid']>;
   imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  picometer?: Maybe<Scalars['Boolean']>;
   role?: Maybe<Roles_Enum>;
   score?: Maybe<Scalars['Int']>;
   status?: Maybe<Status_Enum>;
@@ -1476,6 +1481,7 @@ export type Participants_Insert_Input = {
   team_id?: Maybe<Scalars['uuid']>;
   user?: Maybe<Users_Obj_Rel_Insert_Input>;
   user_id?: Maybe<Scalars['String']>;
+  viewfinder?: Maybe<Scalars['Boolean']>;
   vote?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1560,6 +1566,7 @@ export type Participants_Order_By = {
   id?: Maybe<Order_By>;
   imposter_vote_count?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  picometer?: Maybe<Order_By>;
   role?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
   status?: Maybe<Order_By>;
@@ -1568,6 +1575,7 @@ export type Participants_Order_By = {
   team_id?: Maybe<Order_By>;
   user?: Maybe<Users_Order_By>;
   user_id?: Maybe<Order_By>;
+  viewfinder?: Maybe<Order_By>;
   vote?: Maybe<Order_By>;
 };
 
@@ -1591,6 +1599,8 @@ export enum Participants_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  Picometer = 'picometer',
+  /** column name */
   Role = 'role',
   /** column name */
   Score = 'score',
@@ -1603,6 +1613,8 @@ export enum Participants_Select_Column {
   /** column name */
   UserId = 'user_id',
   /** column name */
+  Viewfinder = 'viewfinder',
+  /** column name */
   Vote = 'vote'
 }
 
@@ -1614,12 +1626,14 @@ export type Participants_Set_Input = {
   id?: Maybe<Scalars['uuid']>;
   imposter_vote_count?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  picometer?: Maybe<Scalars['Boolean']>;
   role?: Maybe<Roles_Enum>;
   score?: Maybe<Scalars['Int']>;
   status?: Maybe<Status_Enum>;
   submission?: Maybe<Scalars['Boolean']>;
   team_id?: Maybe<Scalars['uuid']>;
   user_id?: Maybe<Scalars['String']>;
+  viewfinder?: Maybe<Scalars['Boolean']>;
   vote?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1698,6 +1712,8 @@ export enum Participants_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  Picometer = 'picometer',
+  /** column name */
   Role = 'role',
   /** column name */
   Score = 'score',
@@ -1709,6 +1725,8 @@ export enum Participants_Update_Column {
   TeamId = 'team_id',
   /** column name */
   UserId = 'user_id',
+  /** column name */
+  Viewfinder = 'viewfinder',
   /** column name */
   Vote = 'vote'
 }
@@ -3578,6 +3596,28 @@ export type GetControlStateQuery = (
   )>; }
 );
 
+export type GetArtifactsDetailsQueryVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
+
+export type GetArtifactsDetailsQuery = (
+  { __typename?: 'query_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'viewfinder' | 'picometer'>
+  )>; }
+);
+
+export type GetEmergencyMeetingResultQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetEmergencyMeetingResultQuery = (
+  { __typename?: 'query_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'name' | 'role'>
+  )>; }
+);
+
 export type SubscribePublicLeaderboardSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type SubscribePublicLeaderboardSubscription = (
@@ -4169,6 +4209,59 @@ export function useGetControlStateQuery(options: VueApolloComposable.UseQueryOpt
   return VueApolloComposable.useQuery<GetControlStateQuery, GetControlStateQueryVariables>(GetControlStateDocument, {}, options);
 }
 export type GetControlStateQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetControlStateQuery, GetControlStateQueryVariables>;
+export const GetArtifactsDetailsDocument = gql`
+    query GetArtifactsDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
+    viewfinder
+    picometer
+  }
+}
+    `;
+
+/**
+ * __useGetArtifactsDetailsQuery__
+ *
+ * To run a query within a Vue component, call `useGetArtifactsDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArtifactsDetailsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetArtifactsDetailsQuery({
+ *   auth0_id: // value for 'auth0_id'
+ * });
+ */
+export function useGetArtifactsDetailsQuery(variables: GetArtifactsDetailsQueryVariables | VueCompositionApi.Ref<GetArtifactsDetailsQueryVariables> | ReactiveFunction<GetArtifactsDetailsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>(GetArtifactsDetailsDocument, variables, options);
+}
+export type GetArtifactsDetailsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>;
+export const GetEmergencyMeetingResultDocument = gql`
+    query GetEmergencyMeetingResult {
+  participants(where: {status: {_eq: DEAD}}) {
+    name
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetEmergencyMeetingResultQuery__
+ *
+ * To run a query within a Vue component, call `useGetEmergencyMeetingResultQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEmergencyMeetingResultQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetEmergencyMeetingResultQuery();
+ */
+export function useGetEmergencyMeetingResultQuery(options: VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>(GetEmergencyMeetingResultDocument, {}, options);
+}
+export type GetEmergencyMeetingResultQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>;
 export const SubscribePublicLeaderboardDocument = gql`
     subscription SubscribePublicLeaderboard {
   leaderboard_public {
