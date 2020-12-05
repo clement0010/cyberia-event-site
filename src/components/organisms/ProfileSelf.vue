@@ -3,7 +3,7 @@
     <h1 class="text-center">
       Profile
     </h1>
-    <div class="mb-10">
+    <div class="my-5">
       <v-row justify="center">
         <v-col
           cols="6"

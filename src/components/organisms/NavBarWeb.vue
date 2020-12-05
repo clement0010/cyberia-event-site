@@ -8,7 +8,7 @@
     >
       <div class="d-flex align-center">
         <v-toolbar-title>
-          <div class="mt-4">
+          <div class="mt-3">
             <router-link to="/">
               <img
                 src="@/assets/logo-navbar.png"

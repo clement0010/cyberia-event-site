@@ -2,6 +2,7 @@
   <v-container class="pt-10">
     <ProfileSelf :profile="profile" />
     <ProfileTeam :team="profile.team" />
+    <Shop />
   </v-container>
 </template>
 
@@ -10,12 +11,14 @@ import { defineComponent, ref } from '@vue/composition-api';
 import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
 import ProfileSelf from '@/components/organisms/ProfileSelf.vue';
 import ProfileTeam from '@/components/organisms/ProfileTeam.vue';
+import Shop from '@/components/organisms/Shop.vue';
 
 export default defineComponent({
   components: {
     EditProfileForm,
     ProfileSelf,
     ProfileTeam,
+    Shop,
   },
 
   props: {

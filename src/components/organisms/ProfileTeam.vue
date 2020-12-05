@@ -3,23 +3,13 @@
     <h1 class="text-center">
       My team
     </h1>
-    <v-row>
+    <v-row class="mt-5">
       <v-col cols="12">
         <div class="text-subtitle-1">
           <strong>{{ team.name }}</strong><br>
           {{ team.motto }}<br>
           Score: {{ totalScore }}<br>
         </div>
-      </v-col>
-      <v-col
-        cols="12"
-        justify="center"
-      >
-        <v-progress-linear
-          :value="skill"
-          color="secondary"
-          height="15"
-        />
       </v-col>
       <v-col
         cols="12"
