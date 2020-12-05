@@ -1280,12 +1280,14 @@ export type Mutation_RootUpdate_Status_By_PkArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_TeamsArgs = {
+  _inc?: Maybe<Teams_Inc_Input>;
   _set?: Maybe<Teams_Set_Input>;
   where: Teams_Bool_Exp;
 };
 
 /** mutation root */
 export type Mutation_RootUpdate_Teams_By_PkArgs = {
+  _inc?: Maybe<Teams_Inc_Input>;
   _set?: Maybe<Teams_Set_Input>;
   pk_columns: Teams_Pk_Columns_Input;
 };
@@ -2701,6 +2703,7 @@ export type Teams = {
   id: Scalars['uuid'];
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
   /** An array relationship */
   participants: Array<Participants>;
   /** An aggregated array relationship */
@@ -2758,9 +2761,17 @@ export type Teams_Aggregate = {
 /** aggregate fields of "teams" */
 export type Teams_Aggregate_Fields = {
   __typename?: 'teams_aggregate_fields';
+  avg?: Maybe<Teams_Avg_Fields>;
   count?: Maybe<Scalars['Int']>;
   max?: Maybe<Teams_Max_Fields>;
   min?: Maybe<Teams_Min_Fields>;
+  stddev?: Maybe<Teams_Stddev_Fields>;
+  stddev_pop?: Maybe<Teams_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Teams_Stddev_Samp_Fields>;
+  sum?: Maybe<Teams_Sum_Fields>;
+  var_pop?: Maybe<Teams_Var_Pop_Fields>;
+  var_samp?: Maybe<Teams_Var_Samp_Fields>;
+  variance?: Maybe<Teams_Variance_Fields>;
 };
 
 /** aggregate fields of "teams" */
@@ -2771,15 +2782,34 @@ export type Teams_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "teams" */
 export type Teams_Aggregate_Order_By = {
+  avg?: Maybe<Teams_Avg_Order_By>;
   count?: Maybe<Order_By>;
   max?: Maybe<Teams_Max_Order_By>;
   min?: Maybe<Teams_Min_Order_By>;
+  stddev?: Maybe<Teams_Stddev_Order_By>;
+  stddev_pop?: Maybe<Teams_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Teams_Stddev_Samp_Order_By>;
+  sum?: Maybe<Teams_Sum_Order_By>;
+  var_pop?: Maybe<Teams_Var_Pop_Order_By>;
+  var_samp?: Maybe<Teams_Var_Samp_Order_By>;
+  variance?: Maybe<Teams_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "teams" */
 export type Teams_Arr_Rel_Insert_Input = {
   data: Array<Teams_Insert_Input>;
   on_conflict?: Maybe<Teams_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Teams_Avg_Fields = {
+  __typename?: 'teams_avg_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "teams" */
+export type Teams_Avg_Order_By = {
+  number?: Maybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "teams". All fields are combined with a logical 'AND'. */
@@ -2791,6 +2821,7 @@ export type Teams_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>;
   motto?: Maybe<String_Comparison_Exp>;
   name?: Maybe<String_Comparison_Exp>;
+  number?: Maybe<Int_Comparison_Exp>;
   participants?: Maybe<Participants_Bool_Exp>;
   picture_url?: Maybe<String_Comparison_Exp>;
   scores?: Maybe<Teams_Scores_Bool_Exp>;
@@ -2804,12 +2835,18 @@ export enum Teams_Constraint {
   TeamsPkey = 'teams_pkey'
 }
 
+/** input type for incrementing integer column in table "teams" */
+export type Teams_Inc_Input = {
+  number?: Maybe<Scalars['Int']>;
+};
+
 /** input type for inserting data into table "teams" */
 export type Teams_Insert_Input = {
   emergency_meeting?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
   participants?: Maybe<Participants_Arr_Rel_Insert_Input>;
   picture_url?: Maybe<Scalars['String']>;
   scores?: Maybe<Teams_Scores_Arr_Rel_Insert_Input>;
@@ -2821,6 +2858,7 @@ export type Teams_Max_Fields = {
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
   picture_url?: Maybe<Scalars['String']>;
 };
 
@@ -2829,6 +2867,7 @@ export type Teams_Max_Order_By = {
   id?: Maybe<Order_By>;
   motto?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  number?: Maybe<Order_By>;
   picture_url?: Maybe<Order_By>;
 };
 
@@ -2838,6 +2877,7 @@ export type Teams_Min_Fields = {
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
   picture_url?: Maybe<Scalars['String']>;
 };
 
@@ -2846,6 +2886,7 @@ export type Teams_Min_Order_By = {
   id?: Maybe<Order_By>;
   motto?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  number?: Maybe<Order_By>;
   picture_url?: Maybe<Order_By>;
 };
 
@@ -2877,6 +2918,7 @@ export type Teams_Order_By = {
   id?: Maybe<Order_By>;
   motto?: Maybe<Order_By>;
   name?: Maybe<Order_By>;
+  number?: Maybe<Order_By>;
   participants_aggregate?: Maybe<Participants_Aggregate_Order_By>;
   picture_url?: Maybe<Order_By>;
   scores_aggregate?: Maybe<Teams_Scores_Aggregate_Order_By>;
@@ -3174,6 +3216,8 @@ export enum Teams_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  Number = 'number',
+  /** column name */
   PictureUrl = 'picture_url'
 }
 
@@ -3183,7 +3227,52 @@ export type Teams_Set_Input = {
   id?: Maybe<Scalars['uuid']>;
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
   picture_url?: Maybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Teams_Stddev_Fields = {
+  __typename?: 'teams_stddev_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "teams" */
+export type Teams_Stddev_Order_By = {
+  number?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Teams_Stddev_Pop_Fields = {
+  __typename?: 'teams_stddev_pop_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "teams" */
+export type Teams_Stddev_Pop_Order_By = {
+  number?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Teams_Stddev_Samp_Fields = {
+  __typename?: 'teams_stddev_samp_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "teams" */
+export type Teams_Stddev_Samp_Order_By = {
+  number?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Teams_Sum_Fields = {
+  __typename?: 'teams_sum_fields';
+  number?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "teams" */
+export type Teams_Sum_Order_By = {
+  number?: Maybe<Order_By>;
 };
 
 /** update columns of table "teams" */
@@ -3197,8 +3286,43 @@ export enum Teams_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  Number = 'number',
+  /** column name */
   PictureUrl = 'picture_url'
 }
+
+/** aggregate var_pop on columns */
+export type Teams_Var_Pop_Fields = {
+  __typename?: 'teams_var_pop_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "teams" */
+export type Teams_Var_Pop_Order_By = {
+  number?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Teams_Var_Samp_Fields = {
+  __typename?: 'teams_var_samp_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "teams" */
+export type Teams_Var_Samp_Order_By = {
+  number?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Teams_Variance_Fields = {
+  __typename?: 'teams_variance_fields';
+  number?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "teams" */
+export type Teams_Variance_Order_By = {
+  number?: Maybe<Order_By>;
+};
 
 /** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
@@ -3625,6 +3749,30 @@ export type BuyViewfinderMutation = (
   )>; }
 );
 
+export type KillParticipantsMutationVariables = Exact<{
+  participant_id: Scalars['uuid'];
+}>;
+
+export type KillParticipantsMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
+export type EmergencyMeetingControlMutationVariables = Exact<{
+  team_id: Scalars['uuid'];
+}>;
+
+export type EmergencyMeetingControlMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_teams?: Maybe<(
+    { __typename?: 'teams_mutation_response' }
+    & Pick<Teams_Mutation_Response, 'affected_rows'>
+  )>; }
+);
+
 export type GetOneParticipantDetailsQueryVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
@@ -3782,6 +3930,20 @@ export type GetParticipantsViewfinderDetailsSubscription = (
     & { participants: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'id' | 'name'>
+    )>; }
+  )>; }
+);
+
+export type GetEmergencyMeetingStatusSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type GetEmergencyMeetingStatusSubscription = (
+  { __typename?: 'subscription_root' }
+  & { teams: Array<(
+    { __typename?: 'teams' }
+    & Pick<Teams, 'id' | 'name' | 'emergency_meeting' | 'number'>
+    & { participants: Array<(
+      { __typename?: 'participants' }
+      & Pick<Participants, 'id' | 'imposter_vote_count'>
     )>; }
   )>; }
 );
@@ -4341,6 +4503,68 @@ export function useBuyViewfinderMutation(options: VueApolloComposable.UseMutatio
   return VueApolloComposable.useMutation<BuyViewfinderMutation, BuyViewfinderMutationVariables>(BuyViewfinderDocument, options);
 }
 export type BuyViewfinderMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<BuyViewfinderMutation, BuyViewfinderMutationVariables>;
+export const KillParticipantsDocument = gql`
+    mutation KillParticipants($participant_id: uuid!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {status: DEAD}) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useKillParticipantsMutation__
+ *
+ * To run a mutation, you first call `useKillParticipantsMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useKillParticipantsMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useKillParticipantsMutation({
+ *   variables: {
+ *     participant_id: // value for 'participant_id'
+ *   },
+ * });
+ */
+export function useKillParticipantsMutation(options: VueApolloComposable.UseMutationOptions<KillParticipantsMutation, KillParticipantsMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<KillParticipantsMutation, KillParticipantsMutationVariables>>) {
+  return VueApolloComposable.useMutation<KillParticipantsMutation, KillParticipantsMutationVariables>(KillParticipantsDocument, options);
+}
+export type KillParticipantsMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<KillParticipantsMutation, KillParticipantsMutationVariables>;
+export const EmergencyMeetingControlDocument = gql`
+    mutation EmergencyMeetingControl($team_id: uuid!) {
+  update_teams(
+    _set: {emergency_meeting: false}
+    _inc: {number: -1}
+    where: {id: {_eq: $team_id}}
+  ) {
+    affected_rows
+  }
+}
+    `;
+
+/**
+ * __useEmergencyMeetingControlMutation__
+ *
+ * To run a mutation, you first call `useEmergencyMeetingControlMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useEmergencyMeetingControlMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useEmergencyMeetingControlMutation({
+ *   variables: {
+ *     team_id: // value for 'team_id'
+ *   },
+ * });
+ */
+export function useEmergencyMeetingControlMutation(options: VueApolloComposable.UseMutationOptions<EmergencyMeetingControlMutation, EmergencyMeetingControlMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<EmergencyMeetingControlMutation, EmergencyMeetingControlMutationVariables>>) {
+  return VueApolloComposable.useMutation<EmergencyMeetingControlMutation, EmergencyMeetingControlMutationVariables>(EmergencyMeetingControlDocument, options);
+}
+export type EmergencyMeetingControlMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<EmergencyMeetingControlMutation, EmergencyMeetingControlMutationVariables>;
 export const GetOneParticipantDetailsDocument = gql`
     query getOneParticipantDetails($auth0_id: String!) {
   participants(where: {user_id: {_eq: $auth0_id}}) {
@@ -4479,7 +4703,7 @@ export const GetArtifactsDetailsDocument = gql`
     score
   }
 }
-`;
+    `;
 
 /**
  * __useGetArtifactsDetailsQuery__
@@ -4700,3 +4924,34 @@ export function useGetParticipantsViewfinderDetailsSubscription(options: VueApol
   return VueApolloComposable.useSubscription<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables>(GetParticipantsViewfinderDetailsDocument, {}, options);
 }
 export type GetParticipantsViewfinderDetailsSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetParticipantsViewfinderDetailsSubscription, GetParticipantsViewfinderDetailsSubscriptionVariables>;
+export const GetEmergencyMeetingStatusDocument = gql`
+    subscription GetEmergencyMeetingStatus {
+  teams {
+    id
+    name
+    emergency_meeting
+    number
+    participants {
+      id
+      imposter_vote_count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetEmergencyMeetingStatusSubscription__
+ *
+ * To run a query within a Vue component, call `useGetEmergencyMeetingStatusSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetEmergencyMeetingStatusSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetEmergencyMeetingStatusSubscription();
+ */
+export function useGetEmergencyMeetingStatusSubscription(options: VueApolloComposable.UseSubscriptionOptions<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables>(GetEmergencyMeetingStatusDocument, {}, options);
+}
+export type GetEmergencyMeetingStatusSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables>;

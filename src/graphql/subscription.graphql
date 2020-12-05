@@ -64,3 +64,16 @@ subscription GetParticipantsViewfinderDetails {
     }
   }
 }
+
+subscription GetEmergencyMeetingStatus{
+  teams {
+    id
+    name
+    emergency_meeting
+    number
+    participants {
+      id
+      imposter_vote_count
+    }
+  }
+}

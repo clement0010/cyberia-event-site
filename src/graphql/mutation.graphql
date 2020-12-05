@@ -200,3 +200,15 @@ mutation BuyViewfinder($auth0_id: String!) {
     }
   }
 }
+
+mutation KillParticipants($participant_id: uuid!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {status: DEAD}) {
+    affected_rows
+  }
+}
+
+mutation EmergencyMeetingControl($team_id: uuid!) {
+  update_teams(_set: {emergency_meeting: false}, _inc: {number: -1}, where: {id: {_eq: $team_id}}) {
+    affected_rows
+  }
+}
