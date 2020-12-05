@@ -34,3 +34,13 @@ subscription GetParticipantsScore {
     }
   }
 }
+
+subscription EmergencyMeetingDetails {
+  participants {
+    emergency_vote
+    imposter_vote_count
+    name
+    status
+    user_id
+  }
+}

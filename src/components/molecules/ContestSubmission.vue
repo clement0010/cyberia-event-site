@@ -17,7 +17,7 @@
       </v-card-text>
       <v-card-actions>
         <SubmissionVote
-          v-if="contestantId!==participantId && vote"
+          v-if="contestantId!==participantId && vote "
           :contestant-id="contestantId"
           :participant-id="participantId"
         />

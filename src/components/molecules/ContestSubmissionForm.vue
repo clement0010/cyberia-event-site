@@ -71,7 +71,7 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { root }) {
     const dialog = ref(false);
     const { resolveClient } = useApolloClient();
     const client = resolveClient();
@@ -84,6 +84,7 @@ export default defineComponent({
     const submissionData = reactive({
       submission_url: '',
       participant_id: props.participantId,
+      auth0_id: root.$auth.user?.sub || '',
     });
     function selectFile(file: Blob) {
       console.log('Selected File: ', file);
@@ -100,7 +101,7 @@ export default defineComponent({
         if (result.data.insert_contest.affected_rows) {
           const cache = new CacheService(client);
 
-          const { participants } = cache.read(GetParticipantVotingDetailsDocument, {});
+          const { participants } = cache.read(GetParticipantVotingDetailsDocument, { auth0_id: root.$auth.user?.sub });
           participants[0].submission = true;
           cache.write(GetParticipantVotingDetailsDocument, { participants });
         } else {

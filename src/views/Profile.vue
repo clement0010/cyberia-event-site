@@ -7,15 +7,16 @@
       :profile="profile"
       :loading="loading"
       :skill="skill"
+      :meeting-participants="meetingParticipants"
     />
 
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, ref, watch } from '@vue/composition-api';
 import { useResult } from '@vue/apollo-composable';
-import { useGetOneParticipantDetailsQuery } from '@/generated/graphql';
+import { useGetOneParticipantDetailsQuery, useEmergencyMeetingDetailsSubscription } from '@/generated/graphql';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
 import ProfileCard from '@/components/organisms/ProfileCard.vue';
 
@@ -30,14 +31,27 @@ export default defineComponent({
     skill: 25,
   }),
 
-  setup() {
-    const { result, loading, error } = useGetOneParticipantDetailsQuery();
+  setup(_, { root }) {
+    const auth0_id = ref(root.$auth.user?.sub || '');
+    const { result, loading, error } = useGetOneParticipantDetailsQuery({ auth0_id: auth0_id.value });
     const profile = useResult(result, null, (data) => data.participants[0]);
 
+    const { result: result1, loading: loading1, error: error1 } = useEmergencyMeetingDetailsSubscription();
+    const meetingParticipants = ref();
+    watch(
+      result1,
+      (data) => {
+        meetingParticipants.value = data.participants;
+      },
+
+    );
     return {
       profile,
+      meetingParticipants,
       loading,
+      loading1,
       error,
+      error1,
     };
   },
 });
