@@ -13,8 +13,8 @@
       <v-tab to="/information-page/itinerary">
         Schedule
       </v-tab>
-      <v-tab to="/information-page/faq">
-        FAQ
+      <v-tab to="/information-page/competition-rules">
+        Competition Rules
       </v-tab>
     </v-tabs>
     <v-row justify="center">

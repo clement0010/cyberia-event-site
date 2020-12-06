@@ -14,7 +14,7 @@
             </th>
             <th class="text-center text-subtitle-1">
               Program
-            <th />
+            </th>
           </tr>
         </thead>
         <tbody>
