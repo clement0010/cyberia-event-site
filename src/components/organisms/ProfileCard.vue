@@ -5,7 +5,30 @@
       :team="profile.team"
       :meeting-participants="meetingParticipants"
       :emergency-vote="profile.emergency_vote"
+      :dead-participants="deadParticipants"
     />
+    <Shop
+      v-if="profile.role === 'CREWMATE'"
+      :artifact-details="artifactDetails"
+    />
+    <v-overlay
+      color="#8a0303"
+      :value="overlay"
+    >
+      <h1>YOU HAVE BEEN VOTED OUT</h1>
+      <v-row
+        justify="center"
+        class="mt-5"
+      >
+        <v-btn
+          x-large
+          color="secondary"
+          @click="overlay = false"
+        >
+          OK
+        </v-btn>
+      </v-row>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -14,12 +37,14 @@ import { defineComponent } from '@vue/composition-api';
 import EditProfileForm from '@/components/molecules/EditProfileForm.vue';
 import ProfileSelf from '@/components/organisms/ProfileSelf.vue';
 import ProfileTeam from '@/components/organisms/ProfileTeam.vue';
+import Shop from '@/components/organisms/Shop.vue';
 
 export default defineComponent({
   components: {
     EditProfileForm,
     ProfileSelf,
     ProfileTeam,
+    Shop,
   },
 
   props: {
@@ -52,6 +77,25 @@ export default defineComponent({
         user_id: '0',
       }],
     },
+    deadParticipants: {
+      type: Array,
+      default: () => [],
+    },
+    artifactDetails: {
+      type: Object,
+      default: () => ({
+        picometer: true,
+        viewfinder: true,
+        score: 0,
+      }),
+    },
+  },
+
+  setup(props) {
+    const overlay = props.profile.status === 'DEAD';
+    return {
+      overlay,
+    };
   },
 });
 </script>

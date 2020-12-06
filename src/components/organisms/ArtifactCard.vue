@@ -9,7 +9,7 @@
         {{ team.name }}
       </v-card-title>
       <v-card-text>
-        Scores<br>
+        Waiting List<br>
         <div
           v-for="(participant, index) in team.participants"
           :key="index"
@@ -17,16 +17,14 @@
         >
           <v-row>
             {{ participant.name }}
-            <v-spacer />
-            {{ participant.score }}
           </v-row>
           <v-divider />
         </div>
       </v-card-text>
       <v-card-actions>
-        <EditTeamForm
-          :id="team.id"
-          :participants-scores="team.participants"
+        <AdminArtifact
+          :participants="team.participants"
+          :type="type"
         />
       </v-card-actions>
     </v-card>
@@ -35,12 +33,12 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import EditTeamForm from '@/components/molecules/EditTeamForm.vue';
+import AdminArtifact from '@/components/molecules/AdminArtifact.vue';
 
 export default defineComponent({
-  name: 'TeamCard',
+  name: 'ArtifactCard',
   components: {
-    EditTeamForm,
+    AdminArtifact,
   },
   props: {
     team: {
@@ -50,17 +48,20 @@ export default defineComponent({
         id: 'c15a5929-0564-4e24-8811-930ab511408c',
         participants: [
           {
-            name: 'Official Account Crewmate 1',
-            score: 618,
-            id: 'f4c18794-b85f-4bca-a121-c8e0d1df10fd',
+            picometer: true,
+            id: '81f044f0-e926-436c-a1ed-8bc45d5c49a4',
+            name: 'Participant1',
           },
           {
-            name: 'team1_crewmate1 ...',
-            score: 0,
-            id: 'c743b409-35d0-4d28-b098-1ff2599bbf17',
+            picometer: true,
+            id: 'a9927000-3c5e-4536-8bfa-b9992f852deb',
+            name: 'Participant2',
           },
         ],
       }),
+    },
+    type: {
+      type: String,
     },
   },
 });
