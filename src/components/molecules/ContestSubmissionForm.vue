@@ -104,7 +104,7 @@ export default defineComponent({
           const cache = new CacheService(client);
 
           const { participants } = cache.read(GetParticipantVotingDetailsDocument, { auth0_id: root.$auth.user?.sub });
-          participants[0].submission = true;
+          participants[0].submission = false;
           cache.write(GetParticipantVotingDetailsDocument, { participants });
         } else {
           throw new Error('Submission Server Error');

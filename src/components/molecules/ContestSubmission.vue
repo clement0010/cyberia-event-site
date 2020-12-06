@@ -15,10 +15,6 @@
           :participant-id="participantId"
           :vote="vote"
         />
-        <v-card-text>
-          <strong>Submission title</strong><br>
-          By username {{ contestantId }} -- for debugging purposes
-        </v-card-text>
         <v-card-actions>
           <SubmissionVote
             v-if="contestantId!==participantId && vote "

@@ -15,12 +15,6 @@
       </template>
       <v-card>
         <v-img :src="pictureUrl" />
-        <v-card-text>
-          <div class="mt-4">
-            <strong>Submission title</strong><br>
-            By username
-          </div>
-        </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn
