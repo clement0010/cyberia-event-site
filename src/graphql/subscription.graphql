@@ -44,3 +44,36 @@ subscription EmergencyMeetingDetails {
     user_id
   }
 }
+
+subscription GetParticipantsPicometerDetails {
+  teams {
+    name
+    participants(where: {picometer: {_eq: true}, picometer_hint: {_eq: "None"}}) {
+      id
+      name
+    }
+  }
+}
+
+subscription GetParticipantsViewfinderDetails {
+  teams {
+    name
+    participants(where: {viewfinder: {_eq: true}, viewfinder_hint: {_eq: "None"}}) {
+      id
+      name
+    }
+  }
+}
+
+subscription GetEmergencyMeetingStatus{
+  teams {
+    id
+    name
+    emergency_meeting
+    number
+    participants {
+      id
+      imposter_vote_count
+    }
+  }
+}

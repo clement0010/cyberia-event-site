@@ -18,6 +18,8 @@ mutation UpdateParticipantDetails(
       contribution
       status
       emergency_vote
+      picometer_hint
+      viewfinder_hint
       team {
         motto
         name
@@ -112,6 +114,10 @@ mutation AddScoreToTeam($crewmate: Int!, $team: Int!, $auth0_id: String!) {
       user_id
       score
       contribution
+      status
+      emergency_vote
+      picometer_hint
+      viewfinder_hint
       team {
         motto
         name
@@ -156,6 +162,53 @@ mutation EmergencyMeetingVote($participant_id: String!, $user_id: String!) {
     where: { user_id: { _eq: $user_id } }
     _set: { emergency_vote: true }
   ) {
+    affected_rows
+  }
+}
+
+mutation UpdateParticipantsPicometer($participant_id: uuid!, $picometer_hint: String!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {picometer_hint: $picometer_hint}) {
+    affected_rows
+  }
+}
+
+mutation UpdateParticipantsViewfinder($participant_id: uuid!, $viewfinder_hint: String!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {viewfinder_hint: $viewfinder_hint}) {
+    affected_rows
+  }
+}
+
+mutation BuyPicometer($auth0_id: String!) {
+  update_participants(where: {user_id: {_eq: $auth0_id}}, _inc: {score: -200}, _set: {picometer: true}) {
+    affected_rows
+    returning {
+      score
+      picometer
+      viewfinder
+    }
+  }
+}
+
+
+mutation BuyViewfinder($auth0_id: String!) {
+  update_participants(where: {user_id: {_eq: $auth0_id}}, _inc: {score: -200}, _set: {viewfinder: true}) {
+    affected_rows
+    returning {
+      score
+      picometer
+      viewfinder
+    }
+  }
+}
+
+mutation KillParticipants($participant_id: uuid!) {
+  update_participants(where: {id: {_eq: $participant_id}}, _set: {status: DEAD}) {
+    affected_rows
+  }
+}
+
+mutation EmergencyMeetingControl($team_id: uuid!) {
+  update_teams(_set: {emergency_meeting: false}, _inc: {number: -1}, where: {id: {_eq: $team_id}}) {
     affected_rows
   }
 }

@@ -18,7 +18,9 @@
       </v-tab>
     </v-tabs>
     <v-row justify="center">
-      <router-view />
+      <transition name="router-anim">
+        <router-view />
+      </transition>
     </v-row>
   </v-container>
 </template>
@@ -32,3 +34,39 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.page {
+  position: fixed;
+  width: inherit;
+}
+
+.router-anim-enter-active {
+  animation: coming .4s;
+  animation-delay: .4s;
+  opacity: 0;
+}
+.router-anim-leave-active {
+  animation: going .4s;
+}
+
+@keyframes going {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(75px);
+    opacity: 0;
+  }
+}
+@keyframes coming {
+  from {
+    transform: translateX(-75px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+</style>

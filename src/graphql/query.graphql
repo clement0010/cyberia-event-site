@@ -9,6 +9,8 @@ query getOneParticipantDetails($auth0_id: String!) {
     contribution
     status
     emergency_vote
+    viewfinder_hint
+    picometer_hint
     team {
       motto
       name
@@ -41,5 +43,20 @@ query GetControlState {
     vote
     submission
     leaderboard
+  }
+}
+
+query GetArtifactsDetails($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
+    viewfinder
+    picometer
+    score
+  }
+}
+
+query GetEmergencyMeetingResult {
+  participants(where: {status: {_eq: DEAD}}) {
+    name
+    role
   }
 }

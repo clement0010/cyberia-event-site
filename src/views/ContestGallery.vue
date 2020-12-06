@@ -35,6 +35,19 @@
         />
       </v-row>
       <v-row justify="center" />
+      <v-btn
+        v-show="showButton"
+        v-scroll="onScroll"
+        fab
+        dark
+        fixed
+        bottom
+        right
+        color="primary"
+        @click="toTop"
+      >
+        <v-icon>keyboard_arrow_up</v-icon>
+      </v-btn>
     </div>
   </v-container>
 </template>
@@ -73,6 +86,7 @@ export default defineComponent({
       result: result1,
     } = useGetParticipantVotingDetailsQuery({ auth0_id: auth0_id.value });
     const contestSubmissions = useResult(result, [], (data) => data.contest);
+    let showButton = false;
 
     const participantDetails = useResult(result1, [], (data) => {
       if (!data.participants.length) {
@@ -122,6 +136,16 @@ export default defineComponent({
       window.removeEventListener('scroll', scrollBehavior);
     });
 
+    function onScroll(e: Event) {
+      if (typeof window === 'undefined') return;
+      const top = window.pageYOffset || (e.target as Element).scrollTop || 0;
+      showButton = top > 20;
+    }
+
+    function toTop() {
+      root.$vuetify.goTo(0);
+    }
+
     return {
       loading,
       error,
@@ -130,6 +154,9 @@ export default defineComponent({
       participantDetails,
       isAuthenticated,
       role,
+      showButton,
+      onScroll,
+      toTop,
     };
   },
 });

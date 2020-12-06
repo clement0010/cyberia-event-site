@@ -3,7 +3,7 @@
     <h1 class="text-center">
       My team
     </h1>
-    <v-row>
+    <v-row class="mt-5">
       <v-col cols="12">
         <div class="text-subtitle-1">
           <strong>{{ team.name }}</strong><br>
@@ -13,31 +13,27 @@
       </v-col>
       <v-col
         cols="12"
-        justify="center"
-      >
-        <v-progress-linear
-          :value="skill"
-          color="secondary"
-          height="15"
-        />
-      </v-col>
-      <v-col
-        cols="12"
         md="1"
       />
     </v-row>
     <ContributePointsForm />
-    <h1 class="text-center">
-      Emergency Meeting
-    </h1>
+    <div
+      v-if="team.emergency_meeting"
+      class="mt-10 mb-5"
+    >
+      <h1 class="text-center red--text">
+        Emergency Meeting
+      </h1>
+    </div>
     <EmergencyMeeting
       v-if="team.emergency_meeting"
       :meeting-participants="meetingParticipants"
       :emergency-vote="emergencyVote"
     />
-    <p
+    <emergency-meeting-result
       v-else
-    >No emergency meeting right now.</p>
+      :dead-participants="deadParticipants"
+    />
   </v-container>
 </template>
 
@@ -45,6 +41,7 @@
 import { computed, defineComponent } from '@vue/composition-api';
 import ContributePointsForm from '@/components/molecules/ContributePointsForm.vue';
 import EmergencyMeeting from '@/components/organisms/EmergencyMeeting.vue';
+import EmergencyMeetingResult from './EmergencyMeetingResult.vue';
 
 export default defineComponent({
   name: 'TeamProfile',
@@ -52,6 +49,7 @@ export default defineComponent({
   components: {
     ContributePointsForm,
     EmergencyMeeting,
+    EmergencyMeetingResult,
   },
 
   props: {
@@ -79,9 +77,9 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    skill: {
-      type: Number,
-      default: () => 250,
+    deadParticipants: {
+      type: Array,
+      default: () => [],
     },
   },
   setup(props) {

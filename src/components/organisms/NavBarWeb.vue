@@ -2,12 +2,20 @@
   <div>
     <v-app-bar
       app
+      height="75"
       color="primary"
       dark
     >
       <div class="d-flex align-center">
         <v-toolbar-title>
-          Cyberia 2020
+          <div class="mt-3">
+            <router-link to="/">
+              <img
+                src="@/assets/logo-navbar.png"
+                height="75vh"
+              />
+            </router-link>
+          </div>
         </v-toolbar-title>
       </div>
 

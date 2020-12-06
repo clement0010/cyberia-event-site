@@ -1,21 +1,19 @@
 <template>
   <div>
-    <v-col
-      cols="12"
-      sm="6"
-      md="4"
-    >
-      <v-row
+    <v-row>
+      <v-col
         v-for="(participant, index) in meetingParticipants"
         :key="index"
+        cols="12"
+        sm="6"
+        md="4"
       >
-
         <EmergencyMeetingCard
           :meeting-participant="participant"
           :emergency-vote="emergencyVote"
         />
-      </v-row>
-    </v-col>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

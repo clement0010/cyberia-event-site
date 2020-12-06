@@ -1,7 +1,10 @@
 <template>
   <v-row justify="center">
     <LoaderSpin v-if="loading" />
-    <div v-else>
+    <div
+      v-else
+      class="mx-10 my-5"
+    >
       <v-btn
         v-if="!stateControl.submission"
         color="secondary"
@@ -20,9 +23,8 @@
       >
         Close Submissions
       </v-btn>
-
     </div>
-    <div>
+    <div class="mx-10 my-5">
       <v-btn
         v-if="!stateControl.vote"
         color="secondary"
@@ -43,7 +45,7 @@
       </v-btn>
 
     </div>
-    <div>
+    <div class="mx-10 my-5">
       <v-btn
         v-if="!stateControl.leaderboard"
         color="secondary"

@@ -1,13 +1,13 @@
 <template>
   <v-container class="pt-10">
     <div class="mb-10">
-      <h1 class="text-center">Leaderboard</h1>
+      <h1 class="text-center">Contest Leaderboard</h1>
     </div>
     <v-row justify="center">
       <v-layout child-flex>
         <v-data-table
           :headers="headers"
-          :items="teams"
+          :items="participants"
           item-key="name"
           sort-by="score"
           sort-desc
@@ -18,12 +18,12 @@
               <div class="mx-5 my-5">
                 <v-avatar :size="$vuetify.breakpoint.xs ? 25 : 50">
                 <v-img
-                  :src="item.team_name.picture_url"
+                  :src="item.picture_url"
                   :max-width="$vuetify.breakpoint.xs ? 25 : 50"
                 />
                 </v-avatar>
               </div>
-              {{ item.team_name.name }}
+              {{ item.name }}
             </v-row>
           </template>
         </v-data-table>
@@ -36,7 +36,7 @@
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'LeaderboardSection',
+  name: 'ContestLeaderboard',
 
   components: {
   },
@@ -45,7 +45,7 @@ export default defineComponent({
     return {
       headers: [
         {
-          text: 'Team',
+          text: 'Participant',
           align: 'start',
           value: 'name',
         },
@@ -55,28 +55,22 @@ export default defineComponent({
   },
 
   props: {
-    teams: {
+    participants: {
       type: Array,
       default: () => [{
-        team_name: {
-          name: 'Team A',
-          picture_url: 'https://picsum.photos/50',
-        },
-        score: '250',
+        name: 'Roger',
+        picture_url: 'https://picsum.photos/50',
+        score: '20',
       },
       {
-        team_name: {
-          name: 'Team B',
-          picture_url: 'https://picsum.photos/50',
-        },
-        score: '850',
+        name: 'HUMAN2077',
+        picture_url: 'https://picsum.photos/50',
+        score: '19',
       },
       {
-        team_name: {
-          name: 'Team C',
-          picture_url: 'https://picsum.photos/50',
-        },
-        score: '550',
+        name: 'Tan Ah Beng',
+        picture_url: 'https://picsum.photos/50',
+        score: '43',
       },
       ],
     },

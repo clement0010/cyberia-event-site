@@ -25,11 +25,13 @@
             :items="teamsScores"
             item-text="team.name"
             item-value="team_id"
+            color="white"
           />
           <v-select
             v-model="updateData.score"
             label="Score"
             :items="scoreOptions"
+            color="white"
           />
         </v-card-text>
         <v-card-actions>
