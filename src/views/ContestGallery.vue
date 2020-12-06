@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <LoaderSpin v-if="loading" />
-    <p v-if="error">Error {{ error }}</p>
+    <p v-if="error">Error! {{ process.env.NODE_ENV === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <div
       v-else
     >

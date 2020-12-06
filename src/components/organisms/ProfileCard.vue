@@ -75,6 +75,9 @@ export default defineComponent({
         name: 'Test User',
         status: 'ALIVE',
         user_id: '0',
+        team: {
+          number: 0,
+        },
       }],
     },
     deadParticipants: {

@@ -2150,7 +2150,8 @@ export enum Roles_Constraint {
 export enum Roles_Enum {
   Admin = 'ADMIN',
   Crewmate = 'CREWMATE',
-  Imposter = 'IMPOSTER'
+  Imposter = 'IMPOSTER',
+  Impostor = 'IMPOSTOR'
 }
 
 /** expression to compare columns of type roles_enum. All fields are combined with logical 'AND'. */
@@ -3751,6 +3752,7 @@ export type BuyViewfinderMutation = (
 
 export type KillParticipantsMutationVariables = Exact<{
   participant_id: Scalars['uuid'];
+  team_id: Scalars['uuid'];
 }>;
 
 export type KillParticipantsMutation = (
@@ -3758,11 +3760,15 @@ export type KillParticipantsMutation = (
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
+  )>; update_teams?: Maybe<(
+    { __typename?: 'teams_mutation_response' }
+    & Pick<Teams_Mutation_Response, 'affected_rows'>
   )>; }
 );
 
 export type EmergencyMeetingControlMutationVariables = Exact<{
   team_id: Scalars['uuid'];
+  emergency_meeting: Scalars['Boolean'];
 }>;
 
 export type EmergencyMeetingControlMutation = (
@@ -3770,6 +3776,9 @@ export type EmergencyMeetingControlMutation = (
   & { update_teams?: Maybe<(
     { __typename?: 'teams_mutation_response' }
     & Pick<Teams_Mutation_Response, 'affected_rows'>
+  )>; update_participants?: Maybe<(
+    { __typename?: 'participants_mutation_response' }
+    & Pick<Participants_Mutation_Response, 'affected_rows'>
   )>; }
 );
 
@@ -3903,6 +3912,10 @@ export type EmergencyMeetingDetailsSubscription = (
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'emergency_vote' | 'imposter_vote_count' | 'name' | 'status' | 'user_id'>
+    & { team: (
+      { __typename?: 'teams' }
+      & Pick<Teams, 'number' | 'picture_url'>
+    ); }
   )>; }
 );
 
@@ -3943,7 +3956,21 @@ export type GetEmergencyMeetingStatusSubscription = (
     & Pick<Teams, 'id' | 'name' | 'emergency_meeting' | 'number'>
     & { participants: Array<(
       { __typename?: 'participants' }
-      & Pick<Participants, 'id' | 'imposter_vote_count'>
+      & Pick<Participants, 'id' | 'name' | 'imposter_vote_count'>
+    )>; }
+  )>; }
+);
+
+export type ContestSubmissionLiveResultSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type ContestSubmissionLiveResultSubscription = (
+  { __typename?: 'subscription_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'name'>
+    & { contest_submission?: Maybe<(
+      { __typename?: 'contest' }
+      & Pick<Contest, 'vote_count' | 'submission_url'>
     )>; }
   )>; }
 );
@@ -4504,8 +4531,15 @@ export function useBuyViewfinderMutation(options: VueApolloComposable.UseMutatio
 }
 export type BuyViewfinderMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<BuyViewfinderMutation, BuyViewfinderMutationVariables>;
 export const KillParticipantsDocument = gql`
-    mutation KillParticipants($participant_id: uuid!) {
+    mutation KillParticipants($participant_id: uuid!, $team_id: uuid!) {
   update_participants(where: {id: {_eq: $participant_id}}, _set: {status: DEAD}) {
+    affected_rows
+  }
+  update_teams(
+    where: {id: {_eq: $team_id}}
+    _set: {emergency_meeting: false}
+    _inc: {number: -1}
+  ) {
     affected_rows
   }
 }
@@ -4525,6 +4559,7 @@ export const KillParticipantsDocument = gql`
  * const { mutate, loading, error, onDone } = useKillParticipantsMutation({
  *   variables: {
  *     participant_id: // value for 'participant_id'
+ *     team_id: // value for 'team_id'
  *   },
  * });
  */
@@ -4533,11 +4568,16 @@ export function useKillParticipantsMutation(options: VueApolloComposable.UseMuta
 }
 export type KillParticipantsMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<KillParticipantsMutation, KillParticipantsMutationVariables>;
 export const EmergencyMeetingControlDocument = gql`
-    mutation EmergencyMeetingControl($team_id: uuid!) {
+    mutation EmergencyMeetingControl($team_id: uuid!, $emergency_meeting: Boolean!) {
   update_teams(
-    _set: {emergency_meeting: false}
-    _inc: {number: -1}
+    _set: {emergency_meeting: $emergency_meeting}
     where: {id: {_eq: $team_id}}
+  ) {
+    affected_rows
+  }
+  update_participants(
+    where: {team_id: {_eq: $team_id}, status: {_neq: DEAD}}
+    _set: {emergency_vote: false, imposter_vote_count: 0}
   ) {
     affected_rows
   }
@@ -4558,6 +4598,7 @@ export const EmergencyMeetingControlDocument = gql`
  * const { mutate, loading, error, onDone } = useEmergencyMeetingControlMutation({
  *   variables: {
  *     team_id: // value for 'team_id'
+ *     emergency_meeting: // value for 'emergency_meeting'
  *   },
  * });
  */
@@ -4848,6 +4889,10 @@ export const EmergencyMeetingDetailsDocument = gql`
     name
     status
     user_id
+    team {
+      number
+      picture_url
+    }
   }
 }
     `;
@@ -4931,8 +4976,9 @@ export const GetEmergencyMeetingStatusDocument = gql`
     name
     emergency_meeting
     number
-    participants {
+    participants(where: {status: {_eq: ALIVE}}) {
       id
+      name
       imposter_vote_count
     }
   }
@@ -4955,3 +5001,34 @@ export function useGetEmergencyMeetingStatusSubscription(options: VueApolloCompo
   return VueApolloComposable.useSubscription<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables>(GetEmergencyMeetingStatusDocument, {}, options);
 }
 export type GetEmergencyMeetingStatusSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetEmergencyMeetingStatusSubscription, GetEmergencyMeetingStatusSubscriptionVariables>;
+export const ContestSubmissionLiveResultDocument = gql`
+    subscription ContestSubmissionLiveResult {
+  participants(
+    order_by: {contest_submission: {vote_count: desc_nulls_last}}
+    limit: 5
+  ) {
+    name
+    contest_submission {
+      vote_count
+      submission_url
+    }
+  }
+}
+    `;
+
+/**
+ * __useContestSubmissionLiveResultSubscription__
+ *
+ * To run a query within a Vue component, call `useContestSubmissionLiveResultSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useContestSubmissionLiveResultSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useContestSubmissionLiveResultSubscription();
+ */
+export function useContestSubmissionLiveResultSubscription(options: VueApolloComposable.UseSubscriptionOptions<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables>(ContestSubmissionLiveResultDocument, {}, options);
+}
+export type ContestSubmissionLiveResultSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables>;

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <LoaderSpin v-if="loading || loading1" />
-    <p v-else-if="error || error1">Error {{ error }}</p>
+    <p v-if="error">Error! {{ process.env.NODE_ENV === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <div v-else>
       <div class="my-5">
         <h1 class="text-center">Games</h1>
@@ -27,9 +27,10 @@
         <h1 class="text-center">Emergency Meetings</h1>
       </div>
       <v-row>
-        <emergency-meeting-card
-          v-for="index in 6"
+        <AdminEmergencyMeetingCard
+          v-for="(team, index) in emergencyMeetingStatus"
           :key="index"
+          :team="team"
         />
       </v-row>
       <div class="my-5">
@@ -60,7 +61,7 @@
       <v-row justify="center">
         <ContestControlButton />
       </v-row>
-      <contest-leaderboard />
+      <ContestLeaderboard :participants="contestLeaderboard" />
     </div>
   </v-container>
 </template>
@@ -70,11 +71,12 @@ import { defineComponent, ref, watch } from '@vue/composition-api';
 import GameCard from '@/components/organisms/GameCard.vue';
 import TeamCard from '@/components/organisms/TeamCard.vue';
 import ArtifactCard from '@/components/organisms/ArtifactCard.vue';
-import EmergencyMeetingCard from '@/components/organisms/EmergencyMeetingCard.vue';
+import AdminEmergencyMeetingCard from '@/components/organisms/AdminEmergencyMeetingCard.vue';
 import ContestLeaderboard from '@/components/organisms/ContestLeaderboard.vue';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
 import {
   useSubscibeToAllGamesSubscription, useGetParticipantsScoreSubscription, useGetParticipantsPicometerDetailsSubscription, useGetParticipantsViewfinderDetailsSubscription,
+  useGetEmergencyMeetingStatusSubscription, useContestSubmissionLiveResultSubscription,
 } from '@/generated/graphql';
 import ContestControlButton from '@/components/atoms/ContestControlButton.vue';
 
@@ -87,7 +89,7 @@ export default defineComponent({
     LoaderSpin,
     ContestControlButton,
     ArtifactCard,
-    EmergencyMeetingCard,
+    AdminEmergencyMeetingCard,
     ContestLeaderboard,
   },
 
@@ -124,15 +126,34 @@ export default defineComponent({
         viewfinder.value = data.teams;
       },
     );
+    const { result: result4, loading: loading4, error: error4 } = useGetEmergencyMeetingStatusSubscription();
+    const emergencyMeetingStatus = ref();
+    watch(
+      result4,
+      (data) => {
+        emergencyMeetingStatus.value = data.teams;
+      },
+    );
+
+    const { result: result5, loading: loading5, error: error5 } = useContestSubmissionLiveResultSubscription();
+    const contestLeaderboard = ref();
+    watch(
+      result5,
+      (data) => {
+        contestLeaderboard.value = data.participants;
+      },
+    );
 
     return {
       games,
       picometer,
       viewfinder,
-      error,
+      emergencyMeetingStatus,
+      contestLeaderboard,
       teams,
       loading,
       loading1,
+      error,
       error1,
     };
   },

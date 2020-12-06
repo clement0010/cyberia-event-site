@@ -1,7 +1,7 @@
 <template>
   <div>
     <LoaderSpin v-if="loading" />
-    <p v-else-if="error">Error {{ error }}</p>
+    <p v-if="error">Error! {{ process.env.NODE_ENV === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <leaderboard-section
       v-else
       :teams="leaderboard"

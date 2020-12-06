@@ -3,7 +3,7 @@
     <v-app-bar
       app
       height="75"
-      color="primary"
+      color="#dadada"
       dark
     >
       <div class="d-flex align-center">
@@ -13,7 +13,7 @@
               <img
                 src="@/assets/logo-navbar.png"
                 height="75vh"
-              />
+              >
             </router-link>
           </div>
         </v-toolbar-title>

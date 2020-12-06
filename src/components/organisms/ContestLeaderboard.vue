@@ -9,7 +9,7 @@
           :headers="headers"
           :items="participants"
           item-key="name"
-          sort-by="score"
+          sort-by="contest_submission.vote_count"
           sort-desc
           hide-default-footer
         >
@@ -17,13 +17,13 @@
             <v-row align="center">
               <div class="mx-5 my-5">
                 <v-avatar :size="$vuetify.breakpoint.xs ? 25 : 50">
-                <v-img
-                  :src="item.picture_url"
-                  :max-width="$vuetify.breakpoint.xs ? 25 : 50"
-                />
+                  <v-img
+                    :src="item.picture_url"
+                    :max-width="$vuetify.breakpoint.xs ? 25 : 50"
+                  />
                 </v-avatar>
               </div>
-              {{ item.name }}
+              {{ item.name }} - {{ item.contest_submission ? item.contest_submission.submission_url : 'No Submission' }}
             </v-row>
           </template>
         </v-data-table>
@@ -45,11 +45,11 @@ export default defineComponent({
     return {
       headers: [
         {
-          text: 'Participant',
+          text: 'Participants',
           align: 'start',
           value: 'name',
         },
-        { text: 'Score', value: 'score' },
+        { text: 'Score', value: 'contest_submission.vote_count' },
       ],
     };
   },

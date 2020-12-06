@@ -22,15 +22,9 @@
           <v-select
             v-model="updateData.participant_id"
             label="Participants"
-            :items="participantsScores"
+            :items="participants"
             item-text="name"
             item-value="id"
-            color="white"
-          />
-          <v-text-field
-            v-model="updateData.score"
-            type="number"
-            label="Score"
             color="white"
           />
         </v-card-text>
@@ -46,7 +40,21 @@
             color="primary"
             @click="editWrapper"
           >
-            Confirm
+            Kill
+          </v-btn>
+          <v-btn
+            v-if="emergencyMeeting"
+            color="primary"
+            @click="meetingControl(false)"
+          >
+            Stop Meeting
+          </v-btn>
+          <v-btn
+            v-else
+            color="primary"
+            @click="meetingControl(true)"
+          >
+            Start Meeting
           </v-btn>
         </v-card-actions>
         <LoaderSpinMini v-if="loading" />
@@ -62,7 +70,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from '@vue/composition-api';
-import { useUpdateParticipantsScoreMutation } from '@/generated/graphql';
+import { useKillParticipantsMutation, useEmergencyMeetingControlMutation } from '@/generated/graphql';
 import SnackBar from '@/components/atoms/Snackbars.vue';
 import snackBarComposition from '@/composable/snackbar';
 import LoaderSpinMini from '@/components/atoms/LoaderSpinMini.vue';
@@ -78,13 +86,17 @@ export default defineComponent({
     id: {
       type: String,
     },
-    participantsScores: {
+    emergencyMeeting: {
+      type: Boolean,
+      default: false,
+    },
+    participants: {
       type: Array,
       default: () => [],
     },
   },
 
-  setup() {
+  setup(props) {
     const dialog = ref(false);
     const loading = ref(false);
 
@@ -92,20 +104,41 @@ export default defineComponent({
       timeout, snackbar, message, snackbarHandler,
     } = snackBarComposition();
 
-    const { mutate: updateScore } = useUpdateParticipantsScoreMutation(() => ({}));
+    const { mutate: killParticipant } = useKillParticipantsMutation(() => ({}));
+    const { mutate: changeEmergencyStatus } = useEmergencyMeetingControlMutation(() => ({}));
 
     const updateData = reactive({
       participant_id: '',
-      score: 0,
+      team_id: props.id,
     });
 
     function editWrapper() {
       loading.value = true;
       console.log('Data', updateData);
-      updateScore(updateData).then((result) => {
+      killParticipant(updateData).then((result) => {
         if (result.data.update_participants.affected_rows) {
           updateData.participant_id = '';
-          updateData.score = 0;
+          updateData.team_id = '';
+          snackbarHandler('Update Successfully!');
+        } else {
+          snackbarHandler('Error! Try again later.');
+        }
+        loading.value = false;
+        dialog.value = false;
+      }).catch((err) => {
+        loading.value = false;
+        console.error(err);
+        snackbarHandler('Error! Try again later!');
+      });
+    }
+
+    function meetingControl(emergency_meeting: boolean) {
+      loading.value = true;
+      changeEmergencyStatus({
+        team_id: props.id,
+        emergency_meeting,
+      }).then((result) => {
+        if (result.data.update_participants.affected_rows) {
           snackbarHandler('Update Successfully!');
         } else {
           snackbarHandler('Error! Try again later.');
@@ -127,6 +160,7 @@ export default defineComponent({
       timeout,
       message,
       snackbar,
+      meetingControl,
     };
   },
 });

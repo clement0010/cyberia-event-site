@@ -18,20 +18,17 @@
           <v-row>
             {{ member.name }}
             <v-spacer />
-            {{ member.impostor_vote_count }}
+            {{ member.imposter_vote_count }}
           </v-row>
           <v-divider />
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-spacer />
-        <v-btn
-          color="secondary"
-          @click="startStopEmergencyMeetingWrapper()"
-        >
-          {{ team.emergency_meeting ? "Stop meeting" : "Start meeting" }}
-        </v-btn>
-        <v-spacer />
+        <EditEmergencyMeetingForm
+          :id="team.id"
+          :participants="team.participants"
+          :emergency-meeting="team.emergency_meeting"
+        />
       </v-card-actions>
     </v-card>
   </v-col>
@@ -39,10 +36,12 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import EditEmergencyMeetingForm from '@/components/molecules/EditEmergencyMeetingForm.vue';
 
 export default defineComponent({
-  name: 'EmergencyMeetingCard',
+  name: 'AdminEmergencyMeetingCard',
   components: {
+    EditEmergencyMeetingForm,
   },
   props: {
     team: {
@@ -50,12 +49,13 @@ export default defineComponent({
       default: () => ({
         name: 'Rainbow Team',
         emergency_meeting: false,
+        number: 10,
         participants: [{
           name: 'Ah Beng',
-          impostor_vote_count: 0,
+          imposter_vote_count: 0,
         }, {
           name: 'Roger',
-          impostor_vote_count: 0,
+          imposter_vote_count: 0,
         }],
       }),
     },
@@ -64,6 +64,10 @@ export default defineComponent({
     function startStopEmergencyMeetingWrapper() {
       const a = 1;
     }
+
+    return {
+      startStopEmergencyMeetingWrapper,
+    };
   },
 });
 </script>

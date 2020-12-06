@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1 class="text-center">
-      My team
+      My Team
     </h1>
     <v-row class="mt-5">
       <v-col cols="12">
@@ -71,6 +71,9 @@ export default defineComponent({
         name: 'Test User',
         status: 'ALIVE',
         user_id: '0',
+        team: {
+          number: 0,
+        },
       }],
     },
     emergencyVote: {
