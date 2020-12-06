@@ -701,10 +701,9 @@ export enum Games_Update_Column {
 /** columns and relationships of "leaderboard_public" */
 export type Leaderboard_Public = {
   __typename?: 'leaderboard_public';
+  name?: Maybe<Scalars['String']>;
+  picture_url?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['bigint']>;
-  team_id?: Maybe<Scalars['uuid']>;
-  /** An object relationship */
-  team_name?: Maybe<Teams>;
 };
 
 /** aggregated selection of "leaderboard_public" */
@@ -767,50 +766,56 @@ export type Leaderboard_Public_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Leaderboard_Public_Bool_Exp>>>;
   _not?: Maybe<Leaderboard_Public_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Leaderboard_Public_Bool_Exp>>>;
+  name?: Maybe<String_Comparison_Exp>;
+  picture_url?: Maybe<String_Comparison_Exp>;
   score?: Maybe<Bigint_Comparison_Exp>;
-  team_id?: Maybe<Uuid_Comparison_Exp>;
-  team_name?: Maybe<Teams_Bool_Exp>;
 };
 
 /** aggregate max on columns */
 export type Leaderboard_Public_Max_Fields = {
   __typename?: 'leaderboard_public_max_fields';
+  name?: Maybe<Scalars['String']>;
+  picture_url?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['bigint']>;
-  team_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "leaderboard_public" */
 export type Leaderboard_Public_Max_Order_By = {
+  name?: Maybe<Order_By>;
+  picture_url?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
-  team_id?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Leaderboard_Public_Min_Fields = {
   __typename?: 'leaderboard_public_min_fields';
+  name?: Maybe<Scalars['String']>;
+  picture_url?: Maybe<Scalars['String']>;
   score?: Maybe<Scalars['bigint']>;
-  team_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "leaderboard_public" */
 export type Leaderboard_Public_Min_Order_By = {
+  name?: Maybe<Order_By>;
+  picture_url?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
-  team_id?: Maybe<Order_By>;
 };
 
 /** ordering options when selecting data from "leaderboard_public" */
 export type Leaderboard_Public_Order_By = {
+  name?: Maybe<Order_By>;
+  picture_url?: Maybe<Order_By>;
   score?: Maybe<Order_By>;
-  team_id?: Maybe<Order_By>;
-  team_name?: Maybe<Teams_Order_By>;
 };
 
 /** select columns of table "leaderboard_public" */
 export enum Leaderboard_Public_Select_Column {
   /** column name */
-  Score = 'score',
+  Name = 'name',
   /** column name */
-  TeamId = 'team_id'
+  PictureUrl = 'picture_url',
+  /** column name */
+  Score = 'score'
 }
 
 /** aggregate stddev on columns */
@@ -3865,11 +3870,7 @@ export type SubscribePublicLeaderboardSubscription = (
   { __typename?: 'subscription_root' }
   & { leaderboard_public: Array<(
     { __typename?: 'leaderboard_public' }
-    & Pick<Leaderboard_Public, 'score' | 'team_id'>
-    & { team_name?: Maybe<(
-      { __typename?: 'teams' }
-      & Pick<Teams, 'name' | 'picture_url'>
-    )>; }
+    & Pick<Leaderboard_Public, 'score' | 'name' | 'picture_url'>
   )>; }
 );
 
@@ -3968,7 +3969,10 @@ export type ContestSubmissionLiveResultSubscription = (
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'name'>
-    & { contest_submission?: Maybe<(
+    & { team: (
+      { __typename?: 'teams' }
+      & Pick<Teams, 'picture_url'>
+    ); contest_submission?: Maybe<(
       { __typename?: 'contest' }
       & Pick<Contest, 'vote_count' | 'submission_url'>
     )>; }
@@ -4794,11 +4798,8 @@ export const SubscribePublicLeaderboardDocument = gql`
     subscription SubscribePublicLeaderboard {
   leaderboard_public {
     score
-    team_id
-    team_name {
-      name
-      picture_url
-    }
+    name
+    picture_url
   }
 }
     `;
@@ -5008,6 +5009,9 @@ export const ContestSubmissionLiveResultDocument = gql`
     limit: 5
   ) {
     name
+    team {
+      picture_url
+    }
     contest_submission {
       vote_count
       submission_url

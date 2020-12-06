@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <LoaderSpin v-if="loading || loading1" />
-    <p v-if="error">Error! {{ process.env.NODE_ENV === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
+    <p v-if="error">Error! {{ mode === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <div v-else>
       <div class="my-5">
         <h1 class="text-center">Games</h1>
@@ -96,6 +96,7 @@ export default defineComponent({
   setup() {
     const { result, loading, error } = useSubscibeToAllGamesSubscription();
     const games = ref();
+    const mode = ref(process.env.NODE_ENV);
     watch(
       result,
       (data) => {
@@ -155,6 +156,7 @@ export default defineComponent({
       loading1,
       error,
       error1,
+      mode,
     };
   },
 });

@@ -18,7 +18,10 @@
       </v-tab>
     </v-tabs>
     <v-row justify="center">
-      <transition name="router-anim">
+      <transition
+        name="router-anim"
+        appear
+      >
         <router-view />
       </transition>
     </v-row>
@@ -30,12 +33,10 @@ import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'About',
-  components: {
-  },
 });
 </script>
 
-<style>
+<style scoped>
 .page {
   position: fixed;
   width: inherit;

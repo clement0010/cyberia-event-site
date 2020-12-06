@@ -1,13 +1,11 @@
 subscription SubscribePublicLeaderboard {
   leaderboard_public {
     score
-    team_id
-    team_name {
-      name
-      picture_url
-    }
+    name
+    picture_url
   }
 }
+
 
 subscription SubscibeToAllGames {
   games {
@@ -86,6 +84,9 @@ subscription GetEmergencyMeetingStatus {
 subscription ContestSubmissionLiveResult {
   participants(order_by: {contest_submission: {vote_count: desc_nulls_last}}, limit: 5) {
     name
+    team {
+      picture_url
+    }
     contest_submission {
       vote_count
       submission_url

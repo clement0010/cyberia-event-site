@@ -7,6 +7,7 @@
     >
       <v-btn
         v-if="!stateControl.submission"
+        class="black--text"
         color="secondary"
         dark
         large
@@ -16,6 +17,7 @@
       </v-btn>
       <v-btn
         v-else
+        class="black--text"
         color="secondary"
         dark
         large
@@ -27,6 +29,7 @@
     <div class="mx-10 my-5">
       <v-btn
         v-if="!stateControl.vote"
+        class="black--text"
         color="secondary"
         dark
         large
@@ -36,6 +39,7 @@
       </v-btn>
       <v-btn
         v-else
+        class="black--text"
         color="secondary"
         dark
         large
@@ -48,6 +52,7 @@
     <div class="mx-10 my-5">
       <v-btn
         v-if="!stateControl.leaderboard"
+        class="black--text"
         color="secondary"
         dark
         large
@@ -57,6 +62,7 @@
       </v-btn>
       <v-btn
         v-else
+        class="black--text"
         color="secondary"
         dark
         large

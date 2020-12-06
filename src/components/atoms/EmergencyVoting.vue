@@ -1,6 +1,7 @@
 <template>
   <v-card-actions>
     <v-btn
+      class="black--text"
       outlined
       rounded
       @click="vote"

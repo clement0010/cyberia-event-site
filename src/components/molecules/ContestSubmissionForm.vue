@@ -6,6 +6,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          class="black--text"
           color="secondary"
           dark
           large
@@ -32,6 +33,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             type="submit"
             color="primary"
             @click="upload"

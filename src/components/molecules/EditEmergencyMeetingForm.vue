@@ -6,6 +6,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          class="black--text"
           color="secondary"
           dark
           v-bind="attrs"
@@ -31,12 +32,14 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             color="secondary"
             @click="dialog = false"
           >
             Cancel
           </v-btn>
           <v-btn
+            class="black--text"
             color="primary"
             @click="editWrapper"
           >
@@ -44,6 +47,7 @@
           </v-btn>
           <v-btn
             v-if="emergencyMeeting"
+            class="black--text"
             color="primary"
             @click="meetingControl(false)"
           >
@@ -51,6 +55,7 @@
           </v-btn>
           <v-btn
             v-else
+            class="black--text"
             color="primary"
             @click="meetingControl(true)"
           >
