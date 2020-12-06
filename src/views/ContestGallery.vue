@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <LoaderSpin v-if="loading" />
-    <p v-if="error">Error {{ error }}</p>
+    <p v-if="error">Error! {{ mode === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <div
       v-else
     >
@@ -38,6 +38,7 @@
       <v-btn
         v-show="showButton"
         v-scroll="onScroll"
+        class="black--text"
         fab
         dark
         fixed
@@ -71,6 +72,8 @@ export default defineComponent({
     ContestSubmissionForm,
   },
   setup(_, { root }) {
+    const mode = ref(process.env.NODE_ENV);
+
     const {
       isAuthenticated, role,
     } = authComposition(root);
@@ -157,6 +160,7 @@ export default defineComponent({
       showButton,
       onScroll,
       toTop,
+      mode,
     };
   },
 });

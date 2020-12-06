@@ -24,6 +24,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             color="secondary"
             @click="dialog = false"
           >
@@ -78,7 +79,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .image :hover {
   cursor: pointer;
 }

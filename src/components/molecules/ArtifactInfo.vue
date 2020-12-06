@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      class="black--text"
       icon
       small
       @click="dialog = true"
@@ -28,6 +29,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             color="secondary"
             @click="dialog = false"
           >

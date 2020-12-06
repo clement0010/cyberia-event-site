@@ -17,21 +17,15 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Edit Game</span>
+          <span class="headline">Edit Team Score</span>
         </v-card-title>
         <v-card-text>
           <v-select
-            v-model="updateData.team_id"
-            label="Team"
-            :items="teamsScores"
-            item-text="team.name"
-            item-value="team_id"
-            color="white"
-          />
-          <v-select
-            v-model="updateData.score"
-            label="Score"
-            :items="scoreOptions"
+            v-model="updateData.participant_id"
+            label="Participants"
+            :items="participants"
+            item-text="name"
+            item-value="id"
             color="white"
           />
         </v-card-text>
@@ -49,7 +43,23 @@
             color="primary"
             @click="editWrapper"
           >
-            Confirm
+            Kill
+          </v-btn>
+          <v-btn
+            v-if="emergencyMeeting"
+            class="black--text"
+            color="primary"
+            @click="meetingControl(false)"
+          >
+            Stop Meeting
+          </v-btn>
+          <v-btn
+            v-else
+            class="black--text"
+            color="primary"
+            @click="meetingControl(true)"
+          >
+            Start Meeting
           </v-btn>
         </v-card-actions>
         <LoaderSpinMini v-if="loading" />
@@ -65,7 +75,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from '@vue/composition-api';
-import { useUpdateGameScoreMutation } from '@/generated/graphql';
+import { useKillParticipantsMutation, useEmergencyMeetingControlMutation } from '@/generated/graphql';
 import SnackBar from '@/components/atoms/Snackbars.vue';
 import snackBarComposition from '@/composable/snackbar';
 import LoaderSpinMini from '@/components/atoms/LoaderSpinMini.vue';
@@ -81,14 +91,17 @@ export default defineComponent({
     id: {
       type: String,
     },
-    teamsScores: {
+    emergencyMeeting: {
+      type: Boolean,
+      default: false,
+    },
+    participants: {
       type: Array,
       default: () => [],
     },
   },
 
   setup(props) {
-    const scoreOptions = ref([0, 250, 500, 750, 1000]);
     const dialog = ref(false);
     const loading = ref(false);
 
@@ -96,21 +109,41 @@ export default defineComponent({
       timeout, snackbar, message, snackbarHandler,
     } = snackBarComposition();
 
-    const { mutate: updateScore } = useUpdateGameScoreMutation(() => ({}));
+    const { mutate: killParticipant } = useKillParticipantsMutation(() => ({}));
+    const { mutate: changeEmergencyStatus } = useEmergencyMeetingControlMutation(() => ({}));
 
     const updateData = reactive({
-      game_id: props.id || '',
-      team_id: '',
-      score: 0,
+      participant_id: '',
+      team_id: props.id,
     });
 
     function editWrapper() {
       loading.value = true;
       console.log('Data', updateData);
-      updateScore(updateData).then((result) => {
-        if (result.data.update_teams_scores.affected_rows) {
+      killParticipant(updateData).then((result) => {
+        if (result.data.update_participants.affected_rows) {
+          updateData.participant_id = '';
           updateData.team_id = '';
-          updateData.score = 0;
+          snackbarHandler('Update Successfully!');
+        } else {
+          snackbarHandler('Error! Try again later.');
+        }
+        loading.value = false;
+        dialog.value = false;
+      }).catch((err) => {
+        loading.value = false;
+        console.error(err);
+        snackbarHandler('Error! Try again later!');
+      });
+    }
+
+    function meetingControl(emergency_meeting: boolean) {
+      loading.value = true;
+      changeEmergencyStatus({
+        team_id: props.id,
+        emergency_meeting,
+      }).then((result) => {
+        if (result.data.update_participants.affected_rows) {
           snackbarHandler('Update Successfully!');
         } else {
           snackbarHandler('Error! Try again later.');
@@ -128,11 +161,11 @@ export default defineComponent({
       dialog,
       loading,
       editWrapper,
-      scoreOptions,
       updateData,
       timeout,
       message,
       snackbar,
+      meetingControl,
     };
   },
 });

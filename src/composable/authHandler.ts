@@ -7,11 +7,13 @@ function authComposition(root: any) {
   const authInstance = root.$auth;
 
   async function login() {
-    root.$auth.loginWithRedirect({});
+    root.$auth.loginWithRedirect({
+      redirect_uri: process.env.NODE_ENV === 'production' ? 'https://clement0010.github.io/cyberia-event-site/' : 'http://localhost:8080/cyberia-event-site/',
+    });
   }
   async function logout() {
     root.$auth.logout({
-      returnTo: process.env.NODE_ENV === 'production' ? `${window.location.origin}/cyberia-event-site/` : `${window.location.origin}`,
+      returnTo: `${window.location.origin}/cyberia-event-site/`,
     });
   }
   const watcher = setInterval(() => {

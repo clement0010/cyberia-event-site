@@ -21,6 +21,7 @@
         class="mt-5"
       >
         <v-btn
+          class="black--text"
           x-large
           color="secondary"
           @click="overlay = false"
@@ -75,6 +76,9 @@ export default defineComponent({
         name: 'Test User',
         status: 'ALIVE',
         user_id: '0',
+        team: {
+          number: 0,
+        },
       }],
     },
     deadParticipants: {
@@ -99,7 +103,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-
-</style>

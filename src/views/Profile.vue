@@ -1,7 +1,7 @@
 <template>
   <div>
     <LoaderSpin v-if="loading" />
-    <p v-else-if="error">Error {{ error }}</p>
+    <p v-if="error">Error! {{ mode === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <ProfileCard
       v-else
       :profile="profile"
@@ -35,6 +35,8 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
+    const mode = ref(process.env.NODE_ENV);
+
     const auth0_id = ref(root.$auth.user?.sub || '');
     const { result, loading, error } = useGetOneParticipantDetailsQuery({ auth0_id: auth0_id.value });
     const profile = useResult(result, {}, (data) => data.participants[0]);
@@ -66,6 +68,7 @@ export default defineComponent({
       error1,
       error2,
       error3,
+      mode,
     };
   },
 });

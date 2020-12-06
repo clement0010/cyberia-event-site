@@ -4144,36 +4144,36 @@
         "description": "columns and relationships of \"leaderboard_public\"",
         "fields": [
           {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "picture_url",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "score",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "bigint",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "team_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "team_name",
-            "description": "An object relationship",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "teams",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4614,31 +4614,31 @@
             "defaultValue": null
           },
           {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "picture_url",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "score",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "bigint_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "uuid_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_name",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "teams_bool_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -4654,24 +4654,36 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "score",
+            "name": "name",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "bigint",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "picture_url",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "score",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "bigint",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4690,7 +4702,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "score",
+            "name": "name",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -4700,7 +4712,17 @@
             "defaultValue": null
           },
           {
-            "name": "team_id",
+            "name": "picture_url",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "score",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -4720,24 +4742,36 @@
         "description": "aggregate min on columns",
         "fields": [
           {
-            "name": "score",
+            "name": "name",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "bigint",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "picture_url",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "uuid",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "score",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "bigint",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4756,7 +4790,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "score",
+            "name": "name",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -4766,7 +4800,17 @@
             "defaultValue": null
           },
           {
-            "name": "team_id",
+            "name": "picture_url",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "score",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -4787,31 +4831,31 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "name",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "picture_url",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "score",
             "description": null,
             "type": {
               "kind": "ENUM",
               "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "team_name",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "teams_order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -4830,13 +4874,19 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "score",
+            "name": "name",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "team_id",
+            "name": "picture_url",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "score",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -12730,6 +12780,12 @@
           },
           {
             "name": "IMPOSTER",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "IMPOSTOR",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

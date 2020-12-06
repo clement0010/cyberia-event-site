@@ -1,13 +1,11 @@
 subscription SubscribePublicLeaderboard {
   leaderboard_public {
     score
-    team_id
-    team_name {
-      name
-      picture_url
-    }
+    name
+    picture_url
   }
 }
+
 
 subscription SubscibeToAllGames {
   games {
@@ -42,6 +40,10 @@ subscription EmergencyMeetingDetails {
     name
     status
     user_id
+    team{
+      number
+      picture_url
+    }
   }
 }
 
@@ -65,15 +67,29 @@ subscription GetParticipantsViewfinderDetails {
   }
 }
 
-subscription GetEmergencyMeetingStatus{
+subscription GetEmergencyMeetingStatus {
   teams {
     id
     name
     emergency_meeting
     number
-    participants {
+    participants(where: {status: {_eq: ALIVE}}) {
       id
+      name
       imposter_vote_count
+    }
+  }
+}
+
+subscription ContestSubmissionLiveResult {
+  participants(order_by: {contest_submission: {vote_count: desc_nulls_last}}, limit: 5) {
+    name
+    team {
+      picture_url
+    }
+    contest_submission {
+      vote_count
+      submission_url
     }
   }
 }
