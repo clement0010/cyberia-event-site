@@ -17,7 +17,10 @@
       />
     </v-row>
     <ContributePointsForm />
-    <div class="mt-10 mb-5">
+    <div
+      v-if="team.emergency_meeting"
+      class="mt-10 mb-5"
+    >
       <h1 class="text-center red--text">
         Emergency Meeting
       </h1>

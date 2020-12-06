@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-5">
     <h1 class="text-center">
       Emergency Meeting Results
     </h1>
