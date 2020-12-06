@@ -56,13 +56,16 @@
 
     <v-app-bar
       app
-      color="primary"
+      color="secondary"
       dark
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon
+        color="black"
+        @click.stop="drawer = !drawer"
+      />
       <div class="d-flex align-center">
-        <v-toolbar-title>
-          Cyberia 2020
+        <v-toolbar-title class="black--text">
+          Cyberia
         </v-toolbar-title>
       </div>
     </v-app-bar>

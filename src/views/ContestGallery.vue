@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <LoaderSpin v-if="loading" />
-    <p v-if="error">Error {{ error }}</p>
+    <p v-if="error">Error! {{ mode === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
     <div
       v-else
     >
@@ -21,6 +21,7 @@
             />
             <!-- Need to fix UI -->
             <p v-else-if="!isAuthenticated">Please login first!</p>
+            <p v-else>Back to Home Refresh and come back again! </p>
           </div>
         </v-row>
       </div>
@@ -35,19 +36,22 @@
         />
       </v-row>
       <v-row justify="center" />
-      <v-btn
-        v-show="showButton"
-        v-scroll="onScroll"
-        fab
-        dark
-        fixed
-        bottom
-        right
-        color="primary"
-        @click="toTop"
-      >
-        <v-icon>keyboard_arrow_up</v-icon>
-      </v-btn>
+      <v-fab-transition>
+        <v-btn
+          v-show="showButton"
+          v-scroll="onScroll"
+          color="#8B0000"
+          dark
+          absolute
+          bottom
+          right
+          fab
+          class="mb-15 mr-3"
+          @click="toTop"
+        >
+          <v-icon>mdi-arrow-up</v-icon>
+        </v-btn>
+      </v-fab-transition>
     </div>
   </v-container>
 </template>
@@ -71,6 +75,8 @@ export default defineComponent({
     ContestSubmissionForm,
   },
   setup(_, { root }) {
+    const mode = ref(process.env.NODE_ENV);
+
     const {
       isAuthenticated, role,
     } = authComposition(root);
@@ -86,8 +92,6 @@ export default defineComponent({
       result: result1,
     } = useGetParticipantVotingDetailsQuery({ auth0_id: auth0_id.value });
     const contestSubmissions = useResult(result, [], (data) => data.contest);
-    let showButton = false;
-
     const participantDetails = useResult(result1, [], (data) => {
       if (!data.participants.length) {
         // Public User
@@ -99,6 +103,7 @@ export default defineComponent({
       }
       return data.participants[0];
     });
+
     function loadMore() {
       fetchMore({
         variables: {
@@ -136,10 +141,11 @@ export default defineComponent({
       window.removeEventListener('scroll', scrollBehavior);
     });
 
+    const showButton = ref(false);
     function onScroll(e: Event) {
       if (typeof window === 'undefined') return;
       const top = window.pageYOffset || (e.target as Element).scrollTop || 0;
-      showButton = top > 20;
+      showButton.value = top > 20;
     }
 
     function toTop() {
@@ -157,6 +163,7 @@ export default defineComponent({
       showButton,
       onScroll,
       toTop,
+      mode,
     };
   },
 });

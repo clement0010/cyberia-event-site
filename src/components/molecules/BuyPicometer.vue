@@ -1,6 +1,7 @@
 <template>
   <v-row justify="center">
     <v-btn
+      class="black--text"
       color="primary"
       dark
       :disabled="bought"
@@ -26,12 +27,14 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             color="primary"
             @click="buyPicometerMicroscopeWrapper"
           >
             Yes
           </v-btn>
           <v-btn
+            class="black--text"
             color="secondary"
             @click="confirmationDialog = false"
           >

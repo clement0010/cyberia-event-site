@@ -6,6 +6,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          class="black--text"
           color="primary"
           v-bind="attrs"
           v-on="on"
@@ -18,17 +19,19 @@
           <span class="headline">Vote</span>
         </v-card-title>
         <v-card-text>
-          Do you want to vote for username's submission? This action is irreversible.
+          Do you want to vote for this submission? This action is irreversible.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             color="secondary"
             @click="dialog = false"
           >
             Cancel
           </v-btn>
           <v-btn
+            class="black--text"
             color="primary"
             @click="vote"
           >
@@ -86,7 +89,7 @@ export default defineComponent({
           const cache = new CacheService(client);
 
           const { participants } = cache.read(GetParticipantVotingDetailsDocument, { auth0_id: root.$auth.user?.sub });
-          participants[0].vote = true;
+          participants[0].vote = false;
           cache.write(GetParticipantVotingDetailsDocument, { participants });
         } else {
           throw new Error('Voting Error');

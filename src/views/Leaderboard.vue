@@ -1,8 +1,8 @@
 <template>
   <div>
     <LoaderSpin v-if="loading" />
-    <p v-else-if="error">Error {{ error }}</p>
-    <leaderboard-section
+    <p v-if="error">Error! {{ mode === 'production' ? 'Something is wrong, please refresh!' : error }}</p>
+    <LeaderboardSection
       v-else
       :teams="leaderboard"
     />
@@ -27,17 +27,19 @@ export default defineComponent({
   setup() {
     const { result, loading, error } = useSubscribePublicLeaderboardSubscription();
     const leaderboard = ref();
+    const mode = ref(process.env.NODE_ENV);
+
     watch(
       result,
       (data) => {
         leaderboard.value = data.leaderboard_public;
       },
-
     );
 
     return {
       loading,
       error,
+      mode,
       leaderboard,
     };
   },

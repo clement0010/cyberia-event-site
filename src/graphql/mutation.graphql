@@ -201,14 +201,21 @@ mutation BuyViewfinder($auth0_id: String!) {
   }
 }
 
-mutation KillParticipants($participant_id: uuid!) {
+mutation KillParticipants($participant_id: uuid!, $team_id: uuid!) {
   update_participants(where: {id: {_eq: $participant_id}}, _set: {status: DEAD}) {
+    affected_rows
+  }
+  update_teams(where: {id: {_eq: $team_id}}, _set: {emergency_meeting: false}, _inc: {number: -1},) {
     affected_rows
   }
 }
 
-mutation EmergencyMeetingControl($team_id: uuid!) {
-  update_teams(_set: {emergency_meeting: false}, _inc: {number: -1}, where: {id: {_eq: $team_id}}) {
+
+mutation EmergencyMeetingControl($team_id: uuid!, $emergency_meeting: Boolean!) {
+  update_teams(_set: {emergency_meeting: $emergency_meeting}, where: {id: {_eq: $team_id}}) {
+    affected_rows
+  }
+  update_participants(where: {team_id: {_eq: $team_id}, status: {_neq: DEAD}}, _set: {emergency_vote: false, imposter_vote_count: 0}) {
     affected_rows
   }
 }

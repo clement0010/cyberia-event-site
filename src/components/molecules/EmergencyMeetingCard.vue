@@ -6,21 +6,27 @@
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline mb-4">
-          OVERLINE
-        </div>
         <v-list-item-title class="headline mb-1">
           {{ meetingParticipant.name }}
         </v-list-item-title>
-        <v-list-item-subtitle>{{ meetingParticipant.imposter_vote_count }}</v-list-item-subtitle>
+        <v-progress-linear
+          :value="(meetingParticipant.imposter_vote_count/meetingParticipant.team.number)*100"
+          color="blue-grey"
+          height="20"
+        >
+          <v-list-item-subtitle class="text-center">{{ meetingParticipant.imposter_vote_count }}</v-list-item-subtitle>
+        </v-progress-linear>
         <v-list-item-subtitle v-if="meetingParticipant.emergency_vote">Voted</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
         tile
         size="80"
-        color="grey"
-      />
+      >
+        <v-img
+          :src="meetingParticipant.team.picture_url"
+        />
+      </v-list-item-avatar>
     </v-list-item>
 
     <v-card-actions>
@@ -50,6 +56,9 @@ export default defineComponent({
         name: 'Test User',
         status: 'ALIVE',
         user_id: '0',
+        team: {
+          number: 0,
+        },
       }),
     },
     emergencyVote: {

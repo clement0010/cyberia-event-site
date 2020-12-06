@@ -6,6 +6,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          class="black--text"
           color="secondary"
           dark
           v-bind="attrs"
@@ -37,12 +38,14 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="black--text"
             color="secondary"
             @click="dialog = false"
           >
             Cancel
           </v-btn>
           <v-btn
+            class="black--text"
             color="primary"
             @click="editWrapper"
           >
@@ -84,7 +87,7 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup() {
     const dialog = ref(false);
     const loading = ref(false);
 

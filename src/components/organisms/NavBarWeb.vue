@@ -3,19 +3,16 @@
     <v-app-bar
       app
       height="75"
-      color="primary"
+      color="#dadada"
       dark
     >
       <div class="d-flex align-center">
-        <v-toolbar-title>
-          <div class="mt-3">
-            <router-link to="/">
-              <img
+        <v-toolbar-title class="black--text">
+          <!-- <img
                 src="@/assets/logo-navbar.png"
                 height="75vh"
-              />
-            </router-link>
-          </div>
+              > -->
+          Cyberia
         </v-toolbar-title>
       </div>
 
@@ -25,7 +22,9 @@
         to="/"
         class="text-decoration-none"
       >
-        <v-btn class="mx-1">
+        <v-btn
+          class="mx-1"
+        >
           Home
         </v-btn>
       </router-link>
@@ -34,7 +33,9 @@
         to="/admin"
         class="text-decoration-none"
       >
-        <v-btn class="mx-1">
+        <v-btn
+          class="mx-1"
+        >
           Admin
         </v-btn>
       </router-link>
@@ -43,7 +44,9 @@
         to="/profile"
         class="text-decoration-none"
       >
-        <v-btn class="mx-1">
+        <v-btn
+          class="mx-1"
+        >
           Profile
         </v-btn>
       </router-link>
@@ -98,3 +101,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+router-link{
+    text-decoration: none;
+}
+</style>

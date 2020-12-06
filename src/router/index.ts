@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Itinerary from '@/components/organisms/Itinerary.vue';
-import Faq from '@/components/organisms/Faq.vue';
+import CompetitionRules from '@/components/organisms/CompetitionRules.vue';
 import GeneralInfo from '@/components/organisms/GeneralInfo.vue';
 import { authGuard } from '@/plugins/auth0/authGuard';
 
@@ -32,8 +32,8 @@ const routes: Array<RouteConfig> = [
         component: GeneralInfo,
       },
       {
-        path: 'faq',
-        component: Faq,
+        path: 'competition-rules',
+        component: CompetitionRules,
       },
       {
         path: 'itinerary',
