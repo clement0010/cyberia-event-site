@@ -3,14 +3,25 @@
     <h1 class="text-center">
       Emergency Meeting Results
     </h1>
-    <v-row class="mt-5">
-      The following members have been voted out! He/she will still be able to participate in the games as a ghost.
-      <div
-        v-for="(member, index) in deadParticipants"
-        :key="index"
-      >
-        {{ member.name + " " + member.role }}
-      </div>
+    <v-row
+      v-if="deadParticipants.length > 0"
+      class="mt-5"
+    >
+      <v-col cols="12">
+        The following members have been voted out! He/she will still be able to participate in the games as a ghost.<br><br>
+        <div
+          v-for="(member, index) in deadParticipants"
+          :key="index"
+        >
+          <p>{{ member.name + " (" + member.role + ")" }}</p>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row
+      v-else
+      class="mt-5"
+    >
+      No emergency meetings have been held so far.
     </v-row>
   </v-container>
 </template>
@@ -27,10 +38,13 @@ export default defineComponent({
   props: {
     deadParticipants: {
       type: Array,
-      default: () => [({
+      default: () => [{
         name: 'HUMAN2077',
         role: 'IMPOSTOR',
-      })],
+      }, {
+        name: 'Bob',
+        role: 'CREWMATE',
+      }],
     },
   },
 });

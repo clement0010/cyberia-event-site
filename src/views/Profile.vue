@@ -10,7 +10,6 @@
       :artifact-details="artifactDetails"
       :dead-participants="deadParticipants"
     />
-
   </div>
 </template>
 

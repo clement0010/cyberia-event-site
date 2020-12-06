@@ -24,6 +24,15 @@
         />
       </v-row>
       <div class="my-5">
+        <h1 class="text-center">Emergency Meetings</h1>
+      </div>
+      <v-row>
+        <emergency-meeting-card
+          v-for="index in 6"
+          :key="index"
+        />
+      </v-row>
+      <div class="my-5">
         <h1 class="text-center">Picometer</h1>
       </div>
       <v-row>
@@ -51,6 +60,7 @@
       <v-row justify="center">
         <ContestControlButton />
       </v-row>
+      <contest-leaderboard />
     </div>
   </v-container>
 </template>
@@ -60,6 +70,8 @@ import { defineComponent, ref, watch } from '@vue/composition-api';
 import GameCard from '@/components/organisms/GameCard.vue';
 import TeamCard from '@/components/organisms/TeamCard.vue';
 import ArtifactCard from '@/components/organisms/ArtifactCard.vue';
+import EmergencyMeetingCard from '@/components/organisms/EmergencyMeetingCard.vue';
+import ContestLeaderboard from '@/components/organisms/ContestLeaderboard.vue';
 import LoaderSpin from '@/components/atoms/LoaderSpin.vue';
 import {
   useSubscibeToAllGamesSubscription, useGetParticipantsScoreSubscription, useGetParticipantsPicometerDetailsSubscription, useGetParticipantsViewfinderDetailsSubscription,
@@ -75,6 +87,8 @@ export default defineComponent({
     LoaderSpin,
     ContestControlButton,
     ArtifactCard,
+    EmergencyMeetingCard,
+    ContestLeaderboard,
   },
 
   setup() {

@@ -6,8 +6,7 @@
       :disabled="bought"
       @click="confirmationDialog = true"
     >
-      <p v-if="bought">Bought</p>
-      <p v-else>Buy</p>
+      {{ bought ? "Bought" : "Buy" }}
     </v-btn>
 
     <v-dialog
@@ -21,7 +20,7 @@
         </v-card-title>
 
         <v-card-text>
-          Do you want to buy Viewfinder (200 pts)?
+          Do you want to buy Viewfinder (150 pts)?
         </v-card-text>
 
         <v-card-actions>
@@ -88,7 +87,7 @@ export default defineComponent({
     const { mutate: buyViewfinder } = useBuyViewfinderMutation({});
 
     function buyViewfinderWrapper() {
-      if (props.score < 200) {
+      if (props.score < 150) {
         snackbarHandler('Insufficient Points!');
         return;
       }
@@ -105,7 +104,7 @@ export default defineComponent({
 
           const cacheData = cache.read(GetOneParticipantDetailsDocument, { auth0_id: root.$auth.user?.sub });
           const participants = cacheData.participants[0];
-          participants.score -= 200;
+          participants.score -= 150;
           cache.write(GetOneParticipantDetailsDocument, { participants });
 
           snackbarHandler('Purchase Successfully!');

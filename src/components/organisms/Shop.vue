@@ -118,7 +118,7 @@ export default defineComponent({
   setup() {
     const picometer = {
       name: 'Picometer Microscope',
-      ability: 'Gives you the names of three crewmates in your team.',
+      ability: 'Gives you the names of one crewmate in your team.',
       description: 'This microscope is so precise it can help you identify your true allies. '
         + 'Unfortunately some of its parts were damaged, so it has limited capacity.',
     };

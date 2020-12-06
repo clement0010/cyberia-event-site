@@ -8,8 +8,27 @@
       :dead-participants="deadParticipants"
     />
     <Shop
+      v-if="profile.role === 'CREWMATE'"
       :artifact-details="artifactDetails"
     />
+    <v-overlay
+      color="#8a0303"
+      :value="overlay"
+    >
+      <h1>YOU HAVE BEEN VOTED OUT</h1>
+      <v-row
+        justify="center"
+        class="mt-5"
+      >
+        <v-btn
+          x-large
+          color="secondary"
+          @click="overlay = false"
+        >
+          OK
+        </v-btn>
+      </v-row>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -70,6 +89,13 @@ export default defineComponent({
         score: 0,
       }),
     },
+  },
+
+  setup(props) {
+    const overlay = props.profile.status === 'DEAD';
+    return {
+      overlay,
+    };
   },
 });
 </script>

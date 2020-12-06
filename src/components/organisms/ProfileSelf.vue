@@ -9,10 +9,31 @@
           cols="6"
           md="2"
         >
-          <v-img
-            :src="profile.team.picture_url"
-            max-width="100vw"
-          />
+          <v-hover v-slot="{ hover }">
+            <v-card :class="{ 'on-hover': hover }">
+              <v-img
+                :src="profile.team.picture_url"
+                max-width="100vw"
+              >
+                <v-fade-transition>
+                  <div
+                    v-if="hover & profile.status === 'ALIVE'"
+                    class="d-flex justify-center align-center green darken-3 v-card--reveal display-3 white--text text-h6"
+                    style="height: 100%;"
+                  >
+                    ALIVE
+                  </div>
+                  <div
+                    v-if="hover & profile.status === 'DEAD'"
+                    class="d-flex justify-center align-center red darken-3 v-card--reveal display-3 white--text text-h6"
+                    style="height: 100%;"
+                  >
+                    VOTED OUT
+                  </div>
+                </v-fade-transition>
+              </v-img>
+            </v-card>
+          </v-hover>
         </v-col>
         <v-col
           cols="6"
@@ -25,8 +46,10 @@
             {{ profile.role }} in  {{ profile.team.name }}<br>
             Score: {{ profile.score }}<br>
             Contribution: {{ profile.contribution }}<br>
-            Picometer Hint: {{ profile.picometer_hint }}<br>
-            Viewfinder Hint: {{ profile.viewfinder_hint }}<br>
+            <div v-if="profile.role === 'CREWMATE'">
+              Picometer Hint: {{ profile.picometer_hint }}<br>
+              Viewfinder Hint: {{ profile.viewfinder_hint }}<br>
+            </div>
           </div>
           <div />
           <div />

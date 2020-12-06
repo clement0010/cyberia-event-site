@@ -9,7 +9,7 @@
         {{ team.name }}
       </v-card-title>
       <v-card-text>
-        Top 3<br>
+        Waiting List<br>
         <div
           v-for="(participant, index) in team.participants"
           :key="index"

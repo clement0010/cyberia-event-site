@@ -29,7 +29,7 @@
     />
     <emergency-meeting-result
       v-else
-      :deadParticipants="deadParticipants"
+      :dead-participants="deadParticipants"
     />
   </v-container>
 </template>

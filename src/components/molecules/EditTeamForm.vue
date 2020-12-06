@@ -25,11 +25,13 @@
             :items="participantsScores"
             item-text="name"
             item-value="id"
+            color="white"
           />
-          <v-select
+          <v-text-field
             v-model="updateData.score"
+            type="number"
             label="Score"
-            :items="scoreOptions"
+            color="white"
           />
         </v-card-text>
         <v-card-actions>
@@ -83,7 +85,6 @@ export default defineComponent({
   },
 
   setup(props) {
-    const scoreOptions = ref([0, 250, 500, 750, 1000]);
     const dialog = ref(false);
     const loading = ref(false);
 
@@ -122,7 +123,6 @@ export default defineComponent({
       dialog,
       loading,
       editWrapper,
-      scoreOptions,
       updateData,
       timeout,
       message,

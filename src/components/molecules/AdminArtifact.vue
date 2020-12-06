@@ -25,18 +25,21 @@
             :items="participants"
             item-text="name"
             item-value="id"
+            color="white"
           />
           <v-text-field
             v-if="type === 'picometer'"
             v-model="updateData.picometer_hint"
             label="Picometer Hint"
             hint="Picomter hint for crewmate"
+            color="white"
           />
           <v-text-field
             v-else-if="type === 'viewfinder'"
             v-model="updateData1.viewfinder_hint"
             label="Viewfinder Hint"
             hint="Viewfinder hint for crewmate"
+            color="white"
           />
         </v-card-text>
         <v-card-actions>
