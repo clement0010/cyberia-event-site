@@ -86,9 +86,8 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   routes,
-  // mode: process.env.NODE_ENV === 'production' ? 'hash' : 'history',
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_URL : '/cyberia-event-site/',
+  base: process.env.NODE_ENV === 'production' ? '/' : '/cyberia-event-site/',
 });
 
 export default router;
