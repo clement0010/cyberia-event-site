@@ -8,7 +8,7 @@ function authComposition(root: any) {
 
   async function login() {
     root.$auth.loginWithRedirect({
-      redirect_uri: process.env.NODE_ENV === 'production' ? 'https://clement0010.github.io/cyberia-event-site/' : 'http://localhost:8080/cyberia-event-site/',
+      redirect_uri: process.env.NODE_ENV === 'production' ? `${window.location.origin}/cyberia-event-site/` : 'http://localhost:8080/cyberia-event-site/',
     });
   }
   async function logout() {
