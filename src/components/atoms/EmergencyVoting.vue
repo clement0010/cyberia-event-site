@@ -2,6 +2,7 @@
   <v-card-actions>
     <v-btn
       class="black--text"
+      color="primary"
       outlined
       rounded
       @click="vote"
@@ -51,11 +52,11 @@ export default defineComponent({
     function vote() {
       CastEmergencyVote(data).then((result) => {
         if (result.data.update_my_vote.affected_rows) {
-          const cache = new CacheService(client);
-          const cacheData = cache.read(GetOneParticipantDetailsDocument, { auth0_id: data.user_id });
-          const participants = cacheData.participants[0];
-          participants.emergency_vote = true;
-          cache.write(GetOneParticipantDetailsDocument, { participants });
+          // const cache = new CacheService(client);
+          // const cacheData = cache.read(GetOneParticipantDetailsDocument, { auth0_id: data.user_id });
+          // const participants = cacheData.participants[0];
+          // participants.emergency_vote = true;
+          // cache.write(GetOneParticipantDetailsDocument, { participants });
           snackbarHandler('Contributed Successfully!');
         } else {
           snackbarHandler('Uh oh! Error!');

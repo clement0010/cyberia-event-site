@@ -85,6 +85,7 @@ export default defineComponent({
         participant_id: props.contestantId,
         auth0_id: root.$auth.user?.sub || '',
       }).then((result) => {
+        console.log(result);
         if (result.data.update_contest.affected_rows) {
           const cache = new CacheService(client);
 

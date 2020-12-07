@@ -34,16 +34,23 @@ subscription GetParticipantsScore {
 }
 
 subscription EmergencyMeetingDetails {
-  participants {
+  participants(order_by: {name: asc}) {
     emergency_vote
     imposter_vote_count
     name
     status
     user_id
-    team{
+    emergency_vote
+    team {
       number
       picture_url
     }
+  }
+}
+
+subscription GetEmergencyVotingStatus($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
+    emergency_vote
   }
 }
 
@@ -91,5 +98,12 @@ subscription ContestSubmissionLiveResult {
       vote_count
       submission_url
     }
+  }
+}
+
+subscription GetEmergencyMeetingResult {
+  participants(where: {status: {_eq: DEAD}}) {
+    name
+    role
   }
 }

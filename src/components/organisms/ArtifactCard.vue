@@ -49,11 +49,13 @@ export default defineComponent({
         participants: [
           {
             picometer: true,
+            viewfinder: true,
             id: '81f044f0-e926-436c-a1ed-8bc45d5c49a4',
             name: 'Participant1',
           },
           {
             picometer: true,
+            viewfinder: true,
             id: 'a9927000-3c5e-4536-8bfa-b9992f852deb',
             name: 'Participant2',
           },

@@ -21,7 +21,17 @@
         </v-card-title>
         <v-card-text>
           <v-select
+            v-if="type === 'picometer'"
             v-model="updateData.participant_id"
+            label="Participants"
+            :items="participants"
+            item-text="name"
+            item-value="id"
+            color="white"
+          />
+          <v-select
+            v-else-if="type === 'viewfinder'"
+            v-model="updateData1.participant_id"
             label="Participants"
             :items="participants"
             item-text="name"
@@ -111,12 +121,13 @@ export default defineComponent({
       picometer_hint: '',
     });
     const updateData1 = reactive({
-      participant_id: updateData.participant_id,
+      participant_id: '',
       viewfinder_hint: '',
     });
 
     function editWrapper() {
       loading.value = true;
+      console.log(updateData, updateData1);
       if (props.type === 'picometer') {
         updateHint(updateData).then((result) => {
           if (result.data.update_participants.affected_rows) {
@@ -134,6 +145,7 @@ export default defineComponent({
           snackbarHandler('Error! Try again later!');
         });
       } else {
+        console.log(updateData1);
         updateHint1(updateData1).then((result) => {
           if (result.data.update_participants.affected_rows) {
             updateData1.participant_id = '';

@@ -20,8 +20,38 @@
               :participant-id="participantDetails.id"
             />
             <!-- Need to fix UI -->
-            <p v-else-if="!isAuthenticated">Please login first!</p>
-            <p v-else>Back to Home Refresh and come back again! </p>
+            <p
+              v-if="!isAuthenticated"
+              class="
+              text-center"
+            >Please login first!</p>
+            <p
+              v-else-if="!participantDetails.submission"
+              class="text-center"
+            >You have already submitted your work!</p>
+            <p
+              v-if="!participantDetails.vote"
+              class="
+              text-center"
+            >You have already voted!</p>
+            <div
+              v-if="participantDetails.id === '0'"
+              class="
+              text-center"
+            ><v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="help"
+                >
+                  I need Help!
+                </v-btn>
+              </template>
+              <span>{{ message }}</span>
+            </v-tooltip></div>
           </div>
         </v-row>
       </div>
@@ -46,6 +76,7 @@
           bottom
           right
           fab
+          elevation="3"
           class="mb-15 mr-3"
           @click="toTop"
         >
@@ -58,7 +89,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, onUnmounted, onMounted, ref,
+  defineComponent, onUnmounted, onMounted, ref, watch,
 } from '@vue/composition-api';
 import ContestSubmission from '@/components/molecules/ContestSubmission.vue';
 import ContestSubmissionForm from '@/components/molecules/ContestSubmissionForm.vue';
@@ -78,7 +109,7 @@ export default defineComponent({
     const mode = ref(process.env.NODE_ENV);
 
     const {
-      isAuthenticated, role,
+      isAuthenticated, role, auth0_id,
     } = authComposition(root);
     const {
       result, loading, error, fetchMore,
@@ -87,12 +118,18 @@ export default defineComponent({
     });
 
     // Refresh page bug
-    const auth0_id = ref(root.$auth.user?.sub || '');
+    // const auth0_id = ref(root.$auth.user?.sub);
     const {
-      result: result1,
+      result: result1, refetch,
     } = useGetParticipantVotingDetailsQuery({ auth0_id: auth0_id.value });
     const contestSubmissions = useResult(result, [], (data) => data.contest);
     const participantDetails = useResult(result1, [], (data) => {
+      const watcher = setInterval(() => {
+        refetch({ auth0_id: auth0_id.value });
+        if (auth0_id.value !== '') {
+          clearInterval(watcher);
+        }
+      });
       if (!data.participants.length) {
         // Public User
         return {
@@ -152,7 +189,15 @@ export default defineComponent({
       root.$vuetify.goTo(0);
     }
 
+    const message = ref('If you are certain that you have logged in. Please click me!');
+
+    function help() {
+      refetch({ auth0_id: auth0_id.value });
+    }
+
     return {
+      help,
+      message,
       loading,
       error,
       loadMore,

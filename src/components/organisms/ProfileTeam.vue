@@ -30,7 +30,7 @@
       :meeting-participants="meetingParticipants"
       :emergency-vote="emergencyVote"
     />
-    <emergency-meeting-result
+    <EmergencyMeetingResult
       v-else
       :dead-participants="deadParticipants"
     />

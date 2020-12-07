@@ -3795,7 +3795,7 @@ export type GetOneParticipantDetailsQuery = (
   { __typename?: 'query_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
-    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'emergency_vote' | 'viewfinder_hint' | 'picometer_hint'>
+    & Pick<Participants, 'description' | 'name' | 'role' | 'team_id' | 'user_id' | 'score' | 'contribution' | 'status' | 'viewfinder_hint' | 'picometer_hint'>
     & { team: (
       { __typename?: 'teams' }
       & Pick<Teams, 'motto' | 'name' | 'picture_url' | 'emergency_meeting'>
@@ -3851,16 +3851,6 @@ export type GetArtifactsDetailsQuery = (
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'viewfinder' | 'picometer' | 'score'>
-  )>; }
-);
-
-export type GetEmergencyMeetingResultQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetEmergencyMeetingResultQuery = (
-  { __typename?: 'query_root' }
-  & { participants: Array<(
-    { __typename?: 'participants' }
-    & Pick<Participants, 'name' | 'role'>
   )>; }
 );
 
@@ -3920,6 +3910,18 @@ export type EmergencyMeetingDetailsSubscription = (
   )>; }
 );
 
+export type GetEmergencyVotingStatusSubscriptionVariables = Exact<{
+  auth0_id: Scalars['String'];
+}>;
+
+export type GetEmergencyVotingStatusSubscription = (
+  { __typename?: 'subscription_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'emergency_vote'>
+  )>; }
+);
+
 export type GetParticipantsPicometerDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type GetParticipantsPicometerDetailsSubscription = (
@@ -3976,6 +3978,16 @@ export type ContestSubmissionLiveResultSubscription = (
       { __typename?: 'contest' }
       & Pick<Contest, 'vote_count' | 'submission_url'>
     )>; }
+  )>; }
+);
+
+export type GetEmergencyMeetingResultSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type GetEmergencyMeetingResultSubscription = (
+  { __typename?: 'subscription_root' }
+  & { participants: Array<(
+    { __typename?: 'participants' }
+    & Pick<Participants, 'name' | 'role'>
   )>; }
 );
 
@@ -4621,7 +4633,6 @@ export const GetOneParticipantDetailsDocument = gql`
     score
     contribution
     status
-    emergency_vote
     viewfinder_hint
     picometer_hint
     team {
@@ -4769,31 +4780,6 @@ export function useGetArtifactsDetailsQuery(variables: GetArtifactsDetailsQueryV
   return VueApolloComposable.useQuery<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>(GetArtifactsDetailsDocument, variables, options);
 }
 export type GetArtifactsDetailsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetArtifactsDetailsQuery, GetArtifactsDetailsQueryVariables>;
-export const GetEmergencyMeetingResultDocument = gql`
-    query GetEmergencyMeetingResult {
-  participants(where: {status: {_eq: DEAD}}) {
-    name
-    role
-  }
-}
-    `;
-
-/**
- * __useGetEmergencyMeetingResultQuery__
- *
- * To run a query within a Vue component, call `useGetEmergencyMeetingResultQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEmergencyMeetingResultQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetEmergencyMeetingResultQuery();
- */
-export function useGetEmergencyMeetingResultQuery(options: VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>(GetEmergencyMeetingResultDocument, {}, options);
-}
-export type GetEmergencyMeetingResultQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetEmergencyMeetingResultQuery, GetEmergencyMeetingResultQueryVariables>;
 export const SubscribePublicLeaderboardDocument = gql`
     subscription SubscribePublicLeaderboard {
   leaderboard_public {
@@ -4884,12 +4870,13 @@ export function useGetParticipantsScoreSubscription(options: VueApolloComposable
 export type GetParticipantsScoreSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetParticipantsScoreSubscription, GetParticipantsScoreSubscriptionVariables>;
 export const EmergencyMeetingDetailsDocument = gql`
     subscription EmergencyMeetingDetails {
-  participants {
+  participants(order_by: {name: asc}) {
     emergency_vote
     imposter_vote_count
     name
     status
     user_id
+    emergency_vote
     team {
       number
       picture_url
@@ -4914,6 +4901,33 @@ export function useEmergencyMeetingDetailsSubscription(options: VueApolloComposa
   return VueApolloComposable.useSubscription<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>(EmergencyMeetingDetailsDocument, {}, options);
 }
 export type EmergencyMeetingDetailsSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<EmergencyMeetingDetailsSubscription, EmergencyMeetingDetailsSubscriptionVariables>;
+export const GetEmergencyVotingStatusDocument = gql`
+    subscription GetEmergencyVotingStatus($auth0_id: String!) {
+  participants(where: {user_id: {_eq: $auth0_id}}) {
+    emergency_vote
+  }
+}
+    `;
+
+/**
+ * __useGetEmergencyVotingStatusSubscription__
+ *
+ * To run a query within a Vue component, call `useGetEmergencyVotingStatusSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetEmergencyVotingStatusSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the subscription
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetEmergencyVotingStatusSubscription({
+ *   auth0_id: // value for 'auth0_id'
+ * });
+ */
+export function useGetEmergencyVotingStatusSubscription(variables: GetEmergencyVotingStatusSubscriptionVariables | VueCompositionApi.Ref<GetEmergencyVotingStatusSubscriptionVariables> | ReactiveFunction<GetEmergencyVotingStatusSubscriptionVariables>, options: VueApolloComposable.UseSubscriptionOptions<GetEmergencyVotingStatusSubscription, GetEmergencyVotingStatusSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<GetEmergencyVotingStatusSubscription, GetEmergencyVotingStatusSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<GetEmergencyVotingStatusSubscription, GetEmergencyVotingStatusSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<GetEmergencyVotingStatusSubscription, GetEmergencyVotingStatusSubscriptionVariables>(GetEmergencyVotingStatusDocument, variables, options);
+}
+export type GetEmergencyVotingStatusSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetEmergencyVotingStatusSubscription, GetEmergencyVotingStatusSubscriptionVariables>;
 export const GetParticipantsPicometerDetailsDocument = gql`
     subscription GetParticipantsPicometerDetails {
   teams {
@@ -5036,3 +5050,28 @@ export function useContestSubmissionLiveResultSubscription(options: VueApolloCom
   return VueApolloComposable.useSubscription<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables>(ContestSubmissionLiveResultDocument, {}, options);
 }
 export type ContestSubmissionLiveResultSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<ContestSubmissionLiveResultSubscription, ContestSubmissionLiveResultSubscriptionVariables>;
+export const GetEmergencyMeetingResultDocument = gql`
+    subscription GetEmergencyMeetingResult {
+  participants(where: {status: {_eq: DEAD}}) {
+    name
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetEmergencyMeetingResultSubscription__
+ *
+ * To run a query within a Vue component, call `useGetEmergencyMeetingResultSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetEmergencyMeetingResultSubscription` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the subscription, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/subscription.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetEmergencyMeetingResultSubscription();
+ */
+export function useGetEmergencyMeetingResultSubscription(options: VueApolloComposable.UseSubscriptionOptions<GetEmergencyMeetingResultSubscription, GetEmergencyMeetingResultSubscriptionVariables> | VueCompositionApi.Ref<VueApolloComposable.UseSubscriptionOptions<GetEmergencyMeetingResultSubscription, GetEmergencyMeetingResultSubscriptionVariables>> | ReactiveFunction<VueApolloComposable.UseSubscriptionOptions<GetEmergencyMeetingResultSubscription, GetEmergencyMeetingResultSubscriptionVariables>> = {}) {
+  return VueApolloComposable.useSubscription<GetEmergencyMeetingResultSubscription, GetEmergencyMeetingResultSubscriptionVariables>(GetEmergencyMeetingResultDocument, {}, options);
+}
+export type GetEmergencyMeetingResultSubscriptionCompositionFunctionResult = VueApolloComposable.UseSubscriptionReturn<GetEmergencyMeetingResultSubscription, GetEmergencyMeetingResultSubscriptionVariables>;

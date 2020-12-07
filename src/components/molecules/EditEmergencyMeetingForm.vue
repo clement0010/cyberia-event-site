@@ -17,7 +17,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Edit Team Score</span>
+          <span class="headline">Emergency Meeting</span>
         </v-card-title>
         <v-card-text>
           <v-select
@@ -81,7 +81,7 @@ import snackBarComposition from '@/composable/snackbar';
 import LoaderSpinMini from '@/components/atoms/LoaderSpinMini.vue';
 
 export default defineComponent({
-  name: 'EditGameForm',
+  name: 'EditEmergencyMeetingForm',
 
   components: {
     SnackBar,

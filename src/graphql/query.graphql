@@ -8,7 +8,6 @@ query getOneParticipantDetails($auth0_id: String!) {
     score
     contribution
     status
-    emergency_vote
     viewfinder_hint
     picometer_hint
     team {
@@ -51,12 +50,5 @@ query GetArtifactsDetails($auth0_id: String!) {
     viewfinder
     picometer
     score
-  }
-}
-
-query GetEmergencyMeetingResult {
-  participants(where: {status: {_eq: DEAD}}) {
-    name
-    role
   }
 }

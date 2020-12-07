@@ -4,7 +4,7 @@
     <ProfileTeam
       :team="profile.team"
       :meeting-participants="meetingParticipants"
-      :emergency-vote="profile.emergency_vote"
+      :emergency-vote="emergencyVote"
       :dead-participants="deadParticipants"
     />
     <Shop
@@ -92,6 +92,10 @@ export default defineComponent({
         viewfinder: true,
         score: 0,
       }),
+    },
+    emergencyVote: {
+      type: Boolean,
+      default: false,
     },
   },
 
