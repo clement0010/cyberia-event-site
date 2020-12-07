@@ -1,94 +1,105 @@
 <template>
-  <div>
-    <sky>
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <slot />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-      <star />
-    </sky>
-  </div>
+  <v-container
+    class="sky"
+    fluid
+    ma-0
+    pa-0
+  >
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <slot />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+    <span class="star" />
+  </v-container>
 </template>
+
+<script>
+import { defineComponent } from '@vue/composition-api';
+
+export default defineComponent({
+  name: 'Background',
+});
+</script>
 
 <style lang="scss" scoped>
 body {
-  margin: 0;
   overflow: hidden;
+  margin:0
 }
 
-sky {
+.sky {
   display: block;
   background: black;
-  width: 100vw;
-  height: 101vh;
+  width: 102vw;
+  height: 100vh;
 }
-star {
+.star {
   border-radius: 50%;
   background: white;
   position: absolute;

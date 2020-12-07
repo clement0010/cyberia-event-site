@@ -8,14 +8,15 @@
       <nav-bar-mobile v-else />
     </transition>
 
-    <transition
-      appear
-      name="fade"
-    >
-      <v-main>
+    <v-main>
+      <transition
+        appear
+        name="fade"
+        mode="out-in"
+      >
         <router-view />
-      </v-main>
-    </transition>
+      </transition>
+    </v-main>
   </v-app>
 </template>
 
@@ -35,23 +36,9 @@ export default defineComponent({
 </script>
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 0.7s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-down-enter-active {
-  transition: all 1.2s ease;
-}
-.slide-fade-down-leave-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-down-enter, .slide-fade-down-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-20px);
   opacity: 0;
 }
 </style>
