@@ -6,10 +6,14 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-center text-subtitle-1">
+            <th
+              class="text-center text-subtitle-1"
+            >
               Time
             </th>
-            <th class="text-center text-subtitle-1">
+            <th
+              class="text-center text-subtitle-1"
+            >
               Duration
             </th>
             <th class="text-center text-subtitle-1">
@@ -22,13 +26,22 @@
             v-for="(item, index) in items"
             :key="index"
           >
-            <td class="text-center">
+            <td
+              class="text-center"
+              width="200em"
+            >
               {{ item.time }}
             </td>
-            <td class="text-center">
+            <td
+              class="text-center"
+              width="200em"
+            >
               {{ item.duration }}
             </td>
-            <td class="text-center">
+            <td
+              class="text-center"
+              width="300em"
+            >
               {{ item.program }}
             </td>
           </tr>

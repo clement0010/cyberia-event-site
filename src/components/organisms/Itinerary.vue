@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <day-itinerary
       day="1"
       :items="dayOnePrograms"

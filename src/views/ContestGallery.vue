@@ -25,15 +25,17 @@
               class="
               text-center"
             >Please login first!</p>
-            <p
-              v-else-if="!participantDetails.submission"
-              class="text-center"
-            >You have already submitted your work!</p>
-            <p
-              v-if="!participantDetails.vote"
-              class="
-              text-center"
-            >You have already voted!</p>
+            <div v-else>
+              <p
+                v-if="!participantDetails.submission"
+                class="text-center pt-5"
+              >You have already submitted your work!</p>
+              <p
+                v-if="!participantDetails.vote"
+                class="
+              text-center pt-5"
+              >You have already voted!</p>
+            </div>
             <div
               v-if="participantDetails.id === '0'"
               class="
@@ -125,11 +127,11 @@ export default defineComponent({
     const contestSubmissions = useResult(result, [], (data) => data.contest);
     const participantDetails = useResult(result1, [], (data) => {
       const watcher = setInterval(() => {
-        refetch({ auth0_id: auth0_id.value });
-        if (auth0_id.value !== '') {
+        if (isAuthenticated) {
+          refetch({ auth0_id: auth0_id.value });
           clearInterval(watcher);
         }
-      });
+      }, 1000);
       if (!data.participants.length) {
         // Public User
         return {
