@@ -20,7 +20,7 @@ export const getInstance = () => instance;
 /** Creates an instance of the Auth0 SDK. If one has already been created, it returns that instance */
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirectUri = process.env.NODE_ENV === 'production' ? `${window.location.origin}` : `${window.location.origin}/cyberia-event-site`,
+  redirectUri = process.env.NODE_ENV === 'production' ? `${window.location.origin}` : `${window.location.origin}/cyberia-event-site/`,
   ...options
 }) => {
   if (instance) return instance;

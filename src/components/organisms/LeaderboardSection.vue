@@ -77,36 +77,7 @@ export default defineComponent({
   props: {
     teams: {
       type: Array,
-      default: () => [{
-        score: 0,
-        name: 'Team Black',
-        picture_url: 'https://storage.googleapis.com/contest-submission/black.png',
-      },
-      {
-        score: 0,
-        name: 'Team Red',
-        picture_url: 'https://storage.googleapis.com/contest-submission/red.png',
-      },
-      {
-        score: 0,
-        name: 'Team White',
-        picture_url: 'https://storage.googleapis.com/contest-submission/white.png',
-      },
-      {
-        score: 0,
-        name: 'Team Yellow',
-        picture_url: 'https://storage.googleapis.com/contest-submission/yellow.png',
-      },
-      {
-        score: 0,
-        name: 'Team Green',
-        picture_url: 'https://storage.googleapis.com/contest-submission/green.png',
-      },
-      {
-        score: 0,
-        name: 'Team Blue',
-        picture_url: 'https://storage.googleapis.com/contest-submission/blue.png',
-      },
+      default: () => [
       ],
     },
   },
