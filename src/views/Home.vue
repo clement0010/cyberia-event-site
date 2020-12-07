@@ -1,86 +1,92 @@
 <template>
-  <v-container>
+  <Background>
     <v-container>
+      <v-container>
+        <v-row justify="center">
+          <transition
+            appear
+            name="slide-fade-down"
+          >
+            <v-img
+              src="@/assets/logo-white.png"
+              :max-width="$vuetify.breakpoint.xsAndDown ? '100vw' : $vuetify.breakpoint.mdAndDown ? '65vw' : '45vw'"
+              class="mb-5"
+            />
+          </transition>
+        </v-row>
+      </v-container>
       <v-row justify="center">
-        <transition
-          appear
-          name="slide-fade-down"
-        >
-          <v-img
-            src="@/assets/logo-white.png"
-            :max-width="$vuetify.breakpoint.xsAndDown ? '100vw' : $vuetify.breakpoint.mdAndDown ? '65vw' : '45vw'"
-            class="mb-5"
-          />
-        </transition>
+        <div class="mx-10 my-5">
+          <router-link
+            to="/contest-gallery"
+            class="text-decoration-none"
+          >
+            <transition
+              appear
+              name="slide-fade-left"
+            >
+              <v-btn
+                class="black--text"
+                :x-large="$vuetify.breakpoint.smAndUp"
+                color="secondary"
+              >
+                Contest Gallery
+              </v-btn>
+            </transition>
+          </router-link>
+        </div>
+        <div class="mx-10 my-5">
+          <router-link
+            to="/information-page/general"
+            class="text-decoration-none"
+          >
+            <transition
+              appear
+              name="slide-fade-up"
+            >
+              <v-btn
+                class="black--text"
+                :x-large="$vuetify.breakpoint.smAndUp"
+                color="secondary"
+              >
+                About the Event
+              </v-btn>
+            </transition>
+          </router-link>
+        </div>
+        <div class="mx-10 my-5">
+          <router-link
+            to="/leaderboard"
+            class="text-decoration-none"
+          >
+            <transition
+              appear
+              name="slide-fade-right"
+            >
+              <v-btn
+                class="black--text"
+                :x-large="$vuetify.breakpoint.smAndUp"
+                color="secondary"
+              >
+                Leaderboard
+              </v-btn>
+            </transition>
+          </router-link>
+        </div>
       </v-row>
     </v-container>
-    <v-row justify="center">
-      <div class="mx-10 my-5">
-        <router-link
-          to="/contest-gallery"
-          class="text-decoration-none"
-        >
-          <transition
-            appear
-            name="slide-fade-left"
-          >
-            <v-btn
-              class="black--text"
-              :x-large="$vuetify.breakpoint.smAndUp"
-              color="secondary"
-            >
-              Contest Gallery
-            </v-btn>
-          </transition>
-        </router-link>
-      </div>
-      <div class="mx-10 my-5">
-        <router-link
-          to="/information-page/general"
-          class="text-decoration-none"
-        >
-          <transition
-            appear
-            name="slide-fade-up"
-          >
-            <v-btn
-              class="black--text"
-              :x-large="$vuetify.breakpoint.smAndUp"
-              color="secondary"
-            >
-              About the Event
-            </v-btn>
-          </transition>
-        </router-link>
-      </div>
-      <div class="mx-10 my-5">
-        <router-link
-          to="/leaderboard"
-          class="text-decoration-none"
-        >
-          <transition
-            appear
-            name="slide-fade-right"
-          >
-            <v-btn
-              class="black--text"
-              :x-large="$vuetify.breakpoint.smAndUp"
-              color="secondary"
-            >
-              Leaderboard
-            </v-btn>
-          </transition>
-        </router-link>
-      </div>
-    </v-row>
-  </v-container>
+  </Background>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import Background from '@/components/atoms/Background.vue';
 
 export default defineComponent({
   name: 'Home',
+  components: {
+    Background,
+  },
 });
 </script>
 

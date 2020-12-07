@@ -7,6 +7,7 @@
       <nav-bar-web v-if="$vuetify.breakpoint.mdAndUp" />
       <nav-bar-mobile v-else />
     </transition>
+
     <transition
       appear
       name="fade"
@@ -21,7 +22,7 @@
 <script lang="ts">
 import NavBarWeb from '@/components/organisms/NavBarWeb.vue';
 import { defineComponent } from '@vue/composition-api';
-import NavBarMobile from './components/organisms/NavBarMobile.vue';
+import NavBarMobile from '@/components/organisms/NavBarMobile.vue';
 
 export default defineComponent({
   name: 'App',
