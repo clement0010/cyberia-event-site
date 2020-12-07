@@ -96,13 +96,20 @@ export default defineComponent({
       time: '1500 – 1530',
       duration: '30 min',
       program: 'Break',
-    }, {
-      time: '1530 - 1545',
+    },
+    {
+      time: '1530 - 1630',
+      duration: '1 hr',
+      program: 'Additional Training Session by Night Training team',
+    },
+    {
+      time: '1630 - 1645',
       duration: '15 min',
       program: 'Competition briefing',
-    }, {
-      time: '1545 - 1845',
-      duration: '3 hr',
+    },
+    {
+      time: '1645 - 1845',
+      duration: '2 hr',
       program: 'Competition',
     }, {
       time: '1845 - 2000',
