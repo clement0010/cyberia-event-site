@@ -8,12 +8,12 @@ function authComposition(root: any) {
 
   async function login() {
     root.$auth.loginWithRedirect({
-      redirect_uri: process.env.NODE_ENV === 'production' ? `${window.location.origin}/cyberia-event-site/` : 'http://localhost:8080/cyberia-event-site/',
+      redirect_uri: process.env.NODE_ENV === 'production' ? `${window.location.origin}` : 'http://localhost:8080/cyberia-event-site/',
     });
   }
   async function logout() {
     root.$auth.logout({
-      returnTo: `${window.location.origin}/cyberia-event-site/`,
+      returnTo: `${window.location.origin}`,
     });
   }
   const watcher = setInterval(() => {
