@@ -23,7 +23,11 @@ function authComposition(root: any) {
       auth0_id.value = authInstance.user.sub;
       clearInterval(watcher);
     }
-  }, 0);
+  }, 100);
+
+  setTimeout(() => {
+    clearInterval(watcher);
+  }, 7500);
 
   return {
     login,
