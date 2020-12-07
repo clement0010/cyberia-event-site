@@ -64,8 +64,8 @@
         @click.stop="drawer = !drawer"
       />
       <div class="d-flex align-center">
-        <v-toolbar-title class="black--text">
-          Cyberia
+        <v-toolbar-title class="black--text cyberia">
+          CYBERIA
         </v-toolbar-title>
       </div>
     </v-app-bar>
@@ -107,3 +107,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.cyberia{
+  font-weight: bolder;
+  letter-spacing: 0.2em;
+}
+</style>

@@ -7,12 +7,8 @@
       dark
     >
       <div class="d-flex align-center">
-        <v-toolbar-title class="black--text">
-          <!-- <img
-                src="@/assets/logo-navbar.png"
-                height="75vh"
-              > -->
-          Cyberia
+        <v-toolbar-title class="black--text cyberia">
+          CYBERIA
         </v-toolbar-title>
       </div>
 
@@ -103,7 +99,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-router-link{
-    text-decoration: none;
+.cyberia{
+  font-weight: bolder;
+  letter-spacing: 0.2em;
 }
 </style>
