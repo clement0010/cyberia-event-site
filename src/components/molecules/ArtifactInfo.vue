@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-btn
-      class="black--text"
       icon
       small
       @click="dialog = true"

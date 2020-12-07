@@ -26,15 +26,25 @@
           <tbody>
             <tr>
               <td>
-                <span>
-                  {{ picometer.name }}
-                  <artifact-info
-                    v-if="$vuetify.breakpoint.xs"
-                    :item-name="picometer.name"
-                    :ability="picometer.ability"
-                    :description="picometer.description"
-                  />
-                </span>
+                <v-container>
+                  <v-col cols="12">
+                    <v-img
+                      v-if="!$vuetify.breakpoint.xs"
+                      src="@/assets/picometer-microscope.png"
+                      max-width="75"
+                    />
+                    <div class="my-4"/>
+                    <v-row>
+                      {{ picometer.name }}
+                      <artifact-info
+                        v-if="$vuetify.breakpoint.xs"
+                        :item-name="picometer.name"
+                        :ability="picometer.ability"
+                        :description="picometer.description"
+                      />
+                    </v-row>
+                  </v-col>
+                </v-container>
               </td>
               <td v-if="!$vuetify.breakpoint.xs">
                 <p>
@@ -55,15 +65,25 @@
             </tr>
             <tr>
               <td>
-                <span>
-                  {{ viewfinder.name }}
-                  <artifact-info
-                    v-if="$vuetify.breakpoint.xs"
-                    :item-name="viewfinder.name"
-                    :ability="viewfinder.ability"
-                    :description="viewfinder.description"
-                  />
-                </span>
+                <v-container>
+                  <v-col cols="12">
+                    <v-img
+                      v-if="!$vuetify.breakpoint.xs"
+                      src="@/assets/viewfinder.png"
+                      max-width="75"
+                    />
+                    <div class="my-4"/>
+                    <v-row>
+                      {{ viewfinder.name }}
+                      <artifact-info
+                        v-if="$vuetify.breakpoint.xs"
+                        :item-name="viewfinder.name"
+                        :ability="viewfinder.ability"
+                        :description="viewfinder.description"
+                      />
+                    </v-row>
+                  </v-col>
+                </v-container>
               </td>
               <td v-if="!$vuetify.breakpoint.xs">
                 <p>
@@ -118,7 +138,7 @@ export default defineComponent({
   setup() {
     const picometer = {
       name: 'Picometer Microscope',
-      ability: 'Gives you the names of one crewmate in your team.',
+      ability: 'Gives you the name of one crewmate in your team.',
       description: 'This microscope is so precise it can help you identify your true allies. '
         + 'Unfortunately some of its parts were damaged, so it has limited capacity.',
     };

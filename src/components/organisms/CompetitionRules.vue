@@ -5,13 +5,22 @@
       justify="center"
     >
       <div v-if="currentPage === 1">
-        <v-img src="@/assets/competition-rules-2.jpg" />
+        <v-img
+          src="@/assets/competition-rules-2.jpg"
+          max-width="85vw"
+        />
       </div>
       <div v-if="currentPage === 2">
-        <v-img src="@/assets/competition-rules-3.jpg" />
+        <v-img
+          src="@/assets/competition-rules-3.jpg"
+          max-width="85vw"
+        />
       </div>
       <div v-if="currentPage === 3">
-        <v-img src="@/assets/competition-rules-4.jpg" />
+        <v-img
+          src="@/assets/competition-rules-4.jpg"
+          max-width="85vw"
+        />
       </div>
     </v-row>
     <v-row justify="center">
