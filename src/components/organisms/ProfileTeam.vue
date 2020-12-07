@@ -7,7 +7,6 @@
       <v-col cols="12">
         <div class="text-subtitle-1">
           <strong>{{ team.name }}</strong><br>
-          {{ team.motto }}<br>
           Score: {{ totalScore }}<br>
         </div>
       </v-col>

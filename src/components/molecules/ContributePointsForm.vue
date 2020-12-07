@@ -52,6 +52,11 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <SnackBar
+      :text="message"
+      :timeout="timeout"
+      :snackbar="snackbar"
+    />
   </v-row>
 </template>
 
@@ -61,36 +66,63 @@ import { defineComponent, ref } from '@vue/composition-api';
 import { GetOneParticipantDetailsDocument, useAddScoreToTeamMutation } from '@/generated/graphql';
 import { useApolloClient } from '@vue/apollo-composable';
 import CacheService from '@/services/cacheService';
+import SnackBar from '@/components/atoms/Snackbars.vue';
+import snackBarComposition from '@/composable/snackbar';
 
 export default defineComponent({
   name: 'ContributePointsForm',
+
+  components: {
+    SnackBar,
+  },
 
   setup(_, { root }) {
     const { resolveClient } = useApolloClient();
     const client = resolveClient();
     const dialog = ref(false);
+    const {
+      timeout, snackbar, message, snackbarHandler,
+    } = snackBarComposition();
 
     const points = ref(0);
     const { mutate: contributePoints } = useAddScoreToTeamMutation({});
 
     function contributeWrapper() {
-      dialog.value = false;
-
       contributePoints({
         crewmate: -points.value,
         team: +points.value,
         auth0_id: root.$auth.user?.sub || '',
       }).then((result) => {
-        const cache = new CacheService(client);
-        const participants = result.data.update_participants.returning;
-        cache.write(GetOneParticipantDetailsDocument, { participants });
+        if (result.data.update_participants.affected_rows) {
+          const cache = new CacheService(client);
+          const point = +points.value;
+          console.log(point, 'point');
+
+          const { participants } = cache.read(GetOneParticipantDetailsDocument, { auth0_id: root.$auth.user?.sub });
+          participants[0].score -= point;
+          participants[0].contribution += point;
+          cache.write(GetOneParticipantDetailsDocument, { participants });
+          participants[0].team.scores[0].score += point;
+
+          points.value = 0;
+        } else {
+          throw new Error('Contribution Error');
+        }
+      }).catch((err) => {
+        console.error(err);
+        snackbarHandler('Uh oh! Error!');
       });
+      snackbarHandler('Contributed Successfully!');
+      dialog.value = false;
     }
 
     return {
       points,
       contributeWrapper,
       dialog,
+      snackbar,
+      timeout,
+      message,
     };
   },
 });

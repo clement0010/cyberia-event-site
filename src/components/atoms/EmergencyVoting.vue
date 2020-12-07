@@ -19,9 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api';
-import { useEmergencyMeetingVoteMutation, GetOneParticipantDetailsDocument } from '@/generated/graphql';
-import { useApolloClient } from '@vue/apollo-composable';
-import CacheService from '@/services/cacheService';
+import { useEmergencyMeetingVoteMutation } from '@/generated/graphql';
 import SnackBar from '@/components/atoms/Snackbars.vue';
 import snackBarComposition from '@/composable/snackbar';
 
@@ -45,18 +43,11 @@ export default defineComponent({
       timeout, snackbar, message, snackbarHandler,
     } = snackBarComposition();
 
-    const { resolveClient } = useApolloClient();
-    const client = resolveClient();
     const { mutate: CastEmergencyVote } = useEmergencyMeetingVoteMutation({});
 
     function vote() {
       CastEmergencyVote(data).then((result) => {
         if (result.data.update_my_vote.affected_rows) {
-          // const cache = new CacheService(client);
-          // const cacheData = cache.read(GetOneParticipantDetailsDocument, { auth0_id: data.user_id });
-          // const participants = cacheData.participants[0];
-          // participants.emergency_vote = true;
-          // cache.write(GetOneParticipantDetailsDocument, { participants });
           snackbarHandler('Contributed Successfully!');
         } else {
           snackbarHandler('Uh oh! Error!');

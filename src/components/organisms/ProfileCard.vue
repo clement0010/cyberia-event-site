@@ -53,7 +53,7 @@ export default defineComponent({
       type: Object,
       default: () => ({
         description: null,
-        name: 'LEE SHAO CHEN CONAN',
+        name: 'TEST USER',
         role: 'CREWMATE',
         team_id: 'c15a5929-0564-4e24-8811-930ab511408c',
         user_id: 'auth0|5fca77ed804107007611d218',
