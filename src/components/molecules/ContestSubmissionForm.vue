@@ -127,7 +127,7 @@ export default defineComponent({
 
       try {
         // Need to standardize and pass token in
-        const { data, status } = await uploadService(currentFile.value, 'auth0|12345678910');
+        const { data, status } = await uploadService(currentFile.value);
         if (status === 200) {
           submissionWrapper(data.imageURL);
           snackbarHandler('Update Successfully!');
