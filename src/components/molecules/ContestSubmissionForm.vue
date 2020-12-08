@@ -26,7 +26,7 @@
             placeholder="Upload file"
             name="imageFileSubmission"
             show-size
-            accept="image/*"
+            accept="image/psd"
             @change="selectFile"
           />
         </v-card-text>
@@ -83,13 +83,15 @@ export default defineComponent({
     } = snackBarComposition();
 
     const currentFile = ref();
+    const imageName = ref('');
     const submissionData = reactive({
       submission_url: '',
       participant_id: props.participantId,
       auth0_id: root.$auth.user?.sub || '',
     });
-    function selectFile(file: Blob) {
+    function selectFile(file: File) {
       console.log('Selected File: ', file);
+      imageName.value = file.name;
       currentFile.value = file;
     }
 
@@ -120,16 +122,17 @@ export default defineComponent({
       if (!currentFile.value) {
         snackbarHandler('Please select a file!');
         return;
-      } if (currentFile.value.size > 1000000) {
+      }
+      if (currentFile.value.size > 1000000) {
         snackbarHandler('Please compress your file!');
         return;
       }
 
       try {
-        // Need to standardize and pass token in
-        const { data, status } = await uploadService(currentFile.value);
+        console.log('Uploading.....');
+        const { status } = await uploadService(currentFile.value);
         if (status === 200) {
-          submissionWrapper(data.imageURL);
+          submissionWrapper(`https://storage.googleapis.com/contest-submission/${imageName.value}`);
           snackbarHandler('Update Successfully!');
 
           // UX Improvement =========================================
