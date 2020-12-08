@@ -93,6 +93,7 @@ export default defineComponent({
           participants[0].vote = false;
           cache.write(GetParticipantVotingDetailsDocument, { participants });
         } else {
+          snackbarHandler('You can only vote once!');
           throw new Error('Voting Error');
         }
       }).catch((err) => {
