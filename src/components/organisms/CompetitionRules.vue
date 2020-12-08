@@ -7,14 +7,14 @@
       <v-carousel
         v-model="model"
         show-arrows-on-hover
-        max-width="75vw"
+        height="auto"
       >
         <v-carousel-item
           v-for="n in 3"
           :key="n"
           :src="require(`@/assets/competition-rules-${n+1}.jpg`)"
-          transition="slide-fade"
-          reverse-transition="slide-fade"
+          width="100vw"
+          eager
         />
       </v-carousel>
     </v-row>
@@ -38,17 +38,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(-20px);
-  opacity: 0.15;
-}
-</style>
