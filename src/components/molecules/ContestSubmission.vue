@@ -1,7 +1,7 @@
 <template>
   <transition
     appear
-    name="slide-fade-up"
+    name="slide-fade-right"
   >
     <v-col
       cols="12"
@@ -60,17 +60,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-up-enter-active {
-  transition: all 1.2s ease;
+.slide-fade-right-enter-active {
+  transition: all 2.5s ease;
 }
-.slide-fade-up-leave-active {
+.slide-fade-right-leave-active {
   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
-.slide-fade-up-enter, .slide-fade-up-leave-to
+.slide-fade-right-enter, .slide-fade-right-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateY(20px);
+  transform: translateX(20px);
   opacity: 0;
 }
 
