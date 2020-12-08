@@ -103,7 +103,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, onUnmounted, onMounted, ref, watch,
+  defineComponent, onUnmounted, onMounted, ref,
 } from '@vue/composition-api';
 import ContestSubmission from '@/components/molecules/ContestSubmission.vue';
 import ContestSubmissionForm from '@/components/molecules/ContestSubmissionForm.vue';

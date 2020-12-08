@@ -95,7 +95,7 @@ body {
   display: block;
   background: black;
   width: 102vw;
-  height: 100vh;
+  height: 101vh;
 }
 .star {
   border-radius: 50%;
