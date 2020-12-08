@@ -123,6 +123,10 @@ export default defineComponent({
         snackbarHandler('Please select a file!');
         return;
       }
+      if (imageName.value.indexOf(' ') >= 0) {
+        snackbarHandler('Please name your file correctly!');
+        return;
+      }
       if (currentFile.value.size > 1000000) {
         snackbarHandler('Please compress your file!');
         return;
