@@ -24,9 +24,9 @@
           >
             Close
           </v-btn>
+          <div class="mr-2" />
           <submission-vote
             v-if="contestantId!==participantId && vote"
-
             :contestant-id="contestantId"
           />
         </v-card-actions>
