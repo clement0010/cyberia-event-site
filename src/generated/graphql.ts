@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import * as VueApolloComposable from '@vue/apollo-composable';
 import * as VueCompositionApi from '@vue/composition-api';
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type ReactiveFunction<TParam> = () => TParam;
@@ -62,6 +61,7 @@ export type String_Comparison_Exp = {
   _similar?: Maybe<Scalars['String']>;
 };
 
+
 /** expression to compare columns of type bigint. All fields are combined with logical 'AND'. */
 export type Bigint_Comparison_Exp = {
   _eq?: Maybe<Scalars['bigint']>;
@@ -109,6 +109,7 @@ export type Contest_Aggregate_Fields = {
   var_samp?: Maybe<Contest_Var_Samp_Fields>;
   variance?: Maybe<Contest_Variance_Fields>;
 };
+
 
 /** aggregate fields of "contest" */
 export type Contest_Aggregate_FieldsCountArgs = {
@@ -397,6 +398,7 @@ export type Control_Aggregate_Fields = {
   min?: Maybe<Control_Min_Fields>;
 };
 
+
 /** aggregate fields of "control" */
 export type Control_Aggregate_FieldsCountArgs = {
   columns?: Maybe<Array<Control_Select_Column>>;
@@ -541,6 +543,7 @@ export type Games = {
   teams_scores_aggregate: Teams_Scores_Aggregate;
 };
 
+
 /** columns and relationships of "games" */
 export type GamesTeams_ScoresArgs = {
   distinct_on?: Maybe<Array<Teams_Scores_Select_Column>>;
@@ -549,6 +552,7 @@ export type GamesTeams_ScoresArgs = {
   order_by?: Maybe<Array<Teams_Scores_Order_By>>;
   where?: Maybe<Teams_Scores_Bool_Exp>;
 };
+
 
 /** columns and relationships of "games" */
 export type GamesTeams_Scores_AggregateArgs = {
@@ -573,6 +577,7 @@ export type Games_Aggregate_Fields = {
   max?: Maybe<Games_Max_Fields>;
   min?: Maybe<Games_Min_Fields>;
 };
+
 
 /** aggregate fields of "games" */
 export type Games_Aggregate_FieldsCountArgs = {
@@ -728,6 +733,7 @@ export type Leaderboard_Public_Aggregate_Fields = {
   var_samp?: Maybe<Leaderboard_Public_Var_Samp_Fields>;
   variance?: Maybe<Leaderboard_Public_Variance_Fields>;
 };
+
 
 /** aggregate fields of "leaderboard_public" */
 export type Leaderboard_Public_Aggregate_FieldsCountArgs = {
@@ -1008,80 +1014,96 @@ export type Mutation_Root = {
   update_users_by_pk?: Maybe<Users>;
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_ContestArgs = {
   where: Contest_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Contest_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_ControlArgs = {
   where: Control_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Control_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_GamesArgs = {
   where: Games_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Games_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_ParticipantsArgs = {
   where: Participants_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Participants_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_RolesArgs = {
   where: Roles_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Roles_By_PkArgs = {
   role: Scalars['String'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_StatusArgs = {
   where: Status_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Status_By_PkArgs = {
   status: Scalars['String'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_TeamsArgs = {
   where: Teams_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Teams_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Teams_ScoresArgs = {
   where: Teams_Scores_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootDelete_Teams_Scores_By_PkArgs = {
@@ -1089,15 +1111,18 @@ export type Mutation_RootDelete_Teams_Scores_By_PkArgs = {
   team_id: Scalars['uuid'];
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_UsersArgs = {
   where: Users_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   auth0_id: Scalars['String'];
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_ContestArgs = {
@@ -1105,11 +1130,13 @@ export type Mutation_RootInsert_ContestArgs = {
   on_conflict?: Maybe<Contest_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Contest_OneArgs = {
   object: Contest_Insert_Input;
   on_conflict?: Maybe<Contest_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_ControlArgs = {
@@ -1117,11 +1144,13 @@ export type Mutation_RootInsert_ControlArgs = {
   on_conflict?: Maybe<Control_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Control_OneArgs = {
   object: Control_Insert_Input;
   on_conflict?: Maybe<Control_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_GamesArgs = {
@@ -1129,11 +1158,13 @@ export type Mutation_RootInsert_GamesArgs = {
   on_conflict?: Maybe<Games_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Games_OneArgs = {
   object: Games_Insert_Input;
   on_conflict?: Maybe<Games_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_ParticipantsArgs = {
@@ -1141,11 +1172,13 @@ export type Mutation_RootInsert_ParticipantsArgs = {
   on_conflict?: Maybe<Participants_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Participants_OneArgs = {
   object: Participants_Insert_Input;
   on_conflict?: Maybe<Participants_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_RolesArgs = {
@@ -1153,11 +1186,13 @@ export type Mutation_RootInsert_RolesArgs = {
   on_conflict?: Maybe<Roles_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Roles_OneArgs = {
   object: Roles_Insert_Input;
   on_conflict?: Maybe<Roles_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_StatusArgs = {
@@ -1165,11 +1200,13 @@ export type Mutation_RootInsert_StatusArgs = {
   on_conflict?: Maybe<Status_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Status_OneArgs = {
   object: Status_Insert_Input;
   on_conflict?: Maybe<Status_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_TeamsArgs = {
@@ -1177,11 +1214,13 @@ export type Mutation_RootInsert_TeamsArgs = {
   on_conflict?: Maybe<Teams_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Teams_OneArgs = {
   object: Teams_Insert_Input;
   on_conflict?: Maybe<Teams_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_Teams_ScoresArgs = {
@@ -1189,11 +1228,13 @@ export type Mutation_RootInsert_Teams_ScoresArgs = {
   on_conflict?: Maybe<Teams_Scores_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Teams_Scores_OneArgs = {
   object: Teams_Scores_Insert_Input;
   on_conflict?: Maybe<Teams_Scores_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_UsersArgs = {
@@ -1201,11 +1242,13 @@ export type Mutation_RootInsert_UsersArgs = {
   on_conflict?: Maybe<Users_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict?: Maybe<Users_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_ContestArgs = {
@@ -1214,6 +1257,7 @@ export type Mutation_RootUpdate_ContestArgs = {
   where: Contest_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Contest_By_PkArgs = {
   _inc?: Maybe<Contest_Inc_Input>;
@@ -1221,11 +1265,13 @@ export type Mutation_RootUpdate_Contest_By_PkArgs = {
   pk_columns: Contest_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_ControlArgs = {
   _set?: Maybe<Control_Set_Input>;
   where: Control_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Control_By_PkArgs = {
@@ -1233,17 +1279,20 @@ export type Mutation_RootUpdate_Control_By_PkArgs = {
   pk_columns: Control_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_GamesArgs = {
   _set?: Maybe<Games_Set_Input>;
   where: Games_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Games_By_PkArgs = {
   _set?: Maybe<Games_Set_Input>;
   pk_columns: Games_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_ParticipantsArgs = {
@@ -1252,6 +1301,7 @@ export type Mutation_RootUpdate_ParticipantsArgs = {
   where: Participants_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Participants_By_PkArgs = {
   _inc?: Maybe<Participants_Inc_Input>;
@@ -1259,11 +1309,13 @@ export type Mutation_RootUpdate_Participants_By_PkArgs = {
   pk_columns: Participants_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_RolesArgs = {
   _set?: Maybe<Roles_Set_Input>;
   where: Roles_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Roles_By_PkArgs = {
@@ -1271,17 +1323,20 @@ export type Mutation_RootUpdate_Roles_By_PkArgs = {
   pk_columns: Roles_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_StatusArgs = {
   _set?: Maybe<Status_Set_Input>;
   where: Status_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Status_By_PkArgs = {
   _set?: Maybe<Status_Set_Input>;
   pk_columns: Status_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_TeamsArgs = {
@@ -1290,12 +1345,14 @@ export type Mutation_RootUpdate_TeamsArgs = {
   where: Teams_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Teams_By_PkArgs = {
   _inc?: Maybe<Teams_Inc_Input>;
   _set?: Maybe<Teams_Set_Input>;
   pk_columns: Teams_Pk_Columns_Input;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Teams_ScoresArgs = {
@@ -1304,6 +1361,7 @@ export type Mutation_RootUpdate_Teams_ScoresArgs = {
   where: Teams_Scores_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_Teams_Scores_By_PkArgs = {
   _inc?: Maybe<Teams_Scores_Inc_Input>;
@@ -1311,11 +1369,13 @@ export type Mutation_RootUpdate_Teams_Scores_By_PkArgs = {
   pk_columns: Teams_Scores_Pk_Columns_Input;
 };
 
+
 /** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _set?: Maybe<Users_Set_Input>;
   where: Users_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Users_By_PkArgs = {
@@ -1389,6 +1449,7 @@ export type Participants_Aggregate_Fields = {
   var_samp?: Maybe<Participants_Var_Samp_Fields>;
   variance?: Maybe<Participants_Variance_Fields>;
 };
+
 
 /** aggregate fields of "participants" */
 export type Participants_Aggregate_FieldsCountArgs = {
@@ -1872,6 +1933,7 @@ export type Query_Root = {
   users_by_pk?: Maybe<Users>;
 };
 
+
 /** query root */
 export type Query_RootContestArgs = {
   distinct_on?: Maybe<Array<Contest_Select_Column>>;
@@ -1880,6 +1942,7 @@ export type Query_RootContestArgs = {
   order_by?: Maybe<Array<Contest_Order_By>>;
   where?: Maybe<Contest_Bool_Exp>;
 };
+
 
 /** query root */
 export type Query_RootContest_AggregateArgs = {
@@ -1890,10 +1953,12 @@ export type Query_RootContest_AggregateArgs = {
   where?: Maybe<Contest_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootContest_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** query root */
 export type Query_RootControlArgs = {
@@ -1904,6 +1969,7 @@ export type Query_RootControlArgs = {
   where?: Maybe<Control_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootControl_AggregateArgs = {
   distinct_on?: Maybe<Array<Control_Select_Column>>;
@@ -1913,10 +1979,12 @@ export type Query_RootControl_AggregateArgs = {
   where?: Maybe<Control_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootControl_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** query root */
 export type Query_RootGamesArgs = {
@@ -1927,6 +1995,7 @@ export type Query_RootGamesArgs = {
   where?: Maybe<Games_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootGames_AggregateArgs = {
   distinct_on?: Maybe<Array<Games_Select_Column>>;
@@ -1936,10 +2005,12 @@ export type Query_RootGames_AggregateArgs = {
   where?: Maybe<Games_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootGames_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** query root */
 export type Query_RootLeaderboard_PublicArgs = {
@@ -1950,6 +2021,7 @@ export type Query_RootLeaderboard_PublicArgs = {
   where?: Maybe<Leaderboard_Public_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootLeaderboard_Public_AggregateArgs = {
   distinct_on?: Maybe<Array<Leaderboard_Public_Select_Column>>;
@@ -1958,6 +2030,7 @@ export type Query_RootLeaderboard_Public_AggregateArgs = {
   order_by?: Maybe<Array<Leaderboard_Public_Order_By>>;
   where?: Maybe<Leaderboard_Public_Bool_Exp>;
 };
+
 
 /** query root */
 export type Query_RootParticipantsArgs = {
@@ -1968,6 +2041,7 @@ export type Query_RootParticipantsArgs = {
   where?: Maybe<Participants_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootParticipants_AggregateArgs = {
   distinct_on?: Maybe<Array<Participants_Select_Column>>;
@@ -1977,10 +2051,12 @@ export type Query_RootParticipants_AggregateArgs = {
   where?: Maybe<Participants_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootParticipants_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** query root */
 export type Query_RootRolesArgs = {
@@ -1991,6 +2067,7 @@ export type Query_RootRolesArgs = {
   where?: Maybe<Roles_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootRoles_AggregateArgs = {
   distinct_on?: Maybe<Array<Roles_Select_Column>>;
@@ -2000,10 +2077,12 @@ export type Query_RootRoles_AggregateArgs = {
   where?: Maybe<Roles_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootRoles_By_PkArgs = {
   role: Scalars['String'];
 };
+
 
 /** query root */
 export type Query_RootStatusArgs = {
@@ -2014,6 +2093,7 @@ export type Query_RootStatusArgs = {
   where?: Maybe<Status_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootStatus_AggregateArgs = {
   distinct_on?: Maybe<Array<Status_Select_Column>>;
@@ -2023,10 +2103,12 @@ export type Query_RootStatus_AggregateArgs = {
   where?: Maybe<Status_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootStatus_By_PkArgs = {
   status: Scalars['String'];
 };
+
 
 /** query root */
 export type Query_RootTeamsArgs = {
@@ -2037,6 +2119,7 @@ export type Query_RootTeamsArgs = {
   where?: Maybe<Teams_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootTeams_AggregateArgs = {
   distinct_on?: Maybe<Array<Teams_Select_Column>>;
@@ -2046,10 +2129,12 @@ export type Query_RootTeams_AggregateArgs = {
   where?: Maybe<Teams_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootTeams_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** query root */
 export type Query_RootTeams_ScoresArgs = {
@@ -2060,6 +2145,7 @@ export type Query_RootTeams_ScoresArgs = {
   where?: Maybe<Teams_Scores_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootTeams_Scores_AggregateArgs = {
   distinct_on?: Maybe<Array<Teams_Scores_Select_Column>>;
@@ -2069,11 +2155,13 @@ export type Query_RootTeams_Scores_AggregateArgs = {
   where?: Maybe<Teams_Scores_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootTeams_Scores_By_PkArgs = {
   game_id: Scalars['uuid'];
   team_id: Scalars['uuid'];
 };
+
 
 /** query root */
 export type Query_RootUsersArgs = {
@@ -2084,6 +2172,7 @@ export type Query_RootUsersArgs = {
   where?: Maybe<Users_Bool_Exp>;
 };
 
+
 /** query root */
 export type Query_RootUsers_AggregateArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>;
@@ -2092,6 +2181,7 @@ export type Query_RootUsers_AggregateArgs = {
   order_by?: Maybe<Array<Users_Order_By>>;
   where?: Maybe<Users_Bool_Exp>;
 };
+
 
 /** query root */
 export type Query_RootUsers_By_PkArgs = {
@@ -2118,6 +2208,7 @@ export type Roles_Aggregate_Fields = {
   max?: Maybe<Roles_Max_Fields>;
   min?: Maybe<Roles_Min_Fields>;
 };
+
 
 /** aggregate fields of "roles" */
 export type Roles_Aggregate_FieldsCountArgs = {
@@ -2254,6 +2345,7 @@ export type Status = {
   status: Scalars['String'];
 };
 
+
 /** columns and relationships of "status" */
 export type StatusParticipantsArgs = {
   distinct_on?: Maybe<Array<Participants_Select_Column>>;
@@ -2262,6 +2354,7 @@ export type StatusParticipantsArgs = {
   order_by?: Maybe<Array<Participants_Order_By>>;
   where?: Maybe<Participants_Bool_Exp>;
 };
+
 
 /** columns and relationships of "status" */
 export type StatusParticipants_AggregateArgs = {
@@ -2286,6 +2379,7 @@ export type Status_Aggregate_Fields = {
   max?: Maybe<Status_Max_Fields>;
   min?: Maybe<Status_Min_Fields>;
 };
+
 
 /** aggregate fields of "status" */
 export type Status_Aggregate_FieldsCountArgs = {
@@ -2476,6 +2570,7 @@ export type Subscription_Root = {
   users_by_pk?: Maybe<Users>;
 };
 
+
 /** subscription root */
 export type Subscription_RootContestArgs = {
   distinct_on?: Maybe<Array<Contest_Select_Column>>;
@@ -2484,6 +2579,7 @@ export type Subscription_RootContestArgs = {
   order_by?: Maybe<Array<Contest_Order_By>>;
   where?: Maybe<Contest_Bool_Exp>;
 };
+
 
 /** subscription root */
 export type Subscription_RootContest_AggregateArgs = {
@@ -2494,10 +2590,12 @@ export type Subscription_RootContest_AggregateArgs = {
   where?: Maybe<Contest_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootContest_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** subscription root */
 export type Subscription_RootControlArgs = {
@@ -2508,6 +2606,7 @@ export type Subscription_RootControlArgs = {
   where?: Maybe<Control_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootControl_AggregateArgs = {
   distinct_on?: Maybe<Array<Control_Select_Column>>;
@@ -2517,10 +2616,12 @@ export type Subscription_RootControl_AggregateArgs = {
   where?: Maybe<Control_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootControl_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** subscription root */
 export type Subscription_RootGamesArgs = {
@@ -2531,6 +2632,7 @@ export type Subscription_RootGamesArgs = {
   where?: Maybe<Games_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootGames_AggregateArgs = {
   distinct_on?: Maybe<Array<Games_Select_Column>>;
@@ -2540,10 +2642,12 @@ export type Subscription_RootGames_AggregateArgs = {
   where?: Maybe<Games_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootGames_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** subscription root */
 export type Subscription_RootLeaderboard_PublicArgs = {
@@ -2554,6 +2658,7 @@ export type Subscription_RootLeaderboard_PublicArgs = {
   where?: Maybe<Leaderboard_Public_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootLeaderboard_Public_AggregateArgs = {
   distinct_on?: Maybe<Array<Leaderboard_Public_Select_Column>>;
@@ -2562,6 +2667,7 @@ export type Subscription_RootLeaderboard_Public_AggregateArgs = {
   order_by?: Maybe<Array<Leaderboard_Public_Order_By>>;
   where?: Maybe<Leaderboard_Public_Bool_Exp>;
 };
+
 
 /** subscription root */
 export type Subscription_RootParticipantsArgs = {
@@ -2572,6 +2678,7 @@ export type Subscription_RootParticipantsArgs = {
   where?: Maybe<Participants_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootParticipants_AggregateArgs = {
   distinct_on?: Maybe<Array<Participants_Select_Column>>;
@@ -2581,10 +2688,12 @@ export type Subscription_RootParticipants_AggregateArgs = {
   where?: Maybe<Participants_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootParticipants_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** subscription root */
 export type Subscription_RootRolesArgs = {
@@ -2595,6 +2704,7 @@ export type Subscription_RootRolesArgs = {
   where?: Maybe<Roles_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootRoles_AggregateArgs = {
   distinct_on?: Maybe<Array<Roles_Select_Column>>;
@@ -2604,10 +2714,12 @@ export type Subscription_RootRoles_AggregateArgs = {
   where?: Maybe<Roles_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootRoles_By_PkArgs = {
   role: Scalars['String'];
 };
+
 
 /** subscription root */
 export type Subscription_RootStatusArgs = {
@@ -2618,6 +2730,7 @@ export type Subscription_RootStatusArgs = {
   where?: Maybe<Status_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootStatus_AggregateArgs = {
   distinct_on?: Maybe<Array<Status_Select_Column>>;
@@ -2627,10 +2740,12 @@ export type Subscription_RootStatus_AggregateArgs = {
   where?: Maybe<Status_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootStatus_By_PkArgs = {
   status: Scalars['String'];
 };
+
 
 /** subscription root */
 export type Subscription_RootTeamsArgs = {
@@ -2641,6 +2756,7 @@ export type Subscription_RootTeamsArgs = {
   where?: Maybe<Teams_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootTeams_AggregateArgs = {
   distinct_on?: Maybe<Array<Teams_Select_Column>>;
@@ -2650,10 +2766,12 @@ export type Subscription_RootTeams_AggregateArgs = {
   where?: Maybe<Teams_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootTeams_By_PkArgs = {
   id: Scalars['uuid'];
 };
+
 
 /** subscription root */
 export type Subscription_RootTeams_ScoresArgs = {
@@ -2664,6 +2782,7 @@ export type Subscription_RootTeams_ScoresArgs = {
   where?: Maybe<Teams_Scores_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootTeams_Scores_AggregateArgs = {
   distinct_on?: Maybe<Array<Teams_Scores_Select_Column>>;
@@ -2673,11 +2792,13 @@ export type Subscription_RootTeams_Scores_AggregateArgs = {
   where?: Maybe<Teams_Scores_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootTeams_Scores_By_PkArgs = {
   game_id: Scalars['uuid'];
   team_id: Scalars['uuid'];
 };
+
 
 /** subscription root */
 export type Subscription_RootUsersArgs = {
@@ -2688,6 +2809,7 @@ export type Subscription_RootUsersArgs = {
   where?: Maybe<Users_Bool_Exp>;
 };
 
+
 /** subscription root */
 export type Subscription_RootUsers_AggregateArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>;
@@ -2696,6 +2818,7 @@ export type Subscription_RootUsers_AggregateArgs = {
   order_by?: Maybe<Array<Users_Order_By>>;
   where?: Maybe<Users_Bool_Exp>;
 };
+
 
 /** subscription root */
 export type Subscription_RootUsers_By_PkArgs = {
@@ -2709,7 +2832,7 @@ export type Teams = {
   id: Scalars['uuid'];
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['Int']>;
+  number: Scalars['Int'];
   /** An array relationship */
   participants: Array<Participants>;
   /** An aggregated array relationship */
@@ -2721,6 +2844,7 @@ export type Teams = {
   scores_aggregate: Teams_Scores_Aggregate;
 };
 
+
 /** columns and relationships of "teams" */
 export type TeamsParticipantsArgs = {
   distinct_on?: Maybe<Array<Participants_Select_Column>>;
@@ -2729,6 +2853,7 @@ export type TeamsParticipantsArgs = {
   order_by?: Maybe<Array<Participants_Order_By>>;
   where?: Maybe<Participants_Bool_Exp>;
 };
+
 
 /** columns and relationships of "teams" */
 export type TeamsParticipants_AggregateArgs = {
@@ -2739,6 +2864,7 @@ export type TeamsParticipants_AggregateArgs = {
   where?: Maybe<Participants_Bool_Exp>;
 };
 
+
 /** columns and relationships of "teams" */
 export type TeamsScoresArgs = {
   distinct_on?: Maybe<Array<Teams_Scores_Select_Column>>;
@@ -2747,6 +2873,7 @@ export type TeamsScoresArgs = {
   order_by?: Maybe<Array<Teams_Scores_Order_By>>;
   where?: Maybe<Teams_Scores_Bool_Exp>;
 };
+
 
 /** columns and relationships of "teams" */
 export type TeamsScores_AggregateArgs = {
@@ -2779,6 +2906,7 @@ export type Teams_Aggregate_Fields = {
   var_samp?: Maybe<Teams_Var_Samp_Fields>;
   variance?: Maybe<Teams_Variance_Fields>;
 };
+
 
 /** aggregate fields of "teams" */
 export type Teams_Aggregate_FieldsCountArgs = {
@@ -2969,6 +3097,7 @@ export type Teams_Scores_Aggregate_Fields = {
   var_samp?: Maybe<Teams_Scores_Var_Samp_Fields>;
   variance?: Maybe<Teams_Scores_Variance_Fields>;
 };
+
 
 /** aggregate fields of "teams_scores" */
 export type Teams_Scores_Aggregate_FieldsCountArgs = {
@@ -3330,6 +3459,7 @@ export type Teams_Variance_Order_By = {
   number?: Maybe<Order_By>;
 };
 
+
 /** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: Maybe<Scalars['timestamptz']>;
@@ -3367,6 +3497,7 @@ export type Users_Aggregate_Fields = {
   max?: Maybe<Users_Max_Fields>;
   min?: Maybe<Users_Min_Fields>;
 };
+
 
 /** aggregate fields of "users" */
 export type Users_Aggregate_FieldsCountArgs = {
@@ -3500,6 +3631,7 @@ export enum Users_Update_Column {
   CreatedAt = 'created_at'
 }
 
+
 /** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
   _eq?: Maybe<Scalars['uuid']>;
@@ -3519,6 +3651,7 @@ export type UpdateParticipantDetailsMutationVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type UpdateParticipantDetailsMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
@@ -3533,10 +3666,10 @@ export type UpdateParticipantDetailsMutation = (
         & { scores: Array<(
           { __typename?: 'teams_scores' }
           & Pick<Teams_Scores, 'score'>
-        )>; }
-      ); }
-    )>; }
-  )>; }
+        )> }
+      ) }
+    )> }
+  )> }
 );
 
 export type UpdateGameScoreMutationVariables = Exact<{
@@ -3545,12 +3678,13 @@ export type UpdateGameScoreMutationVariables = Exact<{
   team_id: Scalars['uuid'];
 }>;
 
+
 export type UpdateGameScoreMutation = (
   { __typename?: 'mutation_root' }
   & { update_teams_scores?: Maybe<(
     { __typename?: 'teams_scores_mutation_response' }
     & Pick<Teams_Scores_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type SubmitContestMutationVariables = Exact<{
@@ -3559,15 +3693,16 @@ export type SubmitContestMutationVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type SubmitContestMutation = (
   { __typename?: 'mutation_root' }
   & { insert_contest?: Maybe<(
     { __typename?: 'contest_mutation_response' }
     & Pick<Contest_Mutation_Response, 'affected_rows'>
-  )>; update_participants?: Maybe<(
+  )>, update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type SubmitContestVoteMutationVariables = Exact<{
@@ -3575,15 +3710,16 @@ export type SubmitContestVoteMutationVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type SubmitContestVoteMutation = (
   { __typename?: 'mutation_root' }
   & { update_contest?: Maybe<(
     { __typename?: 'contest_mutation_response' }
     & Pick<Contest_Mutation_Response, 'affected_rows'>
-  )>; update_participants?: Maybe<(
+  )>, update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type SubmissionControlMutationVariables = Exact<{
@@ -3591,24 +3727,26 @@ export type SubmissionControlMutationVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type SubmissionControlMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type VotingControlMutationVariables = Exact<{
   vote: Scalars['Boolean'];
 }>;
 
+
 export type VotingControlMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type UpdateParticipantsScoreMutationVariables = Exact<{
@@ -3616,12 +3754,13 @@ export type UpdateParticipantsScoreMutationVariables = Exact<{
   score: Scalars['Int'];
 }>;
 
+
 export type UpdateParticipantsScoreMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type AddScoreToTeamMutationVariables = Exact<{
@@ -3629,6 +3768,7 @@ export type AddScoreToTeamMutationVariables = Exact<{
   team: Scalars['Int'];
   auth0_id: Scalars['String'];
 }>;
+
 
 export type AddScoreToTeamMutation = (
   { __typename?: 'mutation_root' }
@@ -3644,25 +3784,26 @@ export type AddScoreToTeamMutation = (
         & { scores: Array<(
           { __typename?: 'teams_scores' }
           & Pick<Teams_Scores, 'score'>
-        )>; }
-      ); }
-    )>; }
-  )>; update_teams_scores?: Maybe<(
+        )> }
+      ) }
+    )> }
+  )>, update_teams_scores?: Maybe<(
     { __typename?: 'teams_scores_mutation_response' }
     & Pick<Teams_Scores_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type UpdateLeadershipboardStateMutationVariables = Exact<{
   leaderboard: Scalars['Boolean'];
 }>;
 
+
 export type UpdateLeadershipboardStateMutation = (
   { __typename?: 'mutation_root' }
   & { update_control?: Maybe<(
     { __typename?: 'control_mutation_response' }
     & Pick<Control_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type UpdateContestStateMutationVariables = Exact<{
@@ -3670,15 +3811,16 @@ export type UpdateContestStateMutationVariables = Exact<{
   vote: Scalars['Boolean'];
 }>;
 
+
 export type UpdateContestStateMutation = (
   { __typename?: 'mutation_root' }
   & { update_control?: Maybe<(
     { __typename?: 'control_mutation_response' }
     & Pick<Control_Mutation_Response, 'affected_rows'>
-  )>; update_participants?: Maybe<(
+  )>, update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type EmergencyMeetingVoteMutationVariables = Exact<{
@@ -3686,15 +3828,16 @@ export type EmergencyMeetingVoteMutationVariables = Exact<{
   user_id: Scalars['String'];
 }>;
 
+
 export type EmergencyMeetingVoteMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; update_my_vote?: Maybe<(
+  )>, update_my_vote?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type UpdateParticipantsPicometerMutationVariables = Exact<{
@@ -3702,12 +3845,13 @@ export type UpdateParticipantsPicometerMutationVariables = Exact<{
   picometer_hint: Scalars['String'];
 }>;
 
+
 export type UpdateParticipantsPicometerMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type UpdateParticipantsViewfinderMutationVariables = Exact<{
@@ -3715,17 +3859,19 @@ export type UpdateParticipantsViewfinderMutationVariables = Exact<{
   viewfinder_hint: Scalars['String'];
 }>;
 
+
 export type UpdateParticipantsViewfinderMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type BuyPicometerMutationVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
+
 
 export type BuyPicometerMutation = (
   { __typename?: 'mutation_root' }
@@ -3735,13 +3881,14 @@ export type BuyPicometerMutation = (
     & { returning: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'score' | 'picometer' | 'viewfinder'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
 export type BuyViewfinderMutationVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
+
 
 export type BuyViewfinderMutation = (
   { __typename?: 'mutation_root' }
@@ -3751,8 +3898,8 @@ export type BuyViewfinderMutation = (
     & { returning: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'score' | 'picometer' | 'viewfinder'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
 export type KillParticipantsMutationVariables = Exact<{
@@ -3760,15 +3907,16 @@ export type KillParticipantsMutationVariables = Exact<{
   team_id: Scalars['uuid'];
 }>;
 
+
 export type KillParticipantsMutation = (
   { __typename?: 'mutation_root' }
   & { update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; update_teams?: Maybe<(
+  )>, update_teams?: Maybe<(
     { __typename?: 'teams_mutation_response' }
     & Pick<Teams_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type EmergencyMeetingControlMutationVariables = Exact<{
@@ -3776,20 +3924,22 @@ export type EmergencyMeetingControlMutationVariables = Exact<{
   emergency_meeting: Scalars['Boolean'];
 }>;
 
+
 export type EmergencyMeetingControlMutation = (
   { __typename?: 'mutation_root' }
   & { update_teams?: Maybe<(
     { __typename?: 'teams_mutation_response' }
     & Pick<Teams_Mutation_Response, 'affected_rows'>
-  )>; update_participants?: Maybe<(
+  )>, update_participants?: Maybe<(
     { __typename?: 'participants_mutation_response' }
     & Pick<Participants_Mutation_Response, 'affected_rows'>
-  )>; }
+  )> }
 );
 
 export type GetOneParticipantDetailsQueryVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
+
 
 export type GetOneParticipantDetailsQuery = (
   { __typename?: 'query_root' }
@@ -3802,9 +3952,9 @@ export type GetOneParticipantDetailsQuery = (
       & { scores: Array<(
         { __typename?: 'teams_scores' }
         & Pick<Teams_Scores, 'score'>
-      )>; }
-    ); }
-  )>; }
+      )> }
+    ) }
+  )> }
 );
 
 export type GetContestSubmissionQueryVariables = Exact<{
@@ -3812,59 +3962,65 @@ export type GetContestSubmissionQueryVariables = Exact<{
   offset: Scalars['Int'];
 }>;
 
+
 export type GetContestSubmissionQuery = (
   { __typename?: 'query_root' }
   & { contest: Array<(
     { __typename?: 'contest' }
     & Pick<Contest, 'submission_url' | 'participant_id'>
-  )>; }
+  )> }
 );
 
 export type GetParticipantVotingDetailsQueryVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type GetParticipantVotingDetailsQuery = (
   { __typename?: 'query_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'id' | 'submission' | 'vote'>
-  )>; }
+  )> }
 );
 
-export type GetControlStateQueryVariables = Exact<{ [key: string]: never }>;
+export type GetControlStateQueryVariables = Exact<{ [key: string]: never; }>;
+
 
 export type GetControlStateQuery = (
   { __typename?: 'query_root' }
   & { control: Array<(
     { __typename?: 'control' }
     & Pick<Control, 'vote' | 'submission' | 'leaderboard'>
-  )>; }
+  )> }
 );
 
 export type GetArtifactsDetailsQueryVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type GetArtifactsDetailsQuery = (
   { __typename?: 'query_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'viewfinder' | 'picometer' | 'score'>
-  )>; }
+  )> }
 );
 
-export type SubscribePublicLeaderboardSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type SubscribePublicLeaderboardSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type SubscribePublicLeaderboardSubscription = (
   { __typename?: 'subscription_root' }
   & { leaderboard_public: Array<(
     { __typename?: 'leaderboard_public' }
     & Pick<Leaderboard_Public, 'score' | 'name' | 'picture_url'>
-  )>; }
+  )> }
 );
 
-export type SubscibeToAllGamesSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type SubscibeToAllGamesSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type SubscibeToAllGamesSubscription = (
   { __typename?: 'subscription_root' }
@@ -3877,12 +4033,13 @@ export type SubscibeToAllGamesSubscription = (
       & { team: (
         { __typename?: 'teams' }
         & Pick<Teams, 'name'>
-      ); }
-    )>; }
-  )>; }
+      ) }
+    )> }
+  )> }
 );
 
-export type GetParticipantsScoreSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type GetParticipantsScoreSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type GetParticipantsScoreSubscription = (
   { __typename?: 'subscription_root' }
@@ -3892,11 +4049,12 @@ export type GetParticipantsScoreSubscription = (
     & { participants: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'name' | 'score' | 'id'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
-export type EmergencyMeetingDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type EmergencyMeetingDetailsSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type EmergencyMeetingDetailsSubscription = (
   { __typename?: 'subscription_root' }
@@ -3906,23 +4064,25 @@ export type EmergencyMeetingDetailsSubscription = (
     & { team: (
       { __typename?: 'teams' }
       & Pick<Teams, 'number' | 'picture_url'>
-    ); }
-  )>; }
+    ) }
+  )> }
 );
 
 export type GetEmergencyVotingStatusSubscriptionVariables = Exact<{
   auth0_id: Scalars['String'];
 }>;
 
+
 export type GetEmergencyVotingStatusSubscription = (
   { __typename?: 'subscription_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'emergency_vote'>
-  )>; }
+  )> }
 );
 
-export type GetParticipantsPicometerDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type GetParticipantsPicometerDetailsSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type GetParticipantsPicometerDetailsSubscription = (
   { __typename?: 'subscription_root' }
@@ -3932,11 +4092,12 @@ export type GetParticipantsPicometerDetailsSubscription = (
     & { participants: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'id' | 'name'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
-export type GetParticipantsViewfinderDetailsSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type GetParticipantsViewfinderDetailsSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type GetParticipantsViewfinderDetailsSubscription = (
   { __typename?: 'subscription_root' }
@@ -3946,11 +4107,12 @@ export type GetParticipantsViewfinderDetailsSubscription = (
     & { participants: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'id' | 'name'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
-export type GetEmergencyMeetingStatusSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type GetEmergencyMeetingStatusSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type GetEmergencyMeetingStatusSubscription = (
   { __typename?: 'subscription_root' }
@@ -3960,11 +4122,12 @@ export type GetEmergencyMeetingStatusSubscription = (
     & { participants: Array<(
       { __typename?: 'participants' }
       & Pick<Participants, 'id' | 'name' | 'imposter_vote_count'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
-export type ContestSubmissionLiveResultSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type ContestSubmissionLiveResultSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type ContestSubmissionLiveResultSubscription = (
   { __typename?: 'subscription_root' }
@@ -3974,22 +4137,24 @@ export type ContestSubmissionLiveResultSubscription = (
     & { team: (
       { __typename?: 'teams' }
       & Pick<Teams, 'picture_url'>
-    ); contest_submission?: Maybe<(
+    ), contest_submission?: Maybe<(
       { __typename?: 'contest' }
       & Pick<Contest, 'vote_count' | 'submission_url'>
-    )>; }
-  )>; }
+    )> }
+  )> }
 );
 
-export type GetEmergencyMeetingResultSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type GetEmergencyMeetingResultSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type GetEmergencyMeetingResultSubscription = (
   { __typename?: 'subscription_root' }
   & { participants: Array<(
     { __typename?: 'participants' }
     & Pick<Participants, 'name' | 'role'>
-  )>; }
+  )> }
 );
+
 
 export const UpdateParticipantDetailsDocument = gql`
     mutation UpdateParticipantDetails($description: String!, $name: String!, $auth0_id: String!) {
@@ -4474,7 +4639,7 @@ export const BuyPicometerDocument = gql`
     mutation BuyPicometer($auth0_id: String!) {
   update_participants(
     where: {user_id: {_eq: $auth0_id}}
-    _inc: {score: -200}
+    _inc: {score: -150}
     _set: {picometer: true}
   ) {
     affected_rows
@@ -4512,7 +4677,7 @@ export const BuyViewfinderDocument = gql`
     mutation BuyViewfinder($auth0_id: String!) {
   update_participants(
     where: {user_id: {_eq: $auth0_id}}
-    _inc: {score: -200}
+    _inc: {score: -150}
     _set: {viewfinder: true}
   ) {
     affected_rows
