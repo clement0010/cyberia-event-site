@@ -3,7 +3,6 @@
     class="sky"
     fluid
     ma-0
-    pa-0
   >
     <span class="star" />
     <span class="star" />

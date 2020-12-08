@@ -6,6 +6,8 @@
     <v-tabs
       color="white"
       fixed-tabs
+      :vertical="$vuetify.breakpoint.xs"
+      :grow="$vuetify.breakpoint.xs"
     >
       <v-tab to="/information-page/general">
         About

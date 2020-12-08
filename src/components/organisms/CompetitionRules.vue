@@ -4,27 +4,19 @@
       class="my-10"
       justify="center"
     >
-      <v-container>
-        <transition
-          name="slide-fade-left"
-          mode="out-in"
-        >
-          <v-img
-            :key="currentPage"
-            :src="require(`@/assets/competition-rules-${currentPage+1}.jpg`)"
-            max-width="85vw"
-          />
-        </transition>
-      </v-container>
-    </v-row>
-    <v-row justify="center">
-      <v-pagination
-        v-model="currentPage"
-        :value="currentPage"
-        :length="3"
-        circle
-        @input="handleInput"
-      />
+      <v-carousel
+        v-model="model"
+        show-arrows-on-hover
+        height="auto"
+      >
+        <v-carousel-item
+          v-for="n in 3"
+          :key="n"
+          :src="require(`@/assets/competition-rules-${n+1}.jpg`)"
+          width="100vw"
+          eager
+        />
+      </v-carousel>
     </v-row>
   </v-container>
 </template>
@@ -39,32 +31,10 @@ export default defineComponent({
   },
 
   setup() {
-    const currentPage = ref(1);
-    const src = ref('@/assets/competition-rules-2.jpg');
-
-    function handleInput(page: number) {
-      currentPage.value = page;
-    }
-
+    const model = ref(0);
     return {
-      currentPage,
-      handleInput,
-      src,
+      model,
     };
   },
 });
 </script>
-
-<style scoped>
-.slide-fade-left-enter-active {
-  transition: all 1.2s ease;
-}
-.slide-fade-left-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-left-enter, .slide-fade-left-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(-20px);
-  opacity: 0;
-}
-</style>
