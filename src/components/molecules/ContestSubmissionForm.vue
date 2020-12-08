@@ -26,7 +26,7 @@
             placeholder="Upload file"
             name="imageFileSubmission"
             show-size
-            accept="image/psd"
+            accept="image/*"
             @change="selectFile"
           />
         </v-card-text>
