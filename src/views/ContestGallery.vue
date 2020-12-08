@@ -83,6 +83,7 @@
       <v-fab-transition>
         <v-btn
           v-show="showButton"
+          v-if="$vuetify.breakpoint.mdAndUp"
           v-scroll="onScroll"
           color="#8B0000"
           dark
@@ -91,7 +92,7 @@
           right
           fab
           elevation="3"
-          class="mb-15 mr-3"
+          class="mb-8 mr-3"
           @click="toTop"
         >
           <v-icon>mdi-arrow-up</v-icon>
