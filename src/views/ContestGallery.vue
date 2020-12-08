@@ -9,37 +9,44 @@
         <h1 class="text-center">
           Contest Gallery
         </h1><br>
-        <p class="text-center">
-          Vote for your favourite submission here!
-        </p>
+        <div v-if="!isAuthenticated">
+          <p class="text-center">
+            <a @click="login">Login</a> to vote for your favourite submission!
+          </p>
+        </div>
+        <div v-if="isAuthenticated && !participantDetails.vote">
+          <p
+            v-if="role !== 'admin'"
+            class="text-center">
+            You have already voted, or voting is closed!
+          </p>
+        </div>
+        <div v-if="isAuthenticated && participantDetails.vote">
+          <p class="text-center">
+            Vote for your favourite submission here!
+          </p>
+        </div>
         <v-row justify="center">
           <div class="my-5">
             <contest-submission-form
               v-if="participantDetails.submission && role !== 'admin' && isAuthenticated"
-
               :participant-id="participantDetails.id"
             />
-            <!-- Need to fix UI -->
-            <p
-              v-if="!isAuthenticated"
-              class="
-              text-center"
-            >Please login first!</p>
-            <div v-else>
-              <p
-                v-if="!participantDetails.submission"
-                class="text-center pt-5"
-              >You have already submitted your work!</p>
-              <p
-                v-if="!participantDetails.vote"
-                class="
-              text-center pt-5"
-              >You have already voted!</p>
+            <div
+              class="my-5"
+              v-if="isAuthenticated"
+            >
+              <v-btn
+                target=_blank
+                href="https://drive.google.com/drive/folders/1ZfXT5fvLxFvrMuZ0Rqlpw7RS8D3Ffox_?usp=sharing"
+                large
+                color="primary"
+                class="white--text"
+              >Submit psd file</v-btn>
             </div>
             <div
               v-if="participantDetails.id === '0'"
-              class="
-              text-center"
+              class="text-center"
             ><v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -67,6 +74,10 @@
           :vote="participantDetails.vote"
         />
       </v-row>
+      <div
+        v-if="contestSubmissions.length === 0"
+        class="text-center font-italic"
+      >Wow, such empty</div>
       <v-row justify="center" />
       <v-fab-transition>
         <v-btn
@@ -111,7 +122,7 @@ export default defineComponent({
     const mode = ref(process.env.NODE_ENV);
 
     const {
-      isAuthenticated, role, auth0_id,
+      login, isAuthenticated, role, auth0_id,
     } = authComposition(root);
     const {
       result, loading, error, fetchMore,
@@ -205,6 +216,7 @@ export default defineComponent({
       loadMore,
       contestSubmissions,
       participantDetails,
+      login,
       isAuthenticated,
       role,
       showButton,
