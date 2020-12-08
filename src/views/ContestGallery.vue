@@ -34,7 +34,7 @@
             />
             <div
               class="my-5"
-              v-if="isAuthenticated"
+              v-if="isAuthenticated && role !== 'admin'"
             >
               <v-btn
                 target=_blank
