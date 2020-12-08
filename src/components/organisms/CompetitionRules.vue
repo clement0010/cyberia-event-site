@@ -10,9 +10,9 @@
         height="auto"
       >
         <v-carousel-item
-          v-for="n in 3"
+          v-for="n in 4"
           :key="n"
-          :src="require(`@/assets/competition-rules-${n+1}.jpg`)"
+          :src="require(`@/assets/competition-rules-${n}.jpg`)"
           width="100vw"
           eager
         />
