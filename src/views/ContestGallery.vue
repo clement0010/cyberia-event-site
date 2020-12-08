@@ -86,7 +86,7 @@
           v-scroll="onScroll"
           color="#8B0000"
           dark
-          absolute
+          fixed
           bottom
           right
           fab
