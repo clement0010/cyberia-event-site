@@ -17,7 +17,8 @@
         <div v-if="isAuthenticated && !participantDetails.vote">
           <p
             v-if="role !== 'admin'"
-            class="text-center">
+            class="text-center"
+          >
             You have already voted, or voting is closed!
           </p>
         </div>
@@ -33,11 +34,11 @@
               :participant-id="participantDetails.id"
             />
             <div
-              class="my-5"
               v-if="isAuthenticated && role !== 'admin'"
+              class="my-5"
             >
               <v-btn
-                target=_blank
+                target="_blank"
                 href="https://drive.google.com/drive/folders/1ZfXT5fvLxFvrMuZ0Rqlpw7RS8D3Ffox_?usp=sharing"
                 large
                 color="primary"

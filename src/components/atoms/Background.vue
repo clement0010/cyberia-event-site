@@ -2,7 +2,6 @@
   <v-container
     class="sky"
     fluid
-    ma-0
   >
     <span class="star" />
     <span class="star" />
