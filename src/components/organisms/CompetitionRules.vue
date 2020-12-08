@@ -7,7 +7,7 @@
       <v-carousel
         v-model="model"
         show-arrows-on-hover
-        height="80vh"
+        max-width="75vw"
       >
         <v-carousel-item
           v-for="n in 3"
