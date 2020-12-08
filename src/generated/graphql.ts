@@ -2709,7 +2709,7 @@ export type Teams = {
   id: Scalars['uuid'];
   motto?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['Int']>;
+  number: Scalars['Int'];
   /** An array relationship */
   participants: Array<Participants>;
   /** An aggregated array relationship */
@@ -4474,7 +4474,7 @@ export const BuyPicometerDocument = gql`
     mutation BuyPicometer($auth0_id: String!) {
   update_participants(
     where: {user_id: {_eq: $auth0_id}}
-    _inc: {score: -200}
+    _inc: {score: -150}
     _set: {picometer: true}
   ) {
     affected_rows
@@ -4512,7 +4512,7 @@ export const BuyViewfinderDocument = gql`
     mutation BuyViewfinder($auth0_id: String!) {
   update_participants(
     where: {user_id: {_eq: $auth0_id}}
-    _inc: {score: -200}
+    _inc: {score: -150}
     _set: {viewfinder: true}
   ) {
     affected_rows

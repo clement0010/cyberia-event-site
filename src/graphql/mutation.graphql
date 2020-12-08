@@ -179,7 +179,7 @@ mutation UpdateParticipantsViewfinder($participant_id: uuid!, $viewfinder_hint: 
 }
 
 mutation BuyPicometer($auth0_id: String!) {
-  update_participants(where: {user_id: {_eq: $auth0_id}}, _inc: {score: -200}, _set: {picometer: true}) {
+  update_participants(where: {user_id: {_eq: $auth0_id}}, _inc: {score: -150}, _set: {picometer: true}) {
     affected_rows
     returning {
       score
@@ -191,7 +191,7 @@ mutation BuyPicometer($auth0_id: String!) {
 
 
 mutation BuyViewfinder($auth0_id: String!) {
-  update_participants(where: {user_id: {_eq: $auth0_id}}, _inc: {score: -200}, _set: {viewfinder: true}) {
+  update_participants(where: {user_id: {_eq: $auth0_id}}, _inc: {score: -150}, _set: {viewfinder: true}) {
     affected_rows
     returning {
       score
