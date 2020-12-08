@@ -28,10 +28,10 @@
             item-value="team_id"
             color="white"
           />
-          <v-select
+          <v-text-field
             v-model="updateData.score"
+            type="number"
             label="Score"
-            :items="scoreOptions"
             color="white"
           />
         </v-card-text>
